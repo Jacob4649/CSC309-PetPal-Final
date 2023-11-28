@@ -36,7 +36,7 @@ class Application(models.Model):
 
     # Generate View Application link
     def get_application_url(self):
-        return settings.BASE_URL + reverse_lazy("applications-detail", kwargs={'pk': self.id})
+        return settings.BASE_FRONTEND_URL + reverse_lazy("applications-detail", kwargs={'pk': self.id})
     
     # need to add profile image of pets
 

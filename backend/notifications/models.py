@@ -49,7 +49,7 @@ def create_notification(user: User, notif_type: int, title: str, content: str, m
 def _create_shelter_notification(user: User, notif_type: int, title: str, content: str, model_pk: Optional[int] = None) -> ShelterNotification:
     """Creates a shelter notification"""
     url = None
-    base_url = settings.BASE_URL
+    base_url = settings.BASE_FRONTEND_URL
     if notif_type == ShelterNotification.NotificationType.APPLICATION:
         # application url
         url = base_url + reverse_lazy('applications-detail', kwargs={'pk': model_pk})
@@ -72,7 +72,7 @@ def _create_shelter_notification(user: User, notif_type: int, title: str, conten
 def _create_seeker_notification(user: User, notif_type: int, title: str, content: str, model_pk: Optional[int] = None) -> PetSeekerNotification:
     """Creates a pet seeker notification"""
     url = None
-    base_url = settings.BASE_URL
+    base_url = settings.BASE_FRONTEND_URL
     if notif_type == PetSeekerNotification.NotificationType.MESSAGE:
         # message or application url
         url = base_url + reverse_lazy('comments:application_messages', kwargs={'application_id': model_pk})

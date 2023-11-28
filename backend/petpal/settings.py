@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "comments",
     "listings",
     "applications",
-    "notifications"
+    "notifications",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "petpal.urls"
@@ -87,6 +90,8 @@ DATABASES = {
     }
 }
 BASE_URL = "http://127.0.0.1:8000"
+
+BASE_FRONTEND_URL = "http://localhost:3000"
 
 
 # Password validation
@@ -146,3 +151,8 @@ SIMPLE_JWT = {
 }
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880 * 100
+
+CORS_ALLOWED_ORIGINS = [
+"http://localhost:3000",
+"http://127.0.0.1:3000",
+]
