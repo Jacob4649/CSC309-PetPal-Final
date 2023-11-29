@@ -55,12 +55,12 @@ class ProfilePicView(APIView):
     def put(self, request, *args, **kwargs):
 
         if not request.user.is_authenticated:
-            return HttpResponse(status=401)
+            return JsonResponse(dict(message="User is not authenticated"), status=401)
 
         user_id = kwargs.get('id', None)
 
         if user_id is None:
-            return HttpResponse(status=404)
+            return JsonResponse(dict(message="User does not exist"), status=404)
         
         user = None
         try:
