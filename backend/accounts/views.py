@@ -120,7 +120,12 @@ class ShelterViewSet(ModelViewSet):
     @required_fields({
         'email': email_type,
         'name': str,
-        'password': str
+        'password': str,
+        'address': str,
+        'province': str,
+        'city': str,
+        'postal_code': str,
+        'description': str
     })
     def update(self, request, *args, **kwargs):
         shelter = self.get_object()
@@ -132,7 +137,12 @@ class ShelterViewSet(ModelViewSet):
     @optional_fields({
         'email': email_type,
         'name': str,
-        'password': str
+        'password': str,
+        'address': str,
+        'province': str,
+        'city': str,
+        'postal_code': str,
+        'description': str
     })
     def partial_update(self, request, *args, **kwargs):
         shelter = self.get_object()
@@ -184,7 +194,11 @@ class PetSeekerViewSet(ModelViewSet):
     @required_fields({
         'email': email_type,
         'name': str,
-        'password': str
+        'password': str,
+        'address': str,
+        'province': str,
+        'city': str,
+        'postal_code': str
     })
     def update(self, request, *args, **kwargs):
         pet_seeker = self.get_object()
@@ -196,7 +210,11 @@ class PetSeekerViewSet(ModelViewSet):
     @optional_fields({
         'email': email_type,
         'name': str,
-        'password': str
+        'password': str,
+        'address': str,
+        'province': str,
+        'city': str,
+        'postal_code': str
     })
     def partial_update(self, request, *args, **kwargs):
         shelter = self.get_object()

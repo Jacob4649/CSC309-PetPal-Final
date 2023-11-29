@@ -20,6 +20,10 @@ class ShelterSerializer(serializers.ModelSerializer):
         fields = ['email',
                   'id',
                   'name',
+                  'address',
+                  'province',
+                  'city',
+                  'postal_code'
                   'description',
                   'profile_pic_link']
 
@@ -37,6 +41,10 @@ class PetSeekerSerializer(serializers.ModelSerializer):
         fields = ['email',
                   'id',
                   'name',
+                  'address',
+                  'province',
+                  'city',
+                  'postal_code',
                   'profile_pic_link']
 
 
