@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+import ApplicationsComponent from './Components/ApplicationsComponent/ApplicationsComponent';
+import UpdateUser from './Components/UpdateUser/UpdateUser';
+import UpdateShelter from './Components/UpdateShelter/UpdateShelter';
+
 
 function App() {
+  const [credentialsLoading, setCredentialsLoading] = useState(true)
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/token/",
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          {
+            "email": "s1@mail.com",
+            "password": "12345678"
+          }
+        )
+      }).then((res => res.json())).then(data => {
+        localStorage.setItem("token", data.access)
+        setCredentialsLoading(false)
+      })
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {credentialsLoading ? <></> : <><UpdateShelter shelter_id={4} /></>}
     </div>
   );
 }

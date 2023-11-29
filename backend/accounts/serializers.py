@@ -7,7 +7,6 @@ from django.conf import settings
 
 
 class ShelterSerializer(serializers.ModelSerializer):
-    description = serializers.ReadOnlyField()
     profile_pic_link = serializers.SerializerMethodField()
     id = serializers.ReadOnlyField()
 

@@ -135,6 +135,7 @@ class ShelterViewSet(ModelViewSet):
         'password': str
     })
     def partial_update(self, request, *args, **kwargs):
+        print(request.data)
         shelter = self.get_object()
         if self.request.user != shelter:
             return JsonResponse(dict(message='You are not authorized to update this account.'), status=403)
