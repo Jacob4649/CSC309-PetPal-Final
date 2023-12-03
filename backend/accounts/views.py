@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.decorators import action
 from rest_framework.views import APIView
 from tempfile import NamedTemporaryFile
 
@@ -158,6 +159,13 @@ class ShelterViewSet(ModelViewSet):
             return JsonResponse(dict(message='You are not authorized to delete this account.'), status=403)
 
         return super().destroy(request, *args, **kwargs)
+    
+    @action(detail=False, methods=['get'])
+    def info(self, request, *args, **kwargs):
+        if self.request.user:
+            serializer = ShelterSerializer(request.user)
+            return JsonResponse(serializer.data)
+        return JsonResponse(dict(message="You are not logged in"), status=403)
 
 
 class PetSeekerViewSet(ModelViewSet):
@@ -203,7 +211,7 @@ class PetSeekerViewSet(ModelViewSet):
     })
     def update(self, request, *args, **kwargs):
         pet_seeker = self.get_object()
-        if self.request.user != pet_seeker:
+        if request.user != pet_seeker:
             return JsonResponse(dict(message='You are not authorized to update this account.'), status=403)
 
         return super().update(request, *args, **kwargs)
@@ -249,3 +257,11 @@ class PetSeekerViewSet(ModelViewSet):
 
         serializer = PetSeekerSerializer(pet_seeker)
         return JsonResponse(serializer.data)
+    
+    @action(detail=False, methods=['get'])
+    def info(self, request, *args, **kwargs):
+        if request.user:
+            serializer = PetSeekerSerializer(request.user)
+            return JsonResponse(serializer.data)
+        return JsonResponse(dict(message="You are not logged in"), status=403)
+

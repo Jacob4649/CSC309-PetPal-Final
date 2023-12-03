@@ -9,6 +9,7 @@ from django.conf import settings
 class ShelterSerializer(serializers.ModelSerializer):
     profile_pic_link = serializers.SerializerMethodField()
     id = serializers.ReadOnlyField()
+    is_shelter = serializers.ReadOnlyField()
 
     def get_profile_pic_link(self, obj):
         base_url = settings.BASE_URL
@@ -19,6 +20,7 @@ class ShelterSerializer(serializers.ModelSerializer):
         fields = ['email',
                   'id',
                   'name',
+                  'is_shelter',
                   'address',
                   'province',
                   'city',
@@ -30,6 +32,7 @@ class ShelterSerializer(serializers.ModelSerializer):
 class PetSeekerSerializer(serializers.ModelSerializer):
     profile_pic_link = serializers.SerializerMethodField()
     id = serializers.ReadOnlyField()
+    is_shelter = serializers.ReadOnlyField()
 
     def get_profile_pic_link(self, obj):
         base_url = settings.BASE_URL
@@ -40,6 +43,7 @@ class PetSeekerSerializer(serializers.ModelSerializer):
         fields = ['email',
                   'id',
                   'name',
+                  'is_shelter',
                   'address',
                   'province',
                   'city',

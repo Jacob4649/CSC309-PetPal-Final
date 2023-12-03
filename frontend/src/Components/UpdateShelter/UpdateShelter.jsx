@@ -24,10 +24,12 @@ const UpdateShelter = ({ shelter_id }) => {
     }
 
     const update_fields = () => {
+        const { profile_pic_link, ...body } = userInfo
+        console.log(body)
         fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}/`, {
             method: "PATCH",
             headers: generateHeaders(),
-            body: JSON.stringify({ ...userInfo, profile_pic_link: null })
+            body: JSON.stringify(body)
         }).then(() => {/*Navigate Away*/ })
     }
     useEffect(() => {
@@ -79,21 +81,26 @@ const UpdateShelter = ({ shelter_id }) => {
                     <div className="container-fluid d-flex flex-column p-0">
                         <div className="input-group">
                             <span className="input-group-text material-symbols-outlined">my_location</span>
-                            <input type="text" placeholder="Street Address" value="123 Example Rd" className="form-control" />
+                            <input type="text" placeholder="Street Address" value={userInfo.address}
+                                onChange={(e) => { setUserInfo({ ...userInfo, address: e.target.value }) }} className="form-control" />
                         </div>
                         <div className="input-group mt-3">
                             <span className="input-group-text material-symbols-outlined">location_city</span>
-                            <input type="text" placeholder="City" value="Toronto" className="form-control" />
+                            <input type="text" placeholder="City" value={userInfo.city}
+                                onChange={(e) => { setUserInfo({ ...userInfo, city: e.target.value }) }}
+                                className="form-control" />
                         </div>
                     </div>
                     <div className="container-fluid d-flex flex-column p-0">
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">map</span>
-                            <input type="text" placeholder="Province" value="Ontario" className="form-control" />
+                            <input type="text" placeholder="Province" value={userInfo.province}
+                                onChange={(e) => { setUserInfo({ ...userInfo, province: e.target.value }) }} className="form-control" />
                         </div>
                         <div className="input-group mt-3">
                             <span className="input-group-text material-symbols-outlined">markunread_mailbox</span>
-                            <input type="text" placeholder="Postal Code" value="M5S 1K7" className="form-control" />
+                            <input type="text" placeholder="Postal Code" value={userInfo.postal_code}
+                                onChange={(e) => { setUserInfo({ ...userInfo, postal_code: e.target.value }) }} className="form-control" />
                         </div>
                     </div>
                 </div>
