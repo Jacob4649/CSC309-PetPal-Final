@@ -48,6 +48,11 @@ function App() {
             <NotificationPage />
           </AuthGuard>
         } />
+        <Route path='/my-applications' element={
+          <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+            <ApplicationsComponent />
+          </AuthGuard>
+        } />
         {/* </Route> */}
       </Routes>
     </BrowserRouter>

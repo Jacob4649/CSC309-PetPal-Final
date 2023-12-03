@@ -34,7 +34,7 @@ const ApplicationsComponent = () => {
 
     return (
         <>
-            <Typography variant="h5" mb={10} mt={5}>
+            <Typography variant="h3" mb={10} mt={5} textAlign={"center"}>
                 My Applications
             </Typography>
             <Box display="flex" flexDirection="column" alignItems="center">
