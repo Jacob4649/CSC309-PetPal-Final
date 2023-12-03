@@ -9,6 +9,7 @@ const NotificationPage = () => {
     const [totalNotifs, setTotalNotifs] = useState(0);
     const [currPage, setCurrPage] = useState(1);
     const getNotificationData = (page) => {
+
         fetch(`http://127.0.0.1:8000/notifications/?page=${page}&read=False`, {
             method: "GET",
             headers: generateHeaders()
@@ -24,11 +25,17 @@ const NotificationPage = () => {
     }, [])
     const delete_notification = (id, setNotificationData) => {
         // setNotificationData((prevNotificationData) => prevNotificationData.filter((notification) => notification.id !== id))
-        setLoading(true)
         fetch(`http://127.0.0.1:8000/notifications/${id}/`, {
             method: "PATCH",
             headers: generateHeaders()
-        }).then(() => getNotificationData(currPage))
+        }).then(() => {
+            let new_curr_page = currPage
+            if (notificationData.length == 1 && currPage != 0) {
+                setCurrPage(currPage - 1)
+                new_curr_page -= 1
+            }
+            getNotificationData(new_curr_page)
+        })
     }
 
     if (loading) { return <CircularProgress /> }
