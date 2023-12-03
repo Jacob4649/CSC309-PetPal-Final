@@ -22,7 +22,7 @@ class ShelterSerializer(serializers.ModelSerializer):
                   'address',
                   'province',
                   'city',
-                  'postal_code'
+                  'postal_code',
                   'description',
                   'profile_pic_link']
 

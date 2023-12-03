@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
         return pet_seeker
 
     def create_shelter(self, email, name, password, profile_pic=None,
-    address=None, province=None, city=None, postal_code=None, description=None,):
+    address=None, province=None, city=None, postal_code=None, description=None):
         shelter = self.create_user(email, name, password, profile_pic, address, province, city, postal_code)
         shelter.description = description
         shelter.is_shelter = True
@@ -38,11 +38,11 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=200, unique=True)
     name = models.CharField(max_length=200)
-    profile_pic = models.ImageField(null=True)
-    address = models.CharField(max_length=200, null=True)
-    province = models.CharField(max_length=200, null=True)
-    city = models.CharField(max_length=200, null=True)
-    postal_code = models.CharField(max_length=200, null=True)
+    profile_pic = models.ImageField(null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    province = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=200, null=True, blank=True)
+    postal_code = models.CharField(max_length=200, null=True, blank=True)
     USERNAME_FIELD = 'email'
 
     is_shelter = models.BooleanField(null=False)

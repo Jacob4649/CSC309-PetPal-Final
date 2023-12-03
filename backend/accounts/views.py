@@ -134,16 +134,16 @@ class ShelterViewSet(ModelViewSet):
 
         return super().update(request, *args, **kwargs)
 
-    @optional_fields({
-        'email': email_type,
-        'name': str,
-        'password': str,
-        'address': str,
-        'province': str,
-        'city': str,
-        'postal_code': str,
-        'description': str
-    })
+    # @optional_fields({
+    #     'email': email_type,
+    #     'name': str,
+    #     'password': str,
+    #     'address': str,
+    #     'province': str,
+    #     'city': str,
+    #     'postal_code': str,
+    #     'description': str
+    # })
     def partial_update(self, request, *args, **kwargs):
         print(request.data)
         shelter = self.get_object()
@@ -208,15 +208,15 @@ class PetSeekerViewSet(ModelViewSet):
 
         return super().update(request, *args, **kwargs)
 
-    @optional_fields({
-        'email': email_type,
-        'name': str,
-        'password': str,
-        'address': str,
-        'province': str,
-        'city': str,
-        'postal_code': str
-    })
+    # @optional_fields({
+    #     'email': email_type,
+    #     'name': str,
+    #     'password': str,
+    #     'address': str,
+    #     'province': str,
+    #     'city': str,
+    #     'postal_code': str
+    # })
     def partial_update(self, request, *args, **kwargs):
         shelter = self.get_object()
         if self.request.user != shelter:
