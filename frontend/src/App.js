@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
+import ApplicationMessages from './Components/Messaging/ApplicationMessages';
 
 
 function App() {
@@ -51,6 +52,11 @@ function App() {
         <Route path='/my-applications' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
             <MyApplicationsPage />
+          </AuthGuard>
+        } />
+        <Route path='/am' element={
+          <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+            <ApplicationMessages />
           </AuthGuard>
         } />
         {/* </Route> */}

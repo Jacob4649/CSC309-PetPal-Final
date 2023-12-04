@@ -5,6 +5,7 @@ from listings.models import Listing
 class ListingSerializer(serializers.ModelSerializer):
     """Serializer for listings"""
     id = serializers.ReadOnlyField()
+    creation_time = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Listing
@@ -17,4 +18,5 @@ class ListingSerializer(serializers.ModelSerializer):
                   'height_feet',
                   'age_months',
                   'listing_status',
-                  'description']
+                  'description',
+                  'creation_time']
