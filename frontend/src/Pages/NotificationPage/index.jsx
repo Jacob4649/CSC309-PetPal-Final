@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import Notification from "./Notification"
+import Notification from "../../Components/Notifications/Notification"
 import "./notifications.css"
 import { CircularProgress, Pagination } from "@mui/material"
 import generateHeaders from "../../utils/fetchTokenSet"
