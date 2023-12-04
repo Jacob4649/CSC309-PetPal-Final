@@ -1,9 +1,9 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import ApplicationsComponent from './Components/ApplicationsComponent/ApplicationsComponent';
-import UpdateUser from './Components/UpdateUser/UpdateUser';
-import UpdateShelter from './Components/UpdateShelter/UpdateShelter';
-import NotificationPage from './Components/Notifications/NotificationsPage';
+import MyApplicationsPage from './Pages/MyApplicationsPage';
+import UpdateSeekerPage from './Pages/UpdateSeekerPage';
+import UpdateShelterPage from './Pages/UpdateShelterPage';
+import NotificationPage from './Pages/NotificationPage/index';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
@@ -32,14 +32,14 @@ function App() {
         <Route path='/update-shelter' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
             <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login"}>
-              <UpdateShelter shelter_id={userInfo && userInfo.id} />
+              <UpdateShelterPage shelter_id={userInfo && userInfo.id} />
             </RouteGuard>
           </AuthGuard>
         } />
         <Route path='/update-seeker' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
             <RouteGuard is_permitted={userInfo && !userInfo.is_shelter} redirect={"/login"}>
-              <UpdateUser user_id={userInfo && userInfo.id} />
+              <UpdateSeekerPage user_id={userInfo && userInfo.id} />
             </RouteGuard>
           </AuthGuard>
         } />
@@ -50,7 +50,7 @@ function App() {
         } />
         <Route path='/my-applications' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-            <ApplicationsComponent />
+            <MyApplicationsPage />
           </AuthGuard>
         } />
         {/* </Route> */}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
 import { Paper, Table, TableContainer, TableHead, TableRow, Typography, TableCell, TableBody, Avatar, Container, Link, Box, Pagination } from "@mui/material"
 
-const ApplicationsComponent = () => {
+const MyApplicationsPage = () => {
     const [applications, setApplications] = useState([]);
     const [currPage, setCurrPage] = useState(1);
     const [totalApplications, setTotalApplications] = useState(0);
@@ -82,4 +82,4 @@ const ApplicationsComponent = () => {
     )
 }
 
-export default ApplicationsComponent;
+export default MyApplicationsPage;
