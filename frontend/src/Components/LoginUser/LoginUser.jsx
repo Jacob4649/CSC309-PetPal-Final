@@ -1,8 +1,9 @@
 import { useState } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./login-user.css";
+import {Link} from "@mui/material";
 
-const LoginUser = ({ userInfo, setUserInfo }) => {
+const LoginUser = ({ setUserInfo }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -76,11 +77,11 @@ const LoginUser = ({ userInfo, setUserInfo }) => {
                 </div>
 
                 <div className="submit-details">
-                    <a type="button" className="btn btn-primary" href="">Login</a>
+                    <a type="button" className="btn btn-primary" onClick={submitUser}>Login</a>
                 </div>
 
                 <div className="login-signup-switch">
-                    <p>Don't have an account? <a href="">Join PetPal</a></p>
+                    <p>Don't have an account? <Link to="">Join PetPal</Link></p>
                 </div>
 
             </form>
