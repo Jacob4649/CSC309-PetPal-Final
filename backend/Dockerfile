@@ -2,15 +2,15 @@ FROM python:3.11.1-slim-bullseye
 
 WORKDIR /usr/src/app
 
-COPY backend/requirements.txt ./
-COPY backend/manage.py ./
-COPY backend/startup.sh ./
-COPY backend/accounts ./
-COPY backend/applications ./
-COPY backend/comments ./
-COPY backend/listings ./
-COPY backend/notifications ./
-COPY backend/petpal ./
+COPY requirements.txt ./
+COPY manage.py ./
+COPY startup.sh ./
+COPY accounts ./
+COPY applications ./
+COPY comments ./
+COPY listings ./
+COPY notifications ./
+COPY petpal ./
 
 # DB connection stuff
 
