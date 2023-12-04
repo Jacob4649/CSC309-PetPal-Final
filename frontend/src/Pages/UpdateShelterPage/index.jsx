@@ -1,34 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
-import "./update-user.css"
-const UpdateUser = ({ user_id }) => {
+import "./update-shelter.css"
+import clean_request_data from "../../utils/clearRequestData";
+import { useNavigate } from "react-router-dom";
+const UpdateShelterPage = ({ shelter_id }) => {
+    const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
+    const [pfpUploaded, setPfpUploaded] = useState(false);
+    const [imageHash, setImageHash] = useState(Date.now());
+    const pfp_element = useRef()
     const get_user_info = () => {
-        fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}`, {
-            method: "get",
+        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
+            method: "GET",
             headers: generateHeaders()
         }).then((res) => res.json()).then((data) => {
-            console.log(data)
             setUserInfo(data)
         })
     }
-    // todo
-    const get_user_pfp = () => {
+    const update_profile_image = (file) => {
 
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                const binaryData = event.target.result;
+
+                fetch(`http://127.0.0.1:8000/accounts/${shelter_id}/profile_image`, {
+                    method: "PUT",
+                    headers: generateHeaders("image/png"),
+                    body: binaryData
+                }).then((res) => res.json()).then((data) => {
+                    setUserInfo({
+                        ...userInfo,
+                        profile_pic_link: data.profile_pic_link
+                    })
+                    setImageHash(Date.now())
+                })
+            }
+            reader.readAsArrayBuffer(file);
+        }
     }
-    const update_profile_image = (image) => {
-        fetch(`http://127.0.0.1:8000/accounts/${user_id}/profile_image`, {
-            method: "GET",
-            // body: image
-        }).then(() => { get_user_pfp() })
-    }
+
 
     const update_fields = () => {
-        fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}/`, {
+        const { profile_pic_link, ...body } = userInfo
+        console.log(clean_request_data(body))
+        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}/`, {
             method: "PATCH",
             headers: generateHeaders(),
-            body: JSON.stringify({ ...userInfo, profile_pic_link: null })
-        }).then(() => {/*Navigate Away*/ })
+            body: JSON.stringify(clean_request_data(body))
+        }).then(() => { navigate("/") })
     }
     useEffect(() => {
         get_user_info()
@@ -39,24 +60,29 @@ const UpdateUser = ({ user_id }) => {
                 e.preventDefault()
                 update_fields()
             }}>
-                <h2>Account Info</h2>
+                <h2>Shelter Info</h2>
 
                 <div id="profile-pic">
-                    <img src={userInfo.profile_pic_link ? userInfo.profile_pic_link : "https://pbs.twimg.com/media/FUrhqfUXoAIQS3Q.png"} />
+                    <img src={userInfo.profile_pic_link ? `${userInfo.profile_pic_link}?${imageHash}` : "https://pbs.twimg.com/media/FUrhqfUXoAIQS3Q.png"} />
                 </div>
 
                 <div className="container-fluid d-flex flex-column p-0">
                     <div className="input-group">
                         <span
                             className="input-group-text material-symbols-outlined d-none d-sm-inline">add_photo_alternate</span>
-                        <input type="file" className="form-control container-fluid m-0" />
+                        <input type="file" className="form-control container-fluid m-0" ref={pfp_element} onChange={(e) => {
+                            if (e.target.value) {
+                                setPfpUploaded(true)
+                            } else {
+                                setPfpUploaded(false)
+                            }
+                        }} />
                     </div>
                     <div className="d-flex justify-content-center pt-3">
                         <button className="btn btn-outline-secondary content" type="button" onClick={(e) => {
-                            const formData = new FormData();
-                            formData.append('file', e.target.value)
-                            update_profile_image(formData)
-                        }}>Update Profile Pic</button>
+                            update_profile_image(pfp_element.current.files[0])
+                        }}
+                            disabled={!pfpUploaded}>Update Profile Pic</button>
                     </div>
                 </div>
 
@@ -68,6 +94,10 @@ const UpdateUser = ({ user_id }) => {
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">email</span>
                     <input type="email" placeholder="Email" value={userInfo.email} className="form-control" onChange={(e) => { setUserInfo({ ...userInfo, email: e.target.value }) }} />
+                </div>
+                <div className="input-group">
+                    <span className="input-group-text material-symbols-outlined">reorder</span>
+                    <textarea placeholder="Description" value={userInfo.description} className="form-control" rows="4" onChange={(e) => { setUserInfo({ ...userInfo, description: e.target.value }) }} />
                 </div>
 
                 <div className="container-fluid d-flex flex-column flex-lg-row p-0">
@@ -105,4 +135,4 @@ const UpdateUser = ({ user_id }) => {
         </div>
     )
 }
-export default UpdateUser;
+export default UpdateShelterPage;
