@@ -9,6 +9,7 @@ import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
 import ApplicationMessages from './Components/Messaging/ApplicationMessages';
+import ExampleApplicationsPage from './Components/Messaging/ExampleApplicationsPage';
 
 
 function App() {
@@ -54,9 +55,9 @@ function App() {
             <MyApplicationsPage />
           </AuthGuard>
         } />
-        <Route path='/am' element={
+        <Route path='/a/:application_id' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-            <ApplicationMessages />
+            <ExampleApplicationsPage userInfo={userInfo} />
           </AuthGuard>
         } />
         {/* </Route> */}

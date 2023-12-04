@@ -4,8 +4,8 @@ import { useState } from "react"
 import Message from "./Message"
 import { ArrowDownwardRounded } from "@mui/icons-material"
 
-const ApplicationMessages = ({ messageData, is_seeker }) => {
-    const [chatValue, setChatValue] = useState("afdsafdsa")
+const ApplicationMessages = ({ messageData, is_seeker, load_more, can_load_more, send_message }) => {
+    const [chatValue, setChatValue] = useState("")
 
     return (
         <Paper
@@ -26,18 +26,25 @@ const ApplicationMessages = ({ messageData, is_seeker }) => {
                     flexDirection: "column",
                     justifyContent: "space-between"
                 }}>
-                {/* {messageData.map((message) => <Message is_current_user={is_seeker === message.is_user} content={message.content} time={message.time_sent} />)} */}
-                <Box>
-                    fdafdsa
-                </Box>
+                {messageData.length === 0
+                    ?
+                    <Typography>No Messages Have Been sent</Typography>
+                    :
+                    <Box>
+                        {messageData.map((message) => <Message is_current_user={is_seeker === message.is_user} content={message.content} time={message.time_sent} />)}
+                    </Box>
+                }
+
+
                 <Box
                     sx={{ display: "flex", justifyContent: "center" }}>
-                    <IconButton><ArrowDownwardRounded /></IconButton>
+                    {can_load_more ? <IconButton onClick={() => load_more()}><ArrowDownwardRounded /></IconButton> : <></>}
+
                 </Box>
             </Box>
             <Box>
                 <Chatbox
-                    onClick={(e) => setChatValue("")}
+                    onClick={(e) => send_message(chatValue)}
                     value={chatValue}
                     onChange={(e) => setChatValue(e.target.value)}
                 />
