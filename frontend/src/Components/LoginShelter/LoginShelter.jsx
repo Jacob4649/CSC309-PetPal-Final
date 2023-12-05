@@ -16,6 +16,8 @@ const LoginShelter = ({ setUserInfo }) => {
         }
     }
 
+    const [errorMessage, setErrorMessage] = useState(null)
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         submitUser();
@@ -31,8 +33,12 @@ const LoginShelter = ({ setUserInfo }) => {
                     "password": password
                 }
             )
-        }).then(res => res.json())
-            .then(data => {
+        }).then(res => {
+            if (res.status === 401) {
+                setErrorMessage("Invalid email or password")
+            }
+            return res.json()
+        }).then(data => {
                 localStorage.setItem("token", data.access)
                 fetch("http://127.0.0.1:8000/accounts/shelters/info/", { headers: generateHeaders() })
                     .then((res) => res.json())
@@ -83,6 +89,13 @@ const LoginShelter = ({ setUserInfo }) => {
                 <div className="login-signup-switch">
                     <p>Don't have an account? <Link to="">Join PetPal</Link></p>
                 </div>
+
+                {
+                    !!errorMessage &&
+                    (<div className="error-message">
+                        {errorMessage}
+                    </div>)
+                }
 
             </form>
 
