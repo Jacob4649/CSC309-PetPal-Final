@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import Notification from "../../Components/Notifications/Notification"
 import "./notifications.css"
-import { CircularProgress, Pagination } from "@mui/material"
+import { Pagination } from "@mui/material"
 import generateHeaders from "../../utils/fetchTokenSet"
+import LoadingPage from "../LoadingPage/LoadingPage"
 const NotificationPage = () => {
     const [notificationData, setNotificationData] = useState();
     const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ const NotificationPage = () => {
         })
     }
 
-    if (loading) { return <CircularProgress /> }
+    if (loading) { return <LoadingPage /> }
     return (
         <div className="container-fluid d-flex flex-column align-items-center content-wrap notifications-page">
             <h1 id="notifications-heading" className="text-center">
