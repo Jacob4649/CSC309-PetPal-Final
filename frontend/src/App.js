@@ -8,6 +8,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
+import LoginUser from "./Components/LoginUser/LoginUser";
+import LoginShelter from "./Components/LoginShelter/LoginShelter";
+import SignupShelter from "./Components/SignupShelter/SignupShelter";
+import SignupUser from "./Components/SignupUser/SignupUser";
 import ApplicationMessages from './Components/Messaging/ApplicationMessages';
 import ExampleApplicationsPage from './Components/Messaging/ExampleApplicationsPage';
 import ShelterDetailPage from './Pages/ShelterDetailPage/ShelterDetailPage';
@@ -29,7 +33,7 @@ function App() {
 
         <Route index path='/login' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
-            <LoginPage setUserInfo={setUserInfo} userInfo={userInfo} />
+            <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
           </AuthGuard>
         } />
         <Route path='/update-shelter' element={
