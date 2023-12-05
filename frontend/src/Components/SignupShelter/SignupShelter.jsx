@@ -3,7 +3,7 @@ import "./login-user.css";
 import {Link} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
-const SignupUser = () => {
+const SignupShelter = () => {
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -30,12 +30,13 @@ const SignupUser = () => {
 
         const response = await fetch("http://127.0.0.1:8000/accounts/pet_seekers/", {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 name: userData.name,
                 email: userData.email,
                 password1: userData.password1,
-                password2: userData.password2})
+                password2: userData.password2
+            })
         })
         if (response.status === 200) {
             navigate('/login')
@@ -52,7 +53,7 @@ const SignupUser = () => {
                     <input type="text"
                            id="name"
                            className="form-control"
-                           placeholder="Name"
+                           placeholder="Shelter Name"
                            onChange={handleChange}
                            value={userData.name} required>
                     </input>
@@ -109,4 +110,4 @@ const SignupUser = () => {
     )
 }
 
-export default SignupUser
+export default SignupShelter
