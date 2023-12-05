@@ -4,13 +4,13 @@ import "./login-shelter.css";
 import { Link } from "react-router-dom";
 
 const LoginShelter = ({ setUserInfo }) => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleChange = (event) => {
         const { id, value } = event.target;
-        if (id === 'username') {
-            setUsername(value);
+        if (id === 'email') {
+            setEmail(value);
         } else if (id === 'password') {
             setPassword(value);
         }
@@ -29,7 +29,7 @@ const LoginShelter = ({ setUserInfo }) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(
                 {
-                    "email": username,
+                    "email": email,
                     "password": password
                 }
             )
@@ -60,7 +60,7 @@ const LoginShelter = ({ setUserInfo }) => {
                     <div className="form-outline">
                         <input type="email"
                                onChange={handleChange}
-                               value={username}
+                               value={email}
                                id="email"
                                className="form-control"
                                placeholder="Email" required>
