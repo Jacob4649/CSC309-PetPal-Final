@@ -11,6 +11,8 @@ const SignupShelter = () => {
         password2: ''
     })
 
+    const [errorMessage, setErrorMessage] = useState(null)
+
     const handleChange = (event) => {
         const {id, value} = event.target
         const updatedUserData = {
