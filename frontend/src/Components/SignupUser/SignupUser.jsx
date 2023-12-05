@@ -91,7 +91,7 @@ const SignupUser = () => {
                 <span className="material-symbols-outlined">lock</span>
                 <div className="form-outline">
                     <input type="password"
-                           id="password"
+                           id="password1"
                            className="form-control"
                            placeholder="Password"
                            onChange={handleChange}
@@ -104,7 +104,7 @@ const SignupUser = () => {
                 <span className="material-symbols-outlined">key</span>
                 <div className="form-outline">
                     <input type="password"
-                           id="confirm-password"
+                           id="password2"
                            className="form-control"
                            placeholder="Confirm Password"
                            onChange={handleChange}
