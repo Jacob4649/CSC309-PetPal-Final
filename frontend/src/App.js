@@ -8,10 +8,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
-import LoginUser from "./Components/LoginUser/LoginUser";
-import LoginShelter from "./Components/LoginShelter/LoginShelter";
-import SignupShelter from "./Components/SignupShelter/SignupShelter";
-import SignupUser from "./Components/SignupUser/SignupUser";
+import LoginUser from "./Pages/LoginUser/LoginUser";
+import LoginShelter from "./Pages/LoginShelter/LoginShelter";
+import SignupShelter from "./Pages/SignupShelter/SignupShelter";
+import SignupUser from "./Pages/SignupUser/SignupUser";
+import ListingCreate from "./Pages/ListingCreate/ListingCreate";
 import ApplicationMessages from './Components/Messaging/ApplicationMessages';
 import ExampleApplicationsPage from './Components/Messaging/ExampleApplicationsPage';
 import ShelterDetailPage from './Pages/ShelterDetailPage/ShelterDetailPage';
@@ -36,17 +37,17 @@ function App() {
             <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
           </AuthGuard>
         } />
-        <Route index path='/login-shelter' element={
+        <Route path='/login-shelter' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
             <LoginShelter setUserInfo={setUserInfo} userInfo={userInfo} />
           </AuthGuard>
         } />
-        <Route index path='/signup-seeker' element={
+        <Route path='/signup-seeker' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
             <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
           </AuthGuard>
         } />
-        <Route index path='/signup-shelter' element={
+        <Route path='/signup-shelter' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
             <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
           </AuthGuard>
@@ -62,6 +63,13 @@ function App() {
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
             <RouteGuard is_permitted={userInfo && !userInfo.is_shelter} redirect={"/login"}>
               <UpdateSeekerPage user_id={userInfo && userInfo.id} />
+            </RouteGuard>
+          </AuthGuard>
+        } />
+        <Route path='/create-listing' element={
+          <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+            <RouteGuard is_permitted={userInfo && !userInfo.is_shelter} redirect={"/login"}>
+              <ListingCreate user_id={userInfo && userInfo.id} />
             </RouteGuard>
           </AuthGuard>
         } />
