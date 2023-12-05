@@ -18,6 +18,7 @@ import ExampleApplicationsPage from './Components/Messaging/ExampleApplicationsP
 import ShelterDetailPage from './Pages/ShelterDetailPage/ShelterDetailPage';
 import GenericErrorPage from './Pages/ErrorPages/GenericErrorPage';
 import LoadingPage from './Pages/LoadingPage/LoadingPage';
+import ListingUpdate from "./Pages/ListingUpdate/ListingUpdate";
 
 
 function App() {
@@ -56,22 +57,22 @@ function App() {
         } />
         <Route path='/update-shelter' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-            <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login"}>
+            <RouteGuard is_permitted={userInfo && userInfo.is_shelter}>
               <UpdateShelterPage shelter_id={userInfo && userInfo.id} />
             </RouteGuard>
           </AuthGuard>
         } />
         <Route path='/update-seeker' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-            <RouteGuard is_permitted={userInfo && !userInfo.is_shelter} redirect={"/login"}>
+            <RouteGuard is_permitted={userInfo && !userInfo.is_shelter}>
               <UpdateSeekerPage user_id={userInfo && userInfo.id} />
             </RouteGuard>
           </AuthGuard>
         } />
         <Route path='/create-listing' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-            <RouteGuard is_permitted={userInfo && !userInfo.is_shelter} redirect={"/login"}>
-              <ListingCreate user_id={userInfo && userInfo.id} />
+            <RouteGuard is_permitted={userInfo && userInfo.is_shelter}>
+              <ListingCreate />
             </RouteGuard>
           </AuthGuard>
         } />
