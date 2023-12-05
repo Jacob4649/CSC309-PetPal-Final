@@ -43,7 +43,7 @@ const LoginShelter = ({ setUserInfo }) => {
     }
 
     return (
-        <div id="page-container">
+        <div id="page-container-login-shelter">
 
             <form onSubmit={handleSubmit}>
 

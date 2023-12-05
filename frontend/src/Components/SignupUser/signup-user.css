@@ -1,8 +1,4 @@
-body {
-    min-height: 100vh;
-}
-
-.page-container {
+.signup-user {
     background: url("../../img/krista-mangulsone-9gz3wfHr65U-unsplash.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -16,7 +12,7 @@ body {
 }
 
 
-form {
+.signup-user form {
     background: white;
     color: var(--primary);
     border: 2px solid var(--primary);
@@ -30,12 +26,12 @@ form {
     align-items: first baseline;
 }
 
-form h1 {
+.signup-user form h1 {
     align-self: center;
     margin-bottom: 2rem;
 }
 
-.text-input {
+.signup-user .text-input {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -43,24 +39,24 @@ form h1 {
     width: 100%;
     gap: 0.5rem;
 }
-.form-outline {
+.signup-user .form-outline {
     width: 100%;
 }
-input.form-control {
+.signup-user input.form-control {
     flex-grow: 1;
 }
 
-form .submit-details {
+.signup-user form .submit-details {
     margin-top: 0.5rem;
 }
 
-form .agreement {
+.signup-user form .agreement {
     margin-top: 0.5rem;
 }
-form .agreement input {
+.signup-user form .agreement input {
     margin-right: 0.3rem;
 }
 
-form .error-message {
+.signup-user form .error-message {
     color: red;
 }

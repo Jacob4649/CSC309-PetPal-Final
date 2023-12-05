@@ -43,7 +43,7 @@ const LoginUser = ({ setUserInfo }) => {
     }
 
     return (
-        <div id="page-container">
+        <div className="page-container-login-user">
 
             <form onSubmit={handleSubmit}>
 

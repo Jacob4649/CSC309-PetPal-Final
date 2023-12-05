@@ -2,7 +2,7 @@ body {
     min-height: 100vh;
 }
 
-.page-container {
+.signup-shelter {
     background: url("../../img/joe-caione-qO-PIF84Vxg-unsplash.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -16,7 +16,7 @@ body {
 }
 
 
-form {
+.signup-shelter form {
     background: white;
     color: var(--primary);
     border: 2px solid var(--primary);
@@ -30,12 +30,12 @@ form {
     align-items: first baseline;
 }
 
-form h1 {
+.signup-shelter form h1 {
     align-self: center;
     margin-bottom: 2rem;
 }
 
-.text-input {
+.signup-shelter .text-input {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -43,24 +43,24 @@ form h1 {
     width: 100%;
     gap: 0.5rem;
 }
-.form-outline {
+.signup-shelter .form-outline {
     width: 100%;
 }
-input.form-control {
+.signup-shelter input.form-control {
     flex-grow: 1;
 }
 
-form .submit-details {
+.signup-shelter form .submit-details {
     margin-top: 0.5rem;
 }
 
-form .agreement {
+.signup-shelter form .agreement {
     margin-top: 0.5rem;
 }
-form .agreement input {
+.signup-shelter form .agreement input {
     margin-right: 0.3rem;
 }
 
-form .error-message {
+.signup-shelter form .error-message {
     color: red;
 }

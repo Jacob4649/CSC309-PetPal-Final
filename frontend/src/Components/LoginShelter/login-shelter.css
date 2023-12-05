@@ -1,8 +1,4 @@
-body {
-    min-height: 100vh;
-}
-
-.page-container {
+.page-container-login-shelter .page-container {
     background: url("../../img/jametlene-reskp-hGKXqee3Zxw-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -16,7 +12,7 @@ body {
 }
 
 
-form {
+.page-container-login-shelter form {
     background: white;
     color: var(--primary);
     border: 2px solid var(--primary);
@@ -30,12 +26,12 @@ form {
     align-items: first baseline;
 }
 
-form h1 {
+.page-container-login-shelter form h1 {
     align-self: center;
     margin-bottom: 2rem;
 }
 
-.text-input {
+.page-container-login-shelter .text-input {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -43,13 +39,13 @@ form h1 {
     width: 100%;
     gap: 0.5rem;
 }
-.form-outline {
+.page-container-login-shelter .form-outline {
     width: 100%;
 }
-input.form-control {
+.page-container-login-shelter input.form-control {
     flex-grow: 1;
 }
 
-form .error-message {
+.page-container-login-shelter form .error-message {
     color: red;
 }
