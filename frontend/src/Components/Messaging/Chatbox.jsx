@@ -16,7 +16,7 @@ const Chatbox = ({ onClick, value, onChange, replying_to }) => {
                     color: "blue",
                     paddingRight: 2
                 }} >@{replying_to}</Box> : <></>,
-                endAdornment: <IconButton onClick={(e) => onClick()}><Send /></IconButton>
+                endAdornment: <IconButton onClick={(e) => onClick()} disabled={value === ""}><Send /></IconButton>
             }} />
     )
 }

@@ -1,17 +1,27 @@
 import { Typography, Box } from "@mui/material"
 
 const Message = ({ is_current_user, content, time }) => {
-    const text_align = is_current_user ? "left" : "right"
     return (
-        <Box>
+        <Box
+            sx={{ py: 3 }}>
             <Box
-                sx={{ px: 5 }}>
-                <Typography fontSize={14} align={text_align}>{time}</Typography>
+                sx={{ px: 1 }}>
+                {
+                    is_current_user ? <Typography fontSize={14} align={"left"}>{time}</Typography> :
+                        <Typography fontSize={14} align={"right"}>{time}</Typography>
+                }
+
             </Box>
             <Box
-                sx={{ px: 5, pb: 1 }}
+                sx={{ px: 1, pb: 1, display: "flex", justifyContent: is_current_user ? "flex-start" : "flex-end" }}
             >
-                <Typography align={text_align}>{content}</Typography>
+                {is_current_user ?
+                    <Typography sx={{ backgroundColor: "#218aff", color: "#fdfdfd", width: "fit-content", borderRadius: 3, px: 2 }} align="left">{content}</Typography>
+                    :
+                    <Typography sx={{ backgroundColor: "#aeb9cc", color: "#fdfdfd", width: "fit-content", borderRadius: 3, px: 2 }} align="right">{content}</Typography>
+                }
+
+
             </Box>
 
         </Box>
