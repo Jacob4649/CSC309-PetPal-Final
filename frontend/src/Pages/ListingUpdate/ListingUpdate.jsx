@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
-import "./listing-create.css";
-import {useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./listing-update.css";
+import { useNavigate } from "react-router-dom";
 import generateHeaders from "../../utils/fetchTokenSet";
 
-const ListingUpdate = ({listing_id}) => {
+const ListingUpdate = ({ listing_id }) => {
     const [listingData, setListingData] = useState({
         name: '',
         species: '',
@@ -40,7 +40,7 @@ const ListingUpdate = ({listing_id}) => {
     }
 
     const handleChange = (event) => {
-        const {id, value} = event.target
+        const { id, value } = event.target
         const updatedListingData = {
             name: listingData.name,
             species: listingData.species,
@@ -115,38 +115,38 @@ const ListingUpdate = ({listing_id}) => {
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pets</span>
                     <input type="text"
-                           placeholder="Pet Name"
-                           className="form-control"
-                           onChange={handleChange}
-                           value={listingData.name}
-                           required />
+                        placeholder="Pet Name"
+                        className="form-control"
+                        onChange={handleChange}
+                        value={listingData.name}
+                        required />
                 </div>
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">sound_detection_dog_barking</span>
                     <input type="text"
-                           placeholder="Species"
-                           className="form-control"
-                           onChange={handleChange}
-                           value={listingData.species}
-                           required />
+                        placeholder="Species"
+                        className="form-control"
+                        onChange={handleChange}
+                        value={listingData.species}
+                        required />
                 </div>
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pet_supplies</span>
                     <input type="text"
-                           placeholder="Breed"
-                           className="form-control"
-                           onChange={handleChange}
-                           value={listingData.breed}
-                           required/>
+                        placeholder="Breed"
+                        className="form-control"
+                        onChange={handleChange}
+                        value={listingData.breed}
+                        required />
                 </div>
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">check</span>
                     <select className="form-control"
-                            onChange={handleChange}
-                            value={listingData.listing_status} required>
+                        onChange={handleChange}
+                        value={listingData.listing_status} required>
                         <option disabled selected value="">Availability Status</option>
                         <option value="available">Available</option>
                         <option value="adopted">Adopted</option>
@@ -170,26 +170,26 @@ const ListingUpdate = ({listing_id}) => {
                         <div className="input-group">
                             <span className="input-group-text material-symbols-outlined">calendar_month</span>
                             <input type="text"
-                                   placeholder="Age (Years)"
-                                   id="years"
-                                   min="0"
-                                   max="99"
-                                   className="form-control"
-                                   onChange={handleChange}
-                                   value={listingData.age_years} required />
+                                placeholder="Age (Years)"
+                                id="years"
+                                min="0"
+                                max="99"
+                                className="form-control"
+                                onChange={handleChange}
+                                value={listingData.age_years} required />
                         </div>
                     </div>
                     <div className="container-fluid d-flex flex-column p-0">
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">event</span>
                             <input type="number"
-                                   placeholder="Age (Months)"
-                                   id="months"
-                                   min="0"
-                                   max="11"
-                                   className="form-control"
-                                   onChange={handleChange}
-                                   value={listingData.age_months} required />
+                                placeholder="Age (Months)"
+                                id="months"
+                                min="0"
+                                max="11"
+                                className="form-control"
+                                onChange={handleChange}
+                                value={listingData.age_months} required />
                         </div>
                     </div>
                 </div>
@@ -199,14 +199,14 @@ const ListingUpdate = ({listing_id}) => {
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">height</span>
                             <input type="number"
-                                   id="height"
-                                   placeholder="Height (inches)"
-                                   className="form-control"
-                                   min="0"
-                                   max="100"
-                                   step="0.5"
-                                   onChange={handleChange}
-                                   value={listingData.height_feet} required />
+                                id="height"
+                                placeholder="Height (inches)"
+                                className="form-control"
+                                min="0"
+                                max="100"
+                                step="0.5"
+                                onChange={handleChange}
+                                value={listingData.height_feet} required />
                         </div>
                     </div>
                 </div>
@@ -214,16 +214,16 @@ const ListingUpdate = ({listing_id}) => {
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">reorder</span>
                     <textarea placeholder="Description (medical history, behavior, special needs, etc.)"
-                              className="form-control"
-                              rows="4"
-                              onChange={handleChange}
-                              value={listingData.description}>
+                        className="form-control"
+                        rows="4"
+                        onChange={handleChange}
+                        value={listingData.description}>
                     </textarea>
                 </div>
 
                 <button type="submit"
-                        className="btn btn-primary d-flex"
-                        onClick={handleSubmit}>
+                    className="btn btn-primary d-flex"
+                    onClick={handleSubmit}>
                     Create Listing
                 </button>
             </form>
