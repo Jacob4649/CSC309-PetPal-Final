@@ -38,5 +38,5 @@ EXPOSE 8000
 # db port
 EXPOSE 5432
 
-# start gunicorn command
+# start gunicorn 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers=3", "--threads=3", "petpal.wsgi"]
