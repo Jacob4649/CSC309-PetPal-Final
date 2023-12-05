@@ -1,0 +1,66 @@
+body {
+    min-height: 100vh;
+}
+
+.page-container {
+    background: url("../../img/joe-caione-qO-PIF84Vxg-unsplash.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+form {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    box-shadow: rgba(0, 0, 0, 0.5) 0.5rem 0.5rem 1rem 0;
+    padding: 25px 40px;
+    border-radius: .5rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: first baseline;
+}
+
+form h1 {
+    align-self: center;
+    margin-bottom: 2rem;
+}
+
+.text-input {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 0.5rem;
+}
+.form-outline {
+    width: 100%;
+}
+input.form-control {
+    flex-grow: 1;
+}
+
+form .submit-details {
+    margin-top: 0.5rem;
+}
+
+form .agreement {
+    margin-top: 0.5rem;
+}
+form .agreement input {
+    margin-right: 0.3rem;
+}
+
+form .error-message {
+    color: red;
+}
