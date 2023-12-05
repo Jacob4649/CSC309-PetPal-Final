@@ -31,7 +31,9 @@ const SignupUser = () => {
         const response = await fetch("http://127.0.0.1:8000/accounts/pet_seekers/", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: userData.email, password: userData.password1 })
+            body: JSON.stringify({ email: userData.email,
+                password1: userData.password1,
+                password2: userData.password2})
         })
         if (response.status === 200) {
             navigate('/login')
