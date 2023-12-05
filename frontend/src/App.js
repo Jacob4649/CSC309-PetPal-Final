@@ -8,16 +8,18 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
-import LoginUser from "./Components/LoginUser/LoginUser";
-import LoginShelter from "./Components/LoginShelter/LoginShelter";
-import SignupShelter from "./Components/SignupShelter/SignupShelter";
-import SignupUser from "./Components/SignupUser/SignupUser";
+import LoginUser from "./Pages/LoginUser/LoginUser";
+import LoginShelter from "./Pages/LoginShelter/LoginShelter";
+import SignupShelter from "./Pages/SignupShelter/SignupShelter";
+import SignupUser from "./Pages/SignupUser/SignupUser";
+import ListingCreate from "./Pages/ListingCreate/ListingCreate";
 import ApplicationMessages from './Components/Messaging/ApplicationMessages';
 import ExampleApplicationsPage from './Components/Messaging/ExampleApplicationsPage';
 import ShelterDetailPage from './Pages/ShelterDetailPage/ShelterDetailPage';
 import GenericErrorPage from './Pages/ErrorPages/GenericErrorPage';
 import LoadingPage from './Pages/LoadingPage/LoadingPage';
 import Footer from './Components/NavFooterLayout/Footer';
+import ListingUpdate from "./Pages/ListingUpdate/ListingUpdate";
 
 
 function App() {
@@ -34,7 +36,6 @@ function App() {
           <Route index path='/' element={
             <Navigate to={"/login-seeker"} />
           } />
-
           <Route index path='/login-seeker' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
