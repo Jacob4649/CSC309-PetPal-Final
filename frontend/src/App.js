@@ -28,12 +28,27 @@ function App() {
       <Routes>
         {/* <Route element={<Navbar/>}> */}
         <Route index path='/' element={
-          <Navigate to={"/login"} />
+          <Navigate to={"/login-seeker"} />
         } />
 
-        <Route index path='/login' element={
+        <Route index path='/login-seeker' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
             <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
+          </AuthGuard>
+        } />
+        <Route index path='/login-shelter' element={
+          <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
+            <LoginShelter setUserInfo={setUserInfo} userInfo={userInfo} />
+          </AuthGuard>
+        } />
+        <Route index path='/signup-seeker' element={
+          <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
+            <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
+          </AuthGuard>
+        } />
+        <Route index path='/signup-shelter' element={
+          <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
+            <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
           </AuthGuard>
         } />
         <Route path='/update-shelter' element={
