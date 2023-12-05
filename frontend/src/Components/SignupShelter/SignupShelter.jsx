@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./signup-shelter.css";
-import {Link} from "@mui/material";
+import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 
 const SignupShelter = () => {
@@ -118,7 +118,7 @@ const SignupShelter = () => {
             </div>
 
             <div className="login-signup-switch">
-                <p>Already have an account? <Link to="">Login</Link></p>
+                <p>Already have an account? <Link to="/login-shelter">Login</Link></p>
             </div>
 
             {

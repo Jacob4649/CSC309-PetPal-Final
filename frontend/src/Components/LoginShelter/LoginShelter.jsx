@@ -1,7 +1,7 @@
 import { useState } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./login-shelter.css";
-import {Link} from "@mui/material";
+import { Link } from "react-router-dom";
 
 const LoginShelter = ({ setUserInfo }) => {
     const [username, setUsername] = useState('');
@@ -49,7 +49,7 @@ const LoginShelter = ({ setUserInfo }) => {
     }
 
     return (
-        <div id="page-container-login-shelter">
+        <div className="page-container-login-user">
 
             <form onSubmit={handleSubmit}>
 
@@ -87,7 +87,7 @@ const LoginShelter = ({ setUserInfo }) => {
                 </div>
 
                 <div className="login-signup-switch">
-                    <p>Don't have an account? <Link to="">Join PetPal</Link></p>
+                    <p>Don't have an account? <Link to="/signup-seeker">Join PetPal</Link></p>
                 </div>
 
                 {

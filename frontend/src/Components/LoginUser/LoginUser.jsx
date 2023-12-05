@@ -1,7 +1,7 @@
 import { useState } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./login-user.css";
-import {Link} from "@mui/material";
+import { Link } from "react-router-dom";
 
 const LoginUser = ({ setUserInfo }) => {
     const [username, setUsername] = useState('');
@@ -87,7 +87,7 @@ const LoginUser = ({ setUserInfo }) => {
                 </div>
 
                 <div className="login-signup-switch">
-                    <p>Don't have an account? <Link to="">Join PetPal</Link></p>
+                    <p>Don't have an account? <Link to="/signup-seeker">Join PetPal</Link></p>
                 </div>
 
                 {

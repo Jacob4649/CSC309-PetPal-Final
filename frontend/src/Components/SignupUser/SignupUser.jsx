@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./signup-user.css";
-import {Link} from "@mui/material";
+import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 
 const SignupUser = () => {
@@ -118,7 +118,7 @@ const SignupUser = () => {
             </div>
 
             <div className="login-signup-switch">
-                <p>Already have an account? <Link to="">Login</Link></p>
+                <p>Already have an account? <Link to="/login-seeker">Login</Link></p>
             </div>
 
             {

@@ -1,5 +1,5 @@
-.page-container-login-shelter .page-container {
-    background: url("../../img/jametlene-reskp-hGKXqee3Zxw-unsplash.jpg");
+.page-container-login-user {
+    background: url("../../img/joe-caione-qO-PIF84Vxg-unsplash.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -12,7 +12,7 @@
 }
 
 
-.page-container-login-shelter form {
+.page-container-login-user form {
     background: white;
     color: var(--primary);
     border: 2px solid var(--primary);
@@ -26,12 +26,12 @@
     align-items: first baseline;
 }
 
-.page-container-login-shelter form h1 {
+.page-container-login-user form h1 {
     align-self: center;
     margin-bottom: 2rem;
 }
 
-.page-container-login-shelter .text-input {
+.page-container-login-user .text-input {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -39,13 +39,13 @@
     width: 100%;
     gap: 0.5rem;
 }
-.page-container-login-shelter .form-outline {
+.page-container-login-user .form-outline {
     width: 100%;
 }
-.page-container-login-shelter input.form-control {
+.page-container-login-user input.form-control {
     flex-grow: 1;
 }
 
-.page-container-login-shelter form .error-message {
+.page-container-login-user form .error-message {
     color: red;
 }
