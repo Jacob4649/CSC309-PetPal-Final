@@ -16,6 +16,8 @@ import ListingCreate from "./Pages/ListingCreate/ListingCreate";
 import ApplicationMessages from './Components/Messaging/ApplicationMessages';
 import ExampleApplicationsPage from './Components/Messaging/ExampleApplicationsPage';
 import ShelterDetailPage from './Pages/ShelterDetailPage/ShelterDetailPage';
+import GenericErrorPage from './Pages/ErrorPages/GenericErrorPage';
+import LoadingPage from './Pages/LoadingPage/LoadingPage';
 
 
 function App() {
@@ -92,6 +94,9 @@ function App() {
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
             <ShelterDetailPage userInfo={userInfo} />
           </AuthGuard>
+        } />
+        <Route path='*' element={
+          <GenericErrorPage header={"404 - Page Not Found"} />
         } />
         {/* </Route> */}
       </Routes>
