@@ -40,7 +40,7 @@ const NotificationPage = () => {
 
     if (loading) { return <CircularProgress /> }
     return (
-        <div className="container-fluid d-flex flex-column align-items-center content-wrap">
+        <div className="container-fluid d-flex flex-column align-items-center content-wrap notifications-page">
             <h1 id="notifications-heading" className="text-center">
                 Notifications
             </h1>

@@ -10,6 +10,7 @@ import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
 import ApplicationMessages from './Components/Messaging/ApplicationMessages';
 import ExampleApplicationsPage from './Components/Messaging/ExampleApplicationsPage';
+import ShelterDetailPage from './Pages/ShelterDetailPage/ShelterDetailPage';
 
 
 function App() {
@@ -58,6 +59,11 @@ function App() {
         <Route path='/a/:application_id' element={
           <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
             <ExampleApplicationsPage userInfo={userInfo} />
+          </AuthGuard>
+        } />
+        <Route path='/shelter/:shelter_id' element={
+          <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+            <ShelterDetailPage userInfo={userInfo} />
           </AuthGuard>
         } />
         {/* </Route> */}

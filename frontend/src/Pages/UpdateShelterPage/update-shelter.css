@@ -1,4 +1,4 @@
-#page-container {
+.update-shelter-page #page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,7 +8,7 @@
     padding-top: calc(50px);
 }
 
-form {
+.update-shelter-page form {
     background: white;
     padding: 1rem;
     border: 2px solid var(--secondary);
@@ -22,11 +22,11 @@ form {
     width: 80%;
 }
 
-form h2 {
+.update-shelter-page form h2 {
     text-align: center;
 }
 
-form #profile-pic {
+.update-shelter-page form #profile-pic {
     width: 200px;
     height: 200px;
     overflow: hidden;
@@ -36,7 +36,7 @@ form #profile-pic {
     border-color: var(--secondary);
 }
 
-form #profile-pic img {
+.update-shelter-page form #profile-pic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
