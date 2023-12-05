@@ -1,0 +1,51 @@
+.pet-adoption #page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem;
+    padding-bottom: calc(50px + var(--footer-height));
+    padding-top: calc(50px + var(--footer-height));
+}
+
+.pet-adoption form {
+    padding: 1rem;
+    border: 2px solid var(--secondary);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    container-type: inline-size;
+    width: 80%;
+}
+
+.pet-adoption form h2 {
+    text-align: center;
+}
+
+.pet-adoption form #profile-pic {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: solid;
+    border-width: 2px;
+    border-color: var(--secondary);
+}
+
+.pet-adoption form #profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.pet-adoption .text-input {
+    display: block;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+}
