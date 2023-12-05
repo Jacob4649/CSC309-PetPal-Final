@@ -43,7 +43,7 @@ const SignupShelter = () => {
         try {
             const response_value = await response
             if (response_value.status === 200) {
-                navigate('/login')
+                navigate('/login-shelter')
             }
             const response_json = await response.json()
             if (response_json.message === 'Passwords do not match.') {
