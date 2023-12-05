@@ -15,7 +15,7 @@ COPY backend/petpal ./
 # DB connection stuff
 
 RUN apt-get update
-RUN apt-get install -y postgresql postgresql-contrib python3-setuptools libpq-dev python3-dev
+RUN apt-get install -y postgresql postgresql-contrib python3-setuptools libpq-dev python3-dev build-essential
 
 # End of DB stuff
 
