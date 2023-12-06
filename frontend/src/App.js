@@ -23,6 +23,7 @@ import ListingUpdate from "./Pages/ListingUpdate/ListingUpdate";
 import ShelterBlogsPage from './Pages/ShelterBlogsPage';
 import CreateShelterBlogPage from './Pages/CreateShelterBlogPage';
 import "./theme.css"
+import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
 
 
 function App() {
@@ -100,10 +101,15 @@ function App() {
               <ShelterBlogsPage userInfo={userInfo} />
             </AuthGuard>
           } />
+          <Route path='/shelter-blogs/:shelter_blog_id' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <ShelterBlogPage userInfo={userInfo} />
+            </AuthGuard>
+          } />
           <Route path='/shelter-blogs/create' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/"}>
-                <CreateShelterBlogPage />
+                <CreateShelterBlogPage userInfo={userInfo} />
               </RouteGuard>
             </AuthGuard>
           } />

@@ -22,7 +22,7 @@ import generateHeaders from "../../utils/fetchTokenSet"
 import LoadingPage from "../LoadingPage/LoadingPage"
 import ShelterBlogSummary from "../../Components/ShelterBlogs/ShelterBlogSummary"
 
-const ShelterBlogsPage = () => {
+const ShelterBlogsPage = ({ userInfo }) => {
     const [loading, setLoading] = useState(true)
     const [shelterBlogData, setShelterBlogData] = useState();
     const [searchParam, setSearchParam] = useSearchParams();
@@ -97,9 +97,9 @@ const ShelterBlogsPage = () => {
                         }
                         onChange={(e) => { setShelterName(e.target.value) }}
                         InputProps={{
-                            startAdornment: <Button sx={{ width: 120 }} onClick={() => navigate("/shelter-blogs/create")}>
+                            startAdornment: userInfo.is_shelter ? <Button sx={{ width: 120 }} onClick={() => navigate("/shelter-blogs/create")}>
                                 Add New
-                            </Button>,
+                            </Button> : <></>,
                             endAdornment: <IconButton onClick={(e) => {
                                 setSearchParam({ shelter: shelterName })
                                 get_shelter_blogs(shelterName)
