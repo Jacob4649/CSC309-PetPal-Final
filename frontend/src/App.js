@@ -20,6 +20,9 @@ import GenericErrorPage from './Pages/ErrorPages/GenericErrorPage';
 import LoadingPage from './Pages/LoadingPage/LoadingPage';
 import Footer from './Components/NavFooterLayout/Footer';
 import ListingUpdate from "./Pages/ListingUpdate/ListingUpdate";
+import ShelterBlogsPage from './Pages/ShelterBlogsPage';
+import CreateShelterBlogPage from './Pages/CreateShelterBlogPage';
+import "./theme.css"
 
 
 function App() {
@@ -90,6 +93,18 @@ function App() {
           <Route path='/shelter/:shelter_id' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <ShelterDetailPage userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/shelter-blogs' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <ShelterBlogsPage userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/shelter-blogs/create' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/"}>
+                <CreateShelterBlogPage />
+              </RouteGuard>
             </AuthGuard>
           } />
           <Route path='*' element={
