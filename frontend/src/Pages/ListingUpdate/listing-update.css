@@ -1,0 +1,72 @@
+.listing-update {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem;
+    padding-bottom: calc(50px + var(--footer-height));
+    padding-top: calc(50px + var(--footer-height));
+}
+
+.listing-update form {
+    padding: 1rem;
+    border: 2px solid var(--secondary);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    container-type: inline-size;
+    width: 80%;
+}
+
+.listing-update form h2 {
+    text-align: center;
+}
+
+.listing-update form #profile-pic {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: solid;
+    border-width: 2px;
+    border-color: var(--secondary);
+    margin-bottom: 1rem;
+}
+
+.listing-update form #profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listing-update .text-input {
+    display: block;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.listing-update table {
+    width: 100%;
+}
+
+.listing-update .d-flex {
+    width: 100%;
+}
+
+.listing-update a {
+    text-align: right;
+}
+
+.listing-update hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;
+    background-color:#FFFF00;
+    height: 1px;
+}

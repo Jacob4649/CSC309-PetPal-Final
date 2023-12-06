@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./ShelterDetail.css"
-import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 const ShelterDetailPage = ({ userInfo }) => {
     const { shelter_id } = useParams();
@@ -20,7 +20,7 @@ const ShelterDetailPage = ({ userInfo }) => {
         })
     }, [])
 
-    if (loading) return <CircularProgress />
+    if (loading) return <LoadingPage />
     return (
         <div className="container d-flex flex-column content-wrap shelter-detail-page">
             <h1 className="text-center">{shelterData.name}</h1>

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "./signup-shelter.css";
+import "./signup-user.css";
 import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 
-const SignupShelter = () => {
+const SignupUser = () => {
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -30,7 +30,7 @@ const SignupShelter = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        const response = fetch("http://127.0.0.1:8000/accounts/shelters/", {
+        const response = fetch("http://127.0.0.1:8000/accounts/pet_seekers/", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -43,7 +43,7 @@ const SignupShelter = () => {
         try {
             const response_value = await response
             if (response_value.status === 200) {
-                navigate('/login')
+                navigate('/login-seeker')
             }
             const response_json = await response.json()
             if (response_json.message === 'Passwords do not match.') {
@@ -57,7 +57,7 @@ const SignupShelter = () => {
     }
 
     return (
-        <div className="signup-shelter">
+        <div className="signup-user">
         <form onSubmit={handleSubmit} className="signup-form">
             <h1>Register</h1>
 
@@ -67,7 +67,7 @@ const SignupShelter = () => {
                     <input type="text"
                            id="name"
                            className="form-control"
-                           placeholder="Shelter Name"
+                           placeholder="Name"
                            onChange={handleChange}
                            value={userData.name} required>
                     </input>
@@ -91,7 +91,7 @@ const SignupShelter = () => {
                 <span className="material-symbols-outlined">lock</span>
                 <div className="form-outline">
                     <input type="password"
-                           id="password"
+                           id="password1"
                            className="form-control"
                            placeholder="Password"
                            onChange={handleChange}
@@ -104,7 +104,7 @@ const SignupShelter = () => {
                 <span className="material-symbols-outlined">key</span>
                 <div className="form-outline">
                     <input type="password"
-                           id="confirm-password"
+                           id="password2"
                            className="form-control"
                            placeholder="Confirm Password"
                            onChange={handleChange}
@@ -118,7 +118,7 @@ const SignupShelter = () => {
             </div>
 
             <div className="login-signup-switch">
-                <p>Already have an account? <Link to="/login-shelter">Login</Link></p>
+                <p>Already have an account? <Link to="/login-seeker">Login</Link></p>
             </div>
 
             {
@@ -133,4 +133,4 @@ const SignupShelter = () => {
     )
 }
 
-export default SignupShelter
+export default SignupUser

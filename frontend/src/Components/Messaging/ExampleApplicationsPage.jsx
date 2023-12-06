@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import ApplicationMessages from "./ApplicationMessages"
 import { useParams } from "react-router-dom"
-import { Box, CircularProgress } from "@mui/material"
+import { Box } from "@mui/material"
 import generateHeaders from "../../utils/fetchTokenSet"
+import LoadingPage from "../../Pages/LoadingPage/LoadingPage"
 
 
 const ExampleApplicationsPage = ({ userInfo }) => {
@@ -57,7 +58,7 @@ const ExampleApplicationsPage = ({ userInfo }) => {
         ).then(() => { reset_application_message_data() })
 
     }
-    if (loading) return <CircularProgress />
+    if (loading) return <LoadingPage />
     return (
         <Box sx={{ padding: 10 }}>
             <ApplicationMessages messageData={messageData} is_seeker={!userInfo.is_shelter} load_more={() => get_application_data()} can_load_more={nextPage} send_message={(message) => add_application_message(message)} />
