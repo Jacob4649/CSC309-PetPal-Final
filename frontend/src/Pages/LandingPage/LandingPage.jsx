@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Carousel from 'react-bootstrap/Carousel'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './landing-page.css'
 
 
 const LandingPage = () => {
@@ -104,7 +105,7 @@ const LandingPage = () => {
                 <Link to="/login-user" className="btn btn-primary">User Login</Link>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default LandingPage;
+export default LandingPage
