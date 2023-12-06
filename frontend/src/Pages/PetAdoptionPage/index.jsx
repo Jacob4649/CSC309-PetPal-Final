@@ -23,7 +23,7 @@ const PetAdoptionPage = () => {
         })
     }
 
-    const [errorMessage, setErrorMessage] = useState(null)
+    // const [errorMessage, setErrorMessage] = useState(null)
 
     const handleChange = (event) => {
         // const {id, value} = event.target
