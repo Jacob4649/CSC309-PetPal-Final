@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Listing",
+            name="ShelterBlog",
             fields=[
                 (
                     "id",
@@ -26,26 +26,41 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("title", models.CharField(max_length=200)),
+                ("content", models.TextField()),
                 ("creation_time", models.DateTimeField(auto_now_add=True)),
-                ("last_update_time", models.DateTimeField(auto_now=True)),
-                ("name", models.CharField(max_length=256)),
-                ("species", models.CharField(max_length=256)),
-                ("breed", models.CharField(max_length=256)),
-                ("weight_lbs", models.FloatField()),
-                ("height_feet", models.FloatField()),
-                ("age_months", models.IntegerField()),
-                (
-                    "listing_status",
-                    models.IntegerField(
-                        choices=[(1, "Adopted"), (2, "Canceled"), (3, "Open")]
-                    ),
-                ),
-                ("description", models.TextField()),
                 (
                     "shelter",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="listings",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+            ],
+        ),
+        migrations.CreateModel(
+            name="ShelterLike",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "shelter_blog",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="shelter_blogs.shelterblog",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
