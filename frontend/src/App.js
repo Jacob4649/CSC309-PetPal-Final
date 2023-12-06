@@ -6,6 +6,7 @@ import UpdateShelterPage from './Pages/UpdateShelterPage';
 import NotificationPage from './Pages/NotificationPage/index';
 import PetDetailPage from './Pages/PetDetailPage/index';
 import PetAdoptionPage from './Pages/PetAdoptionPage/index';
+import PetApplicationPage from './Pages/PetApplicationPage';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
@@ -102,6 +103,11 @@ function App() {
           <Route path='/pet-adoption/:petId' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <PetAdoptionPage />
+            </AuthGuard>
+          } />
+          <Route path='/pet-application/:petId' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <PetApplicationPage />
             </AuthGuard>
           } />
           <Route path='*' element={
