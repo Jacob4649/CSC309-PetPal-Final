@@ -23,6 +23,7 @@ import ListingUpdate from "./Pages/ListingUpdate/ListingUpdate";
 import ShelterBlogsPage from './Pages/ShelterBlogsPage';
 import CreateShelterBlogPage from './Pages/CreateShelterBlogPage';
 import "./theme.css"
+import LandingPage from "./Pages/LandingPage/LandingPage";
 
 
 function App() {
@@ -42,6 +43,11 @@ function App() {
           <Route index path='/login-seeker' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route index path='/landing-page' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
+              <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
           <Route index path='/login-shelter' element={
