@@ -7,8 +7,8 @@
     padding-bottom: calc(50px + var(--footer-height));
     padding-top: calc(50px + var(--footer-height));
     /* background: url("img/digital_art_background.png"); */
-    background-size: cover;
-    background-attachment: fixed;
+    /* background-size: cover;
+    background-attachment: fixed; */
     min-height: calc(100vh - var(--footer-height) - var(--header-height));
 }
 

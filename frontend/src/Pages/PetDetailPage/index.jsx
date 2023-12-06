@@ -6,6 +6,7 @@ import { Routes, Route , useNavigate, useParams, Link } from "react-router-dom";
 
 const PetDetailPage = () => {
     const [pet_info, setPetInfo] = useState({});
+    const [shelter_info, setShelterInfo] = useState({});
     const application_status_string = {
         1: 'Adopted',
         2: 'Canceled',
@@ -20,8 +21,23 @@ const PetDetailPage = () => {
         }).then((res) => res.json()).then((data) => {
             console.log(data)
             setPetInfo(data)
+
+            get_shelter_info(data.shelter)
         })
     }
+
+    // ** Disappears for some reason maybe fixed now
+    const get_shelter_info = (shelter_id) => {
+        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
+            method: "get",
+            headers: generateHeaders()
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            setShelterInfo(data)
+        })
+    }
+
+    // const navigate = useNavigate()
 
     // Status mapping
     const status = application_status_string[pet_info.listing_status] || 'Unknown';
@@ -30,6 +46,9 @@ const PetDetailPage = () => {
     const created_time = new Date(pet_info.creation_time);
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const formatted_time = created_time.toLocaleString('en-US', options);
+
+    // Shelter name
+    const shelter_name = 
 
     useEffect(() => {
         get_pet_info()
@@ -91,7 +110,7 @@ const PetDetailPage = () => {
                                     <p className="mb-0">Shelter</p>
                                 </div>
                                 <div className="col-sm-9 text-secondary">
-                                    <a href="shelter-detail-page-client.html">Needs Fixing * Homes For Pets</a>
+                                    <Link to={`/shelter/${pet_info?.shelter}`}>{shelter_info.name}</Link>
                                 </div>
                             </div>
 
