@@ -1,7 +1,7 @@
-import { Close, North, NorthEast } from "@mui/icons-material"
+import { Close, Delete, North, NorthEast } from "@mui/icons-material"
 import { IconButton, Button } from "@mui/material";
 
-const Notification = ({ type, is_seeker, title, content, url, delete_notification }) => {
+const Notification = ({ type, is_seeker, title, content, url, delete_notification, delete_noti }) => {
     const type_mapping_seeker = {
         1: "chat_bubble",
         2: "update",
@@ -29,7 +29,8 @@ const Notification = ({ type, is_seeker, title, content, url, delete_notificatio
                         <NorthEast />
                     </IconButton>
                     <IconButton onClick={() => delete_notification()}>
-                        <Close />
+                        {delete_noti ? <Delete /> : <Close />}
+
                     </IconButton>
                 </div>
             </div>
