@@ -4,7 +4,7 @@ import "./pet-adoption.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { Routes, Route , useNavigate, useParams } from "react-router-dom";
 
-const PetAdoptionPage = () => {
+const PetAdoptionPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
     let { petId } = useParams();
 
@@ -35,6 +35,7 @@ const PetAdoptionPage = () => {
     const handleSubmit = async (event) => {
       event.preventDefault()
 
+      // maybe an auth issue needs fixing
       const response = await fetch("http://127.0.0.1:8000/applications", {
           method: 'POST',
           headers: { "Content-Type": "application/json" },
@@ -46,7 +47,7 @@ const PetAdoptionPage = () => {
       try {
         const response_value = await response
         if (response_value.status === 200) {
-            navigate(`/applications/${petId}`)
+            navigate(`/pet-application/${petId}`)
         }
       } catch {
           console.log("register error occurred")
@@ -68,22 +69,30 @@ const PetAdoptionPage = () => {
     
           <div className="input-group">
             <span className="input-group-text material-symbols-outlined">badge</span>
-            <input type="text" placeholder="Name" className="form-control" required />
+            <input type="text" 
+            placeholder="Name" 
+            className="form-control" 
+            value={userInfo.name}
+            required />
           </div>
     
           <div className="input-group">
             <span className="input-group-text material-symbols-outlined">email</span>
-            <input type="email" placeholder="Email" className="form-control" required />
+            <input type="email" 
+            placeholder="Email" 
+            className="form-control" 
+            value={userInfo.email}
+            required />
           </div>
     
-          <div className="input-group">
+          {/* <div className="input-group">
             <span className="input-group-text material-symbols-outlined">phone</span>
             <input type="tel" placeholder="Phone Number" className="form-control" required />
-          </div>
+          </div> */}
     
           <div className="input-group">
             <span className="input-group-text material-symbols-outlined">reorder</span>
-            <textarea placeholder="Message to shelter (optional)" 
+            <textarea placeholder="Message to Shelter" 
               className="form-control" 
               rows="4" 
               onChange={handleChange}

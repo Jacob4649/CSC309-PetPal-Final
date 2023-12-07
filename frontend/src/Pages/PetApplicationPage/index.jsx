@@ -115,7 +115,7 @@ const PetApplicationPage = ({userInfo}) => {
         <div className="pet-application">
         <div id="page-container">
             <form>
-                <h1>Your Application - {pet_info.name} <span className="badge bg-secondary">{application_status_string[application_info.application_status]}</span></h1>
+                <h1>Application - {pet_info.name} <span className="badge bg-secondary">{application_status_string[application_info.application_status]}</span></h1>
 
                 {/* Needs Fixing */}
                 {/* <div id="profile-pic">

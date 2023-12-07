@@ -22,20 +22,20 @@ const PetDetailPage = ({userInfo}) => {
             console.log(data)
             setPetInfo(data)
 
-            // get_shelter_info(data.shelter)
+            get_shelter_info(data.shelter)
         })
     }
 
     // ** Disappears for some reason maybe fixed now
-    // const get_shelter_info = (shelter_id) => {
-    //     fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
-    //         method: "get",
-    //         headers: generateHeaders()
-    //     }).then((res) => res.json()).then((data) => {
-    //         console.log(data)
-    //         setShelterInfo(data)
-    //     })
-    // }
+    const get_shelter_info = (shelter_id) => {
+        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
+            method: "get",
+            headers: generateHeaders()
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            setShelterInfo(data)
+        })
+    }
 
     // const navigate = useNavigate()
 
@@ -48,7 +48,7 @@ const PetDetailPage = ({userInfo}) => {
     const formatted_time = created_time.toLocaleString('en-US', options);
 
     // Shelter name
-    // const shelter_name = 
+    // const shelter_name = pet_info.shelter.name;
 
     useEffect(() => {
         get_pet_info()
@@ -110,7 +110,7 @@ const PetDetailPage = ({userInfo}) => {
                                     <p className="mb-0">Shelter</p>
                                 </div>
                                 <div className="col-sm-9 text-secondary">
-                                    <Link to={`/shelter/${pet_info?.shelter}`}>{userInfo.name}</Link>
+                                    <Link to={`/shelter/${pet_info?.shelter}`}>{shelter_info.name}</Link>
                                 </div>
                             </div>
 
