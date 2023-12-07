@@ -73,3 +73,17 @@
 .pet-application .form-group {
     width: 40%;
 }
+
+.pet-application .btn-green {
+    background-color: green;
+    color: white;
+  }
+  
+.pet-application .btn-red {
+background-color: red;
+color: white;
+}
+
+.pet-application .button-space {
+margin-right: 10px;
+}

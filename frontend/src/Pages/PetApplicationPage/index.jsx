@@ -2,14 +2,62 @@ import { useEffect, useState, useRef } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./pet-application.css"
 import clean_request_data from "../../utils/clearRequestData";
-import { Routes, Route , useNavigate, useParams } from "react-router-dom";
+import { Routes, Route , useNavigate, useParams, Link } from "react-router-dom";
 
-const PetApplicationPage = () => {
+const PetApplicationPage = ({userInfo}) => {
+    const [pet_info, setPetInfo] = useState({});
+    const [application_info, setApplicationInfo] = useState({});
+    const [seeker_info, setSeekerInfo] = useState({});
+    const application_status_string = {
+        1: 'Approved',
+        2: 'Pending',
+        3: 'Declined',
+        4 :'Withdrawn'
+    };
+    let { petId } = useParams();
+
+    const get_pet_info = () => {
+        fetch(`http://127.0.0.1:8000/listings/${petId}`, {
+            method: "get",
+            headers: generateHeaders()
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            setPetInfo(data)
+
+            get_application_info(petId)
+        })
+    }
+
+    const get_application_info = (application_id) => {
+        fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
+            method: "get",
+            headers: generateHeaders()
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            setApplicationInfo(data)
+
+            get_seeker_info(data.seeker_id)
+        })
+    }
+
+    const get_seeker_info = (seeker_id) => {
+        fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${seeker_id}`, {
+            method: "get",
+            headers: generateHeaders()
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            setSeekerInfo(data)
+        })
+    }
+
+    useEffect(() => {
+        get_pet_info()
+    }, [])
     return (
         <div className="pet-application">
         <div id="page-container">
             <form>
-                <h1>Your Application - Mr Biscuit <span className="badge bg-secondary">Submitted</span></h1>
+                <h1>Your Application - {pet_info.name} <span className="badge bg-secondary">{application_status_string[application_info.application_status]}</span></h1>
 
                 {/* Needs Fixing */}
                 {/* <div id="profile-pic">
@@ -18,27 +66,65 @@ const PetApplicationPage = () => {
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">badge</span>
-                    <input type="text" placeholder="Name" value="Jack Sun" className="form-control" readonly />
+                    <input type="text" 
+                    placeholder="Name" 
+                    value={seeker_info.name} 
+                    className="form-control" 
+                    readonly />
                 </div>
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">email</span>
-                    <input type="email" placeholder="Email" value="jack@utoronto.edu" className="form-control" readonly />
+                    <input type="email" 
+                    placeholder="Email" 
+                    value={seeker_info.email}
+                    className="form-control" 
+                    readonly />
                 </div>
 
-                <div className="input-group">
+                {/* <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">phone</span>
-                    <input type="tel" placeholder="Phone Number" value="647 603 8622" className="form-control" readonly />
-                </div>
+                    <input type="tel" 
+                    placeholder="Phone Number" 
+                    // value={userInfo?.} 
+                    className="form-control" 
+                    readonly />
+                </div> */}
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">reorder</span>
-                    <textarea placeholder="Message to shelter (optional)" 
+                    <textarea placeholder="Message" 
                         readonly className="form-control"
                         rows="4"
-                        value="I really want this dog."
+                        value={application_info.content}
                     /> 
                 </div>
+                
+                {userInfo.is_shelter ? (
+                    <div className="submit-button">
+                    <Link to={`/pet-application/${petId}`}>
+                        <button type="submit" className="btn btn-green btn-primary d-flex">
+                            Approve
+                        </button>
+                    </Link>
+
+                    <span className="button-space"></span> 
+                    
+                    <Link to={`/pet-application/${petId}`}>
+                        <button type="submit" className="btn btn-red btn-primary d-flex">
+                            Deny
+                        </button>
+                    </Link>
+                    </div>
+                ) : (
+                    <div className="submit-button">
+                    <Link to={`/pet-adoption/${petId}`}>
+                        <button type="submit" className="btn btn-primary d-flex">
+                            Withdraw Application
+                        </button>
+                    </Link>
+                    </div>
+                )}
 
                 <hr />
 
