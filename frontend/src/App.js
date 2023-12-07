@@ -23,11 +23,8 @@ import ListingUpdate from "./Pages/ListingUpdate/ListingUpdate";
 import ShelterBlogsPage from './Pages/ShelterBlogsPage';
 import CreateShelterBlogPage from './Pages/CreateShelterBlogPage';
 import "./theme.css"
-<<<<<<< HEAD
 import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
-=======
 import LandingPage from "./Pages/LandingPage/LandingPage";
->>>>>>> 6a6cdc1ba81d0357b28c52b922ed7680d85ac6f2
 
 
 function App() {
@@ -42,16 +39,11 @@ function App() {
         <Route element={<><Outlet /><Footer /></>}>
           {/* <Route element={<Navbar/>}> */}
           <Route index path='/' element={
-            <Navigate to={"/login-seeker"} />
+            <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
           <Route index path='/login-seeker' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
-          } />
-          <Route index path='/landing-page' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
-              <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
           <Route index path='/login-shelter' element={

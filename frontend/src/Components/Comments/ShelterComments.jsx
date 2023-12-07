@@ -64,6 +64,7 @@ const ShelterComments = ({ shelter_id }) => {
     }
 
     const add_new_shelter_comment = () => {
+        setMessage("")
         if (replyId !== null) {
             const rootCommentIndex = shelterComments.results.findIndex((el) => el.id === replyId)
             let rootComment = shelterComments.results[rootCommentIndex]
