@@ -64,7 +64,8 @@ const ShelterBlogPage = ({ userInfo }) => {
                 <Typography variant="h3" sx={{ ml: 1 }}>{blogInfo.title}</Typography>
             </Box>
             <Paper sx={{ backgroundColor: "#f6f3f3", padding: 3, mb: 3 }}>
-                <Box><Typography variant="body1">{blogInfo.content}</Typography></Box>
+                {/* <div>{blogInfo.content}</div> */}
+                <Typography variant="body1" component={"div"} sx={{ width: "100%", overflowWrap: "break-word" }}>{blogInfo.content}</Typography>
             </Paper>
             <ShelterBlogComments shelter_blog_id={shelter_blog_id} />
         </Box>
