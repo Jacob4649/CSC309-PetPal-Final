@@ -8,6 +8,7 @@ const PetApplicationPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
     const [application_info, setApplicationInfo] = useState({});
     const [seeker_info, setSeekerInfo] = useState({});
+    const [status_info, setStatusInfo] = useState({});
     const application_status_string = {
         1: 'Approved',
         2: 'Pending',
@@ -28,7 +29,7 @@ const PetApplicationPage = ({userInfo}) => {
         })
     }
 
-    const get_application_info = (application_id) => {
+    const get_application_info = async (application_id) => {
         fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
             method: "get",
             headers: generateHeaders()
@@ -40,7 +41,7 @@ const PetApplicationPage = ({userInfo}) => {
         })
     }
 
-    const get_seeker_info = (seeker_id) => {
+    const get_seeker_info = async (seeker_id) => {
         fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${seeker_id}`, {
             method: "get",
             headers: generateHeaders()
@@ -49,6 +50,63 @@ const PetApplicationPage = ({userInfo}) => {
             setSeekerInfo(data)
         })
     }
+
+    // const handle_status_change_withdraw = async (application_id) => {
+    //     try {
+    //       const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
+    //         method: 'PUT',
+    //         headers: {'Content-Type': 'application/json',},
+    //         body: JSON.stringify({
+    //             application_status: 4 
+    //         }),
+    //       });
+    //       if (!response.ok) {
+    //         throw new Error('NOT OK');
+    //       }
+    //       const data = await response.json();
+    //       setStatusInfo(data);
+    //     } catch (error) {
+    //       console.error('Error making PUT request:', error);
+    //     }
+    //   };
+
+      const handle_status_change_accept = async (app_id) => {
+        try {
+          const response = await fetch(`http://127.0.0.1:8000/applications/${app_id}/`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify({
+                application_status: 1 
+            }),
+          });
+          if (!response.ok) {
+            throw new Error('NOT OK');
+          }
+          const data = await response.json();
+          setStatusInfo(data);
+        } catch (error) {
+          console.error('Error making PUT request:', error);
+        }
+      };
+      
+    //   const handle_status_change_deny = async (application_id) => {
+    //     try {
+    //       const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
+    //         method: 'PUT',
+    //         headers: {'Content-Type': 'application/json',},
+    //         body: JSON.stringify({
+    //             application_status: 3 
+    //         }),
+    //       });
+    //       if (!response.ok) {
+    //         throw new Error('NOT OK');
+    //       }
+    //       const data = await response.json();
+    //       setStatusInfo(data);
+    //     } catch (error) {
+    //       console.error('Error making PUT request:', error);
+    //     }
+    //   };  
 
     useEffect(() => {
         get_pet_info()
@@ -70,7 +128,7 @@ const PetApplicationPage = ({userInfo}) => {
                     placeholder="Name" 
                     value={seeker_info.name} 
                     className="form-control" 
-                    readonly />
+                    readOnly />
                 </div>
 
                 <div className="input-group">
@@ -79,7 +137,7 @@ const PetApplicationPage = ({userInfo}) => {
                     placeholder="Email" 
                     value={seeker_info.email}
                     className="form-control" 
-                    readonly />
+                    readOnly />
                 </div>
 
                 {/* <div className="input-group">
@@ -88,13 +146,13 @@ const PetApplicationPage = ({userInfo}) => {
                     placeholder="Phone Number" 
                     // value={userInfo?.} 
                     className="form-control" 
-                    readonly />
+                    readOnly />
                 </div> */}
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">reorder</span>
                     <textarea placeholder="Message" 
-                        readonly className="form-control"
+                        readOnly className="form-control"
                         rows="4"
                         value={application_info.content}
                     /> 
@@ -102,15 +160,13 @@ const PetApplicationPage = ({userInfo}) => {
                 
                 {userInfo.is_shelter ? (
                     <div className="submit-button">
-                    <Link to={`/pet-application/${petId}`}>
+                    <Link to={`/pet-application/${petId}`} className="btn-link" onClick={handle_status_change_accept(application_info.id)}>
                         <button type="submit" className="btn btn-green btn-primary d-flex">
                             Approve
                         </button>
                     </Link>
-
-                    <span className="button-space"></span> 
-                    
-                    <Link to={`/pet-application/${petId}`}>
+                    {/* <span className="button-space"></span>  */}
+                    <Link to={`/pet-application/${petId}`} className="btn-link">
                         <button type="submit" className="btn btn-red btn-primary d-flex">
                             Deny
                         </button>
@@ -172,11 +228,11 @@ const PetApplicationPage = ({userInfo}) => {
 
                 <div className="chat-input">
                     <form>
-                        <label for="send-message" className="form-label">Send a message...</label>
+                        <label htmlFor="send-message" className="form-label">Send a message...</label>
                         <div className="input-box">
                             <div className="form-group mb-3">
                                 <input name="email" type="text" id="send-message" required="required" className="form-control"
-                                    value="" autocomplete="off" />
+                                    value="" autoComplete="off" />
                             </div>
                         </div>
                         <a type="submit" className="btn btn-primary">Send message</a>
