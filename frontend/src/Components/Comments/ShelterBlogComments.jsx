@@ -10,7 +10,7 @@ import LoadingPage from "../../Pages/LoadingPage/LoadingPage";
 
 const ShelterBlogComments = ({ shelter_blog_id }) => {
     const [shelterComments, setShelterComments] = useState(null);
-    const [message, setMessage] = useState(null)
+    const [message, setMessage] = useState("")
     const [replyId, setReplyId] = useState(null)
     const [loading, setLoading] = useState(true)
 
