@@ -6,7 +6,7 @@ from notifications.models import PetSeekerNotification, ShelterNotification, cre
 from .serializers import ApplicationMessageSerializer, ShelterCommentSerializer
 from .models import ApplicationMessage, ShelterComment
 from .permissions import canAccessApplicationMessages
-from .pagination import SmallNonCustomizablePaginationBatch
+from .pagination import SmallNonCustomizablePaginationBatch, SmallTimestampPagination
 from .models import Application
 from accounts.models import User
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -68,7 +68,7 @@ class ShelterCommentsListCreate(ListCreateAPIView):
     serializer_class = ShelterCommentSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = [IsAuthenticated]
-    pagination_class = SmallNonCustomizablePaginationBatch
+    pagination_class = SmallTimestampPagination
 
     def get_queryset(self):
         shelter = User.objects.get(pk=self.kwargs.get('shelter_id', None))
@@ -106,7 +106,7 @@ class ShelterCommentsListCreate(ListCreateAPIView):
 
         created = serializer.save(author=author, replying_to=replying_to, shelter=shelter) 
         create_notification(shelter, ShelterNotification.NotificationType.COMMENT, f'New Comment From {self.request.user.email}',
-                            created.message, created.id)
+                            created.message, shelter.id)
 
 # add extra check to assure that the user is signed in --  might need a check to make sure that other shelters aren't commenting on this shelter's page
 class ShelterCommentReplyList(ListAPIView):
