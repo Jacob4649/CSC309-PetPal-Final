@@ -25,6 +25,7 @@ import CreateShelterBlogPage from './Pages/CreateShelterBlogPage';
 import "./theme.css"
 import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
 import LandingPage from "./Pages/LandingPage/LandingPage";
+import { NavBar } from './Components/NavFooterLayout/Navbar';
 
 
 function App() {
@@ -36,7 +37,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<><Outlet /><Footer /></>}>
+        <Route element={
+          <>
+            <NavBar setUserInfo={setUserInfo} userInfo={userInfo}/>
+            <Outlet />
+            <Footer />
+          </>
+        }>
           {/* <Route element={<Navbar/>}> */}
           <Route index path='/' element={
             <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
