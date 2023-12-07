@@ -1,10 +1,8 @@
-import { ComponentProps } from "react";
-import { UserInfoProps } from "../../utils/userInfoPassthrough";
 import React from "react";
 import { Link } from "react-router-dom";
 import '../../assets/logo-light.svg';
 
-export const NavBar = (props: UserInfoProps) => {
+export const NavBar = (props) => {
     return <header className="nav-bar-div">
         <Link className="logo" to="/">
             <img src="../../assets/logo-light.svg"></img>
