@@ -55,7 +55,7 @@ def _create_shelter_notification(user: User, notif_type: int, title: str, conten
         url = base_url + reverse_lazy('applications-detail', kwargs={'pk': model_pk})
     elif notif_type == ShelterNotification.NotificationType.COMMENT:
         # comment url
-        url = base_url + reverse_lazy('comments:shelter_comments', kwargs={'shelter_id': model_pk})
+        url = base_url + "/shelter/" + str(model_pk)
     elif notif_type == ShelterNotification.NotificationType.MESSAGE:
         # message or application url
         url = base_url + reverse_lazy('comments:application_messages', kwargs={'application_id': model_pk})
