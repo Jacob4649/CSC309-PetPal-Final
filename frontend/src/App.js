@@ -102,7 +102,7 @@ function App() {
           } />
           <Route path='/pet-adoption/:petId' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-              <PetAdoptionPage />
+              <PetAdoptionPage userInfo={userInfo} />
             </AuthGuard>
           } />
           <Route path='/pet-application/:petId' element={

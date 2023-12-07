@@ -6,6 +6,7 @@ import { Routes, Route , useNavigate, useParams } from "react-router-dom";
 
 const PetApplicationPage = () => {
     return (
+        <div className="pet-application">
         <div id="page-container">
             <form>
                 <h1>Your Application - Mr Biscuit <span className="badge bg-secondary">Submitted</span></h1>
@@ -96,6 +97,7 @@ const PetApplicationPage = () => {
                     </form>
                 </div>
             </form>
+        </div>
         </div>
     )
 }

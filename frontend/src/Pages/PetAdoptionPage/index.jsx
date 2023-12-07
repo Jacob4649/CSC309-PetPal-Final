@@ -23,15 +23,7 @@ const PetAdoptionPage = () => {
         })
     }
 
-    // const [errorMessage, setErrorMessage] = useState(null)
-
     const handleChange = (event) => {
-        // const {id, value} = event.target
-        // const updatedApplicationData = {
-        //     content: application_data.content
-        // }
-        // updatedApplicationData[id] = value
-        // setApplicationData(updatedApplicationData)
         setApplicationData({
           ...application_data,
           content: event.target.value,
@@ -54,7 +46,7 @@ const PetAdoptionPage = () => {
       try {
         const response_value = await response
         if (response_value.status === 200) {
-            navigate('/applications')
+            navigate(`/applications/${petId}`)
         }
       } catch {
           console.log("register error occurred")
@@ -99,18 +91,10 @@ const PetAdoptionPage = () => {
             />
           </div>
     
-          <div className="agreement">
-            <input className="form-check-input" type="checkbox" id="agree" required />
-            <label className="form-check-label" for="agree">I agree to the <a href="">Needs Fixing Adoption Terms of Service</a></label>
-          </div>
-    
           <button type="submit" className="btn btn-primary d-flex" onClick={handleSubmit}>
             Apply
           </button>
         </form>
-        <footer>
-            Copyright PetPal, 2023
-        </footer>
       </div>
       </div>
     )

@@ -4,7 +4,7 @@ import "./pet-detail.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { Routes, Route , useNavigate, useParams, Link } from "react-router-dom";
 
-const PetDetailPage = () => {
+const PetDetailPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
     const [shelter_info, setShelterInfo] = useState({});
     const application_status_string = {
@@ -170,6 +170,7 @@ const PetDetailPage = () => {
                             </div>
 
                             <hr />
+                            {/* {userInfo.is_shelter / <></> : 
                             <div className="submit-button">
                                 <Link to={`/pet-adoption/${petId}`}>
                                     <button type="submit" className="btn btn-primary d-flex">
@@ -177,12 +178,10 @@ const PetDetailPage = () => {
                                     </button>
                                 </Link>
                             </div>
+                            } */}
                         </div>
                     </div>
                 </div>
-                <footer>
-                    Copyright PetPal, 2023
-                </footer>
             </div>
         </div>
         </div>
