@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "listings",
     "applications",
     "notifications",
+    "shelter_blogs",
     "corsheaders",
 ]
 

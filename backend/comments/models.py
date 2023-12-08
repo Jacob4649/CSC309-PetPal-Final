@@ -6,6 +6,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractUser
 from accounts.models import User
+from shelter_blogs.models import ShelterBlog
 from applications.models import Application
 
 
@@ -21,5 +22,12 @@ class ShelterComment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author_comments")
     replying_to = models.ForeignKey("ShelterComment", on_delete=models.CASCADE, null=True, blank=True)
     shelter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments_on_shelter")
+    message = models.TextField()
+    time_sent = models.DateTimeField(auto_now_add=True)
+
+class ShelterBlogComment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author_blog_comments")
+    replying_to = models.ForeignKey("ShelterBlogComment", on_delete=models.CASCADE, null=True, blank=True)
+    shelter_blog = models.ForeignKey(ShelterBlog, on_delete=models.CASCADE, related_name="comments_on_shelter_blog")
     message = models.TextField()
     time_sent = models.DateTimeField(auto_now_add=True)

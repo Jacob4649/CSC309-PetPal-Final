@@ -30,5 +30,6 @@ urlpatterns = [
     path('listings/', include('listings.urls')),
     path('applications/', include('applications.urls')),
     path('notifications/', include('notifications.urls')),
+    path('shelter-blogs/', include('shelter_blogs.urls')),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair')
 ]
