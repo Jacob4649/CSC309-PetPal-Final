@@ -7,7 +7,7 @@ const generateHeaders = (content_type = "application/json") => {
 
 
     let headers = {
-        "Content-Type": content_type
+        "Content-Type": content_type,
     }
 
     if (token) {

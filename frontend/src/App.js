@@ -26,6 +26,7 @@ import "./theme.css"
 import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import { NavBar } from './Components/NavFooterLayout/Navbar';
+import { HomePage } from './Pages/HomePage/HomePage';
 
 
 function App() {
@@ -39,7 +40,6 @@ function App() {
       <Routes>
         <Route element={
           <>
-            <NavBar setUserInfo={setUserInfo} userInfo={userInfo}/>
             <Outlet />
             <Footer />
           </>
@@ -68,9 +68,14 @@ function App() {
               <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route path="/" element={<Navigate to="/home" replace />} />
         </Route>
-        <Route element={<><Outlet /><Footer /></>}>
+        <Route element={
+          <>
+            <NavBar userInfo={userInfo} setUserInfo={setUserInfo}/>
+            <Outlet />
+            <Footer />
+          </>}>
+          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path='/update-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login-shelter"}>
@@ -120,6 +125,11 @@ function App() {
               <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/"}>
                 <CreateShelterBlogPage userInfo={userInfo} />
               </RouteGuard>
+            </AuthGuard>
+          } />
+          <Route path='/home' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <HomePage userInfo={userInfo} />
             </AuthGuard>
           } />
           <Route path='*' element={
