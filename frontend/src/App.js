@@ -45,29 +45,30 @@ function App() {
           </>
         }>
           {/* <Route element={<Navbar/>}> */}
-          <Route index path='/' element={
+          <Route path='/home' element={
             <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
-          <Route index path='/login-seeker' element={
+          <Route path='/login-seeker' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route index path='/login-shelter' element={
+          <Route path='/login-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginShelter setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route index path='/signup-seeker' element={
+          <Route path='/signup-seeker' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route index path='/signup-shelter' element={
+          <Route path='/signup-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
+          <Route path="*" element={<Navigate to="/home" replace />} />
         </Route>
         <Route element={<><Outlet /><Footer /></>}>
           <Route path='/update-shelter' element={

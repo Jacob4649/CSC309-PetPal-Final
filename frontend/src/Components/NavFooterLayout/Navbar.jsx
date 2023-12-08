@@ -1,8 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import '../../assets/logo-light.svg';
 
 export const NavBar = (props) => {
+
+    const location = useLocation();
+    const split = location.pathname
+        .split('/')
+        .filter(x => x.length > 0)
+        .map(x => 
+            [x, x.split('-')
+            .map(y => 
+                y.charAt(0)
+                .toUpperCase() + 
+                y.substring(1)
+                .toLowerCase())
+            .join(' ')]);
+    let total = '';
+    for (let i = 0; i < split.length; i++) {
+        total += `${split[i][0]}/`
+        split[i][0] = total;
+    }
+
     return <header className="nav-bar-div">
         <Link className="logo" to="/">
             <img src="../../assets/logo-light.svg"></img>
@@ -13,9 +32,9 @@ export const NavBar = (props) => {
             <a className="material-symbols-outlined" href="./search-client.html" title="Search">search</a>
         </div>
         <div className="navigation">
-            <a>
-                Home
-            </a>
+            {
+                split.map((x, i) => <Link key={i} to={x[0]}>{x[1]}</Link>)
+            }
         </div>
         <div className="account">
             <a className="material-symbols-outlined" href="./notifications-client.html">
