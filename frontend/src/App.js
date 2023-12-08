@@ -45,7 +45,7 @@ function App() {
           </>
         }>
           {/* <Route element={<Navbar/>}> */}
-          <Route path='/home' element={
+          <Route path='/landing-page' element={
             <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
           <Route path='/login-seeker' element={
@@ -68,7 +68,7 @@ function App() {
               <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route path="*" element={<Navigate to="/home" replace />} />
+          <Route path="/" element={<Navigate to="/home" replace />} />
         </Route>
         <Route element={<><Outlet /><Footer /></>}>
           <Route path='/update-shelter' element={

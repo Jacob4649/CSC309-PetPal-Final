@@ -1,9 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import '../../assets/logo-light.svg';
 
-export const NavBar = (props) => {
-
+export const NavBar = ({userInfo, setUserInfo}) => {
+    
     const location = useLocation();
     const split = location.pathname
         .split('/')
@@ -24,12 +23,12 @@ export const NavBar = (props) => {
 
     return <header className="nav-bar-div">
         <Link className="logo" to="/">
-            <img src="../../assets/logo-light.svg"></img>
+            <img src="../../img/logo-light.svg"></img>
             <span>PetPal</span>
         </Link>
         <div className="pages">
-            <a className="material-symbols-outlined" href="./home-user.html" title="Home">home</a>
-            <a className="material-symbols-outlined" href="./search-client.html" title="Search">search</a>
+            <Link className="material-symbols-outlined" to="/home" title="Home">home</Link>
+            <Link className="material-symbols-outlined" to="/search" title="Search">search</Link>
         </div>
         <div className="navigation">
             {
@@ -37,9 +36,9 @@ export const NavBar = (props) => {
             }
         </div>
         <div className="account">
-            <a className="material-symbols-outlined" href="./notifications-client.html">
+            <Link className="material-symbols-outlined" to="/notifications">
                 notifications_active
-            </a>
+            </Link>
             <details>
                 <summary className="user-icon material-symbols-outlined"></summary>
                 <div className="account-menu">
