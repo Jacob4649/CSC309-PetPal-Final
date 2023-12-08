@@ -14,7 +14,7 @@ const PetAdoptionPage = ({userInfo}) => {
     });
 
     const get_pet_info = () => {
-        fetch(`http://127.0.0.1:8000/listings/${petId}`, {
+        fetch(`http://127.0.0.1:8000/listings/${petId}/`, {
             method: "get",
             headers: generateHeaders()
         }).then((res) => res.json()).then((data) => {
@@ -23,6 +23,7 @@ const PetAdoptionPage = ({userInfo}) => {
         })
     }
 
+    // changes to message(content)
     const handleChange = (event) => {
         setApplicationData({
           ...application_data,
@@ -32,11 +33,12 @@ const PetAdoptionPage = ({userInfo}) => {
 
     const navigate = useNavigate()
 
+    // hanle post request of creating an app
     const handleSubmit = async (event) => {
       event.preventDefault()
 
-      // maybe an auth issue needs fixing
-      const response = await fetch("http://127.0.0.1:8000/applications", {
+      // maybe an auth issue needs fixing **
+      const response = await fetch(`http://127.0.0.1:8000/applications/`, {
           method: 'POST',
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -61,7 +63,7 @@ const PetAdoptionPage = ({userInfo}) => {
         <div className="pet-adoption">
         <div id="page-container">
         <form>
-          <h2>Pet Application - {pet_info.name}</h2>
+          <h2 className="pet-adop-header">Pet Application - {pet_info.name}</h2>
     
           <div id="profile-pic">
             <img src="./img/Mr%20Biscuit.jpg" />

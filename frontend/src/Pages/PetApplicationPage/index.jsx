@@ -25,20 +25,29 @@ const PetApplicationPage = ({userInfo}) => {
             console.log(data)
             setPetInfo(data)
 
-            get_application_info(petId)
+            get_application_info(Number(petId) + 1)
+            // get_seeker_info(data.shelter)
         })
     }
 
     const get_application_info = async (application_id) => {
-        fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
-            method: "get",
-            headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setApplicationInfo(data)
-
-            get_seeker_info(data.seeker_id)
-        })
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
+                method: "get",
+                headers: generateHeaders()
+            });
+    
+            if (response.status === 404) {
+                setApplicationInfo(null);
+            } else {
+                const data = await response.json();
+                console.log(data);
+                setApplicationInfo(data);
+                get_seeker_info(data.seeker_id)
+            }
+        } catch (error) {
+            console.error("Error fetching application info:", error);
+        }
     }
 
     const get_seeker_info = async (seeker_id) => {
@@ -112,10 +121,11 @@ const PetApplicationPage = ({userInfo}) => {
         get_pet_info()
     }, [])
     return (
+        // {application_info ? ( if application doesn't exist don't render or smth
         <div className="pet-application">
         <div id="page-container">
             <form>
-                <h1>Application - {pet_info.name} <span className="badge bg-secondary">{application_status_string[application_info.application_status]}</span></h1>
+                <h1>Application - {pet_info.name} <span className="badge bg-secondary">{application_status_string[application_info?.application_status]}</span></h1>
 
                 {/* Needs Fixing */}
                 {/* <div id="profile-pic">
@@ -154,13 +164,13 @@ const PetApplicationPage = ({userInfo}) => {
                     <textarea placeholder="Message" 
                         readOnly className="form-control"
                         rows="4"
-                        value={application_info.content}
+                        value={application_info?.content}
                     /> 
                 </div>
                 
                 {userInfo.is_shelter ? (
                     <div className="submit-button">
-                    <Link to={`/pet-application/${petId}`} className="btn-link" onClick={handle_status_change_accept(application_info.id)}>
+                    <Link to={`/pet-application/${petId}`} className="btn-link" onClick={handle_status_change_accept(application_info?.id)}>
                         <button type="submit" className="btn btn-green btn-primary d-flex">
                             Approve
                         </button>
@@ -241,6 +251,9 @@ const PetApplicationPage = ({userInfo}) => {
             </form>
         </div>
         </div>
+        // ) : (
+        //     <p></p>
+        // )}
     )
 }
 export default PetApplicationPage;

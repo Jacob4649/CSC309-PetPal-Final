@@ -7,6 +7,7 @@ import { Routes, Route , useNavigate, useParams, Link } from "react-router-dom";
 const PetDetailPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
     const [shelter_info, setShelterInfo] = useState({});
+    const [application_info, setApplicationInfo] = useState({});
     const application_status_string = {
         1: 'Adopted',
         2: 'Canceled',
@@ -23,10 +24,11 @@ const PetDetailPage = ({userInfo}) => {
             setPetInfo(data)
 
             get_shelter_info(data.shelter)
+            get_application_info(Number(petId) + 1) // Jank solution probably needs fixing
         })
-    }
+    };
 
-    // ** Disappears for some reason maybe fixed now
+    // Disappears for some reason maybe fixed now
     const get_shelter_info = (shelter_id) => {
         fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
             method: "get",
@@ -35,7 +37,35 @@ const PetDetailPage = ({userInfo}) => {
             console.log(data)
             setShelterInfo(data)
         })
-    }
+    };
+
+    // const get_application_info = async (application_id) => {
+    //     fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
+    //         method: "get",
+    //         headers: generateHeaders()
+    //     }).then((res) => res.json()).then((data) => {
+    //         console.log(data)
+    //         setApplicationInfo(data)
+    //     })
+    // };
+    const get_application_info = async (application_id) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
+                method: "get",
+                headers: generateHeaders()
+            });
+    
+            if (response.status === 404) {
+                setApplicationInfo(null);
+            } else {
+                const data = await response.json();
+                console.log(data);
+                setApplicationInfo(data);
+            }
+        } catch (error) {
+            console.error("Error fetching application info:", error);
+        }
+    };
 
     // const navigate = useNavigate()
 
@@ -180,11 +210,19 @@ const PetDetailPage = ({userInfo}) => {
                                  </div>
                             ) : (
                                 <div className="submit-button">
-                                <Link to={`/pet-adoption/${petId}`}>
-                                    <button type="submit" className="btn btn-primary d-flex">
-                                        Adopt Me
-                                    </button>
-                                </Link>
+                                    {application_info ? (
+                                        <Link to={`/pet-application/${petId}`}>
+                                            <button type="submit" className="btn btn-primary d-flex">
+                                                Go to Application
+                                            </button>
+                                        </Link>
+                                    ) : (
+                                        <Link to={`/pet-adoption/${petId}`}>
+                                            <button type="submit" className="btn btn-primary d-flex">
+                                                Adopt Me
+                                            </button>
+                                        </Link>
+                                    )}
                                 </div>
                             )}
                         </div>
