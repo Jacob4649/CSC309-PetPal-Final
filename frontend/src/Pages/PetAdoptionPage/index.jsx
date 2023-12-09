@@ -40,7 +40,7 @@ const PetAdoptionPage = ({userInfo}) => {
       // maybe an auth issue needs fixing **
       const response = await fetch(`http://127.0.0.1:8000/applications/`, {
           method: 'POST',
-          headers: { "Content-Type": "application/json" },
+          headers: generateHeaders(),
           body: JSON.stringify({
               content: application_data.content,
               listing: petId
@@ -48,7 +48,7 @@ const PetAdoptionPage = ({userInfo}) => {
       })
       try {
         const response_value = await response
-        if (response_value.status === 200) {
+        if (response_value.status === 201) {
             navigate(`/pet-application/${petId}`)
         }
       } catch {

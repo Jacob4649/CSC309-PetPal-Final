@@ -19,15 +19,17 @@
     gap: 1rem;
     container-type: inline-size;
     width: 80%;
+    background-color: #eee;
 }
 
 .pet-adoption form h2 {
     text-align: center;
+    color: black;
 }
 
-.pet-adoption .pet-adop-header {
+/* .pet-adoption .pet-adop-header {
     color: antiquewhite;
-}
+} */
 
 .pet-adoption form #profile-pic {
     width: 200px;

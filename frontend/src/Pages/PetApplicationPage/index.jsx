@@ -25,7 +25,7 @@ const PetApplicationPage = ({userInfo}) => {
             console.log(data)
             setPetInfo(data)
 
-            get_application_info(Number(petId) + 1)
+            get_application_info(Number(petId) + 1) // this is jank solution 
             // get_seeker_info(data.shelter)
         })
     }
