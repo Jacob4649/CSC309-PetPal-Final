@@ -263,7 +263,7 @@ const MyApplicationsPage = ({ userInfo }) => {
                                             {formatDateTime(application.last_updated_time)}
                                         </TableCell>
                                         <TableCell>
-                                            <IconButton onClick={() => navigate(`/applications/${application.id}`)}><ArrowOutward /></IconButton>
+                                            <IconButton onClick={() => navigate(`/pet-application/${application.id}`)}><ArrowOutward /></IconButton>
                                         </TableCell>
                                     </TableRow>
                                 )

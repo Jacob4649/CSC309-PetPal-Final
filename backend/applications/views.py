@@ -42,7 +42,7 @@ class ApplicationsViewSet(ModelViewSet):
         else:
             queryset = Application.objects.filter(user_id=user.id)
 
-        # Filtering by status
+        # Filtering by status   
         status = self.request.query_params.get("status", None)
         if status:
             queryset = queryset.filter(application_status=status)

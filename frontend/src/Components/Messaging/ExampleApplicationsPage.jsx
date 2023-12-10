@@ -8,16 +8,16 @@ import LoadingPage from "../../Pages/LoadingPage/LoadingPage"
 
 const ExampleApplicationsPage = ({ userInfo }) => {
     const [loading, setLoading] = useState(true)
-    const [messageData, setMessageData] = useState([])
-    const { application_id } = useParams()
-    const [nextPage, setNextPage] = useState(`http://127.0.0.1:8000/applications/${application_id}/application_messages/`)
+    const [messageData, setMessageData] = useState(null)
+    const { applicationId } = useParams()
+    const [nextPage, setNextPage] = useState(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
 
     useEffect(() => {
-        get_application_data()
+        get_application_message_data()
     }, [])
 
     // gets application data on next page and updates messageData, nextPage accordingly
-    const get_application_data = () => {
+    const get_application_message_data = () => {
         fetch(nextPage, {
             method: "GET",
             headers: generateHeaders()
@@ -32,7 +32,7 @@ const ExampleApplicationsPage = ({ userInfo }) => {
     }
 
     const reset_application_message_data = () => {
-        fetch(`http://127.0.0.1:8000/applications/${application_id}/application_messages/`, {
+        fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
             method: "GET",
             headers: generateHeaders()
         }).then((res) => res.json()).then(
@@ -44,7 +44,7 @@ const ExampleApplicationsPage = ({ userInfo }) => {
     }
 
     const add_application_message = (message) => {
-        fetch(`http://127.0.0.1:8000/applications/${application_id}/application_messages/`, {
+        fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
             method: "POST",
             headers: generateHeaders(),
             body: JSON.stringify({
@@ -53,15 +53,15 @@ const ExampleApplicationsPage = ({ userInfo }) => {
         }).then(
             () => {
                 setMessageData([])
-                setNextPage(`http://127.0.0.1:8000/applications/${application_id}/application_messages/`)
+                setNextPage(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
             }
         ).then(() => { reset_application_message_data() })
 
     }
     if (loading) return <LoadingPage />
     return (
-        <Box sx={{ padding: 10 }}>
-            <ApplicationMessages messageData={messageData} is_seeker={!userInfo.is_shelter} load_more={() => get_application_data()} can_load_more={nextPage} send_message={(message) => add_application_message(message)} />
+        <Box>
+            <ApplicationMessages messageData={messageData} is_seeker={!userInfo.is_shelter} load_more={() => get_application_message_data()} can_load_more={nextPage} send_message={(message) => add_application_message(message)} />
         </Box>
     )
 }

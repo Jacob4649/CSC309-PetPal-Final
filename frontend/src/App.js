@@ -7,7 +7,6 @@ import NotificationPage from './Pages/NotificationPage/index';
 import PetDetailPage from './Pages/PetDetailPage/index';
 import PetAdoptionPage from './Pages/PetAdoptionPage/index';
 import PetApplicationPage from './Pages/PetApplicationPage';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom"
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
