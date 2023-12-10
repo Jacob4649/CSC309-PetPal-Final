@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./listing-update.css";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import generateHeaders from "../../utils/fetchTokenSet";
 
-const ListingUpdate = ({ listing_id }) => {
+const ListingUpdate = () => {
     const [listingData, setListingData] = useState({
         name: '',
         species: '',
@@ -15,6 +15,7 @@ const ListingUpdate = ({ listing_id }) => {
         listing_status: 3,
         description: ''
     })
+    let { listing_id } = useParams();
 
     const getListingInfo = () => {
         fetch(`http://127.0.0.1:8000/listings/${listing_id}`, {
@@ -105,12 +106,7 @@ const ListingUpdate = ({ listing_id }) => {
     return (
         <div className="listing-update">
             <form onSubmit={handleSubmit}>
-                <h2>Create Pet Listing</h2>
-
-                // TODO: Fix pfp
-                <div className="profile-pic">
-                    <img src="../../img/default_dog_profile_pic.png" alt="Default Dog Profile" />
-                </div>
+                <h2>Update Pet Listing</h2>
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pets</span>
