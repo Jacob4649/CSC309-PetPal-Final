@@ -27,12 +27,12 @@ const ListingUpdate = () => {
             const heightInches = data.height_feet * 12;
 
             setListingData({
-                name: '',
-                species: '',
-                breed: '',
-                weight_lbs: 0.0,
-                listing_status: 3,
-                description: '',
+                name: data.name,
+                species: data.species,
+                breed: data.breed,
+                weight_lbs: data.weight_lbs,
+                listing_status: data.listing_status,
+                description: data.description,
                 age_years: ageYears,
                 age_months: ageMonths,
                 height_feet: heightInches
