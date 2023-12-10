@@ -24,7 +24,7 @@ const PetDetailPage = ({userInfo}) => {
             setPetInfo(data)
 
             get_shelter_info(data.shelter)
-            get_application_info(Number(petId) + 1) // Jank solution probably needs fixing
+            get_application_info(petId)
         })
     };
 
@@ -48,26 +48,62 @@ const PetDetailPage = ({userInfo}) => {
     //         setApplicationInfo(data)
     //     })
     // };
-    const get_application_info = async (application_id) => {
+    // const get_application_info = async (application_id) => {
+    //     try {
+    //         const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
+    //             method: "get",
+    //             headers: generateHeaders()
+    //         });
+    
+    //         if (response.status === 404) {
+    //             setApplicationInfo(null);
+    //         } else {
+    //             const data = await response.json();
+    //             console.log(data);
+    //             setApplicationInfo(data);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error fetching application info:", error);
+    //     }
+    // };
+    const get_application_info = async (petId) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
+            // Fetch the list of all applications
+            const all_applications = await fetch(`http://127.0.0.1:8000/applications`, {
                 method: "get",
                 headers: generateHeaders()
             });
+            if (all_applications.status !== 200) {
+                console.error("Error fetching applications:", all_applications.status);
+                return;
+            }
+            const application_data = await all_applications.json();
+            let i = 0;
+            let needed_application = null;
     
-            if (response.status === 404) {
+            while (i < application_data.length && !needed_application) {
+                const application = application_data[i];
+    
+                if (application.listing === petId) {
+                    needed_application = application;
+                }
+                i++;
+            }
+            if (!needed_application) {
                 setApplicationInfo(null);
+                console.log("Application not found for listing ID:", petId);
             } else {
-                const data = await response.json();
-                console.log(data);
-                setApplicationInfo(data);
+                setApplicationInfo(needed_application);
             }
         } catch (error) {
-            console.error("Error fetching application info:", error);
+            console.error("Error fetching applications:", error);
         }
     };
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
+    const handle_go_back = () => {
+        navigate('/my-applications');
+    }
 
     // Status mapping
     const status = application_status_string[pet_info.listing_status] || 'Unknown';
@@ -93,11 +129,12 @@ const PetDetailPage = ({userInfo}) => {
                     <div className="card mb-3">
                         <h2>{pet_info.name}</h2>
 
-                        <div className="pet-intro">
+                        {/* if no pet pfp */}
+                        {/* <div className="pet-intro">
                             <div id="profile-pic">
                                 <img src="./img/Mr%20Biscuit.jpg" />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="card-body">
                             <hr />
@@ -202,16 +239,14 @@ const PetDetailPage = ({userInfo}) => {
                             <hr />
                             {userInfo.is_shelter ? (
                                  <div className="submit-button">
-                                 <Link to={`/pet-application/${petId}`}>
-                                     <button type="submit" className="btn btn-primary d-flex">
-                                         Go to Application
+                                     <button type="submit" className="btn btn-primary d-flex"  onClick={() => handle_go_back()}>
+                                         Go to Applications
                                      </button>
-                                 </Link>
                                  </div>
                             ) : (
                                 <div className="submit-button">
-                                    {application_info ? (
-                                        <Link to={`/pet-application/${petId}`}>
+                                    {application_info.id ? (
+                                        <Link to={`/pet-application/${application_info.id}`}>
                                             <button type="submit" className="btn btn-primary d-flex">
                                                 Go to Application
                                             </button>

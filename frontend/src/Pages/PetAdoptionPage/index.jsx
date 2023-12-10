@@ -64,10 +64,11 @@ const PetAdoptionPage = ({userInfo}) => {
         <div id="page-container">
         <form>
           <h2 className="pet-adop-header">Pet Application - {pet_info.name}</h2>
-    
+
+          {/* if no pet pfp
           <div id="profile-pic">
             <img src="./img/Mr%20Biscuit.jpg" />
-          </div>
+          </div> */}
     
           <div className="input-group">
             <span className="input-group-text material-symbols-outlined">badge</span>
