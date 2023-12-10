@@ -60,7 +60,7 @@ const MyApplicationsPage = () => {
                                         <TableCell>
                                             <Container disableGutters sx={{ display: "flex", alignItems: "center" }}>
                                                 <Avatar src={"https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?cs=srgb&dl=pexels-chevanon-photography-1108099.jpg&fm=jpg"} sx={{ marginRight: 3 }} />
-                                                {application.username}
+                                                {application.pet_name}
                                             </Container>
                                         </TableCell>
                                         <TableCell>

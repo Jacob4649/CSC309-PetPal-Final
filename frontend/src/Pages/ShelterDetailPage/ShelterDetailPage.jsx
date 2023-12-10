@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./ShelterDetail.css"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import ShelterComments from "../../Components/Comments/ShelterComments";
 
@@ -9,15 +9,19 @@ const ShelterDetailPage = ({ }) => {
     const { shelter_id } = useParams();
     const [shelterData, setShelterData] = useState({});
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate()
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}/`, {
             method: "GET",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log("shelter detail stuff")
-            console.log(data)
-            setShelterData(data)
-            setLoading(false)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                navigate("/404")
+            } else {
+                setShelterData(data)
+                setLoading(false)
+            }
         })
     }, [])
 

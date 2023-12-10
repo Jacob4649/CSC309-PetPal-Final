@@ -8,6 +8,7 @@ import PetDetailPage from './Pages/PetDetailPage/index';
 import PetAdoptionPage from './Pages/PetAdoptionPage/index';
 import PetApplicationPage from './Pages/PetApplicationPage';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
@@ -29,6 +30,9 @@ import "./theme.css"
 import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import { NavBar } from './Components/NavFooterLayout/Navbar';
+import { Button } from '@mui/material';
+import { ArrowBack, Home } from '@mui/icons-material';
+import HomeButton from './Components/Buttons/HomeButton';
 
 
 function App() {
@@ -42,35 +46,36 @@ function App() {
       <Routes>
         <Route element={
           <>
-            <NavBar setUserInfo={setUserInfo} userInfo={userInfo}/>
+            <NavBar setUserInfo={setUserInfo} userInfo={userInfo} />
             <Outlet />
             <Footer />
           </>
         }>
           {/* <Route element={<Navbar/>}> */}
-          <Route index path='/' element={
+          <Route path='/home' element={
             <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
-          <Route index path='/login-seeker' element={
+          <Route path='/login-seeker' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route index path='/login-shelter' element={
+          <Route path='/login-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginShelter setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route index path='/signup-seeker' element={
+          <Route path='/signup-seeker' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route index path='/signup-shelter' element={
+          <Route path='/signup-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
+          <Route path="*" element={<Navigate to="/home" replace />} />
         </Route>
         <Route element={<><Outlet /><Footer /></>}>
           <Route path='/update-shelter' element={
@@ -138,6 +143,9 @@ function App() {
                 <CreateShelterBlogPage userInfo={userInfo} />
               </RouteGuard>
             </AuthGuard>
+          } />
+          <Route path='/404' element={
+            <GenericErrorPage header={"404 - Page Not Found"} content={<HomeButton />} />
           } />
           <Route path='*' element={
             <GenericErrorPage header={"404 - Page Not Found"} />
