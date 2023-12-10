@@ -81,11 +81,6 @@ const ListingCreate = () => {
             <form onSubmit={handleSubmit}>
                 <h2>Create Pet Listing</h2>
 
-                // TODO: Fix pfp
-                <div className="profile-pic">
-                    <img src="../../../public/img/default_dog_profile_pic.png" alt="Default Dog Profile" />
-                </div>
-
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pets</span>
                     <input type="text"
@@ -128,23 +123,12 @@ const ListingCreate = () => {
                     </select>
                 </div>
 
-                // TODO: Implement pfp upload
-                <div className="container-fluid d-flex flex-column p-0">
-                    <div className="input-group">
-                        <span className="input-group-text material-symbols-outlined d-none d-sm-inline">add_photo_alternate</span>
-                        <input type="file" className="form-control container-fluid m-0" />
-                    </div>
-                    <div className="d-flex justify-content-center pt-3">
-                        <button type="button" className="btn btn-outline-secondary content">Upload Pet Photo</button>
-                    </div>
-                </div>
-
                 <div className="container-fluid d-flex flex-column flex-lg-row p-0">
                     <div className="container-fluid d-flex flex-column p-0">
                         <div className="input-group">
                             <span className="input-group-text material-symbols-outlined">calendar_month</span>
                             <input type="text"
-                                placeholder="Age (Years)"
+                                placeholder="Age (years)"
                                 id="years"
                                 min="0"
                                 max="99"
@@ -157,7 +141,7 @@ const ListingCreate = () => {
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">event</span>
                             <input type="number"
-                                placeholder="Age (Months)"
+                                placeholder="Age (months)"
                                 id="months"
                                 min="0"
                                 max="11"
