@@ -117,6 +117,16 @@ function App() {
               <ShelterDetailPage userInfo={userInfo} />
             </AuthGuard>
           } />
+          <Route path='/create-listing' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <ListingCreate userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/update-listing/:listing_id' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <ListingUpdate userInfo={userInfo} />
+            </AuthGuard>
+          } />
           <Route path='/pet-detail/:petId' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <PetDetailPage userInfo={userInfo} />
