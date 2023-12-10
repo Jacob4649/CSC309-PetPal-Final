@@ -244,9 +244,15 @@ const PetApplicationPage = ({userInfo}) => {
                     )
                 ) : (
                     <div className="submit-button">
-                        <button type="submit" className="btn btn-primary d-flex" onClick={() => handle_status_change_withdraw(application_info?.id)}>
-                            Withdraw Application
-                        </button>
+                       { application_info?.application_status !== 4 ? ( 
+                            <button type="submit" className="btn btn-primary d-flex" onClick={() => handle_status_change_withdraw(application_info?.id)}>
+                                Withdraw Application
+                            </button>
+                        ) : (
+                            <button type="submit" className="btn btn-primary d-flex" onClick={() => handle_status_change_withdraw(application_info?.id)} disabled>
+                                Withdraw Application
+                            </button> 
+                        )}
                     </div>
                 )}
 

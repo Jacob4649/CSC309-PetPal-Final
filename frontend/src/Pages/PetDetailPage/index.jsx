@@ -3,6 +3,8 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import "./pet-detail.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { Routes, Route , useNavigate, useParams, Link } from "react-router-dom";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const PetDetailPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
@@ -40,15 +42,6 @@ const PetDetailPage = ({userInfo}) => {
     };
 
     // const get_application_info = async (application_id) => {
-    //     fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
-    //         method: "get",
-    //         headers: generateHeaders()
-    //     }).then((res) => res.json()).then((data) => {
-    //         console.log(data)
-    //         setApplicationInfo(data)
-    //     })
-    // };
-    // const get_application_info = async (application_id) => {
     //     try {
     //         const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
     //             method: "get",
@@ -56,6 +49,7 @@ const PetDetailPage = ({userInfo}) => {
     //         });
     
     //         if (response.status === 404) {
+    //             console.log("help");
     //             setApplicationInfo(null);
     //         } else {
     //             const data = await response.json();
@@ -68,7 +62,7 @@ const PetDetailPage = ({userInfo}) => {
     // };
     const get_application_info = async (petId) => {
         try {
-            // Fetch the list of all applications
+            // Get the list of all applications
             const all_applications = await fetch(`http://127.0.0.1:8000/applications`, {
                 method: "get",
                 headers: generateHeaders()
@@ -77,23 +71,34 @@ const PetDetailPage = ({userInfo}) => {
                 console.error("Error fetching applications:", all_applications.status);
                 return;
             }
-            const application_data = await all_applications.json();
-            let i = 0;
-            let needed_application = null;
-    
-            while (i < application_data.length && !needed_application) {
-                const application = application_data[i];
-    
-                if (application.listing === petId) {
-                    needed_application = application;
+            // make json
+            const applications_data = await all_applications.json();
+            // console.log('applications_data:', applications_data);
+
+            // correct format
+            if (applications_data && Array.isArray(applications_data.results)) {
+                let i = 0;
+                let needed_application = null;
+                
+                // go through all apps to find needed one
+                while (i < applications_data.results.length && !needed_application) {
+                    const application = applications_data.results[i];
+                    if (application.listing === Number(petId)) {
+                        needed_application = application;
+                        console.log("Application found :", application.listing);
+                    }
+                    i++;
                 }
-                i++;
-            }
-            if (!needed_application) {
-                setApplicationInfo(null);
-                console.log("Application not found for listing ID:", petId);
-            } else {
-                setApplicationInfo(needed_application);
+                if (needed_application) {
+                    setApplicationInfo(needed_application);
+                } 
+                else {
+                    // setApplicationInfo(null);
+                    console.log("Application not found for listing ID:", petId);
+                }
+            } 
+            else {
+                console.error("Invalid data structure. Expected an object with 'results' array.");
             }
         } catch (error) {
             console.error("Error fetching applications:", error);
@@ -127,7 +132,6 @@ const PetDetailPage = ({userInfo}) => {
                 {/* <!-- used https://www.bootdey.com/snippets/view/profile-with-data-and-skills as a reference --> */}
                 <div className="col-md-8">
                     <div className="card mb-3">
-                        <h2>{pet_info.name}</h2>
 
                         {/* if no pet pfp */}
                         {/* <div className="pet-intro">
@@ -137,6 +141,7 @@ const PetDetailPage = ({userInfo}) => {
                         </div> */}
 
                         <div className="card-body">
+                            <h2>{pet_info.name}</h2>
                             <hr />
                             <div className="row">
                                 <div className="col-sm-3">

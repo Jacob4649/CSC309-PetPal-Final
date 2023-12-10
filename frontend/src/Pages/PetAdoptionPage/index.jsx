@@ -7,6 +7,8 @@ import { Routes, Route , useNavigate, useParams } from "react-router-dom";
 const PetAdoptionPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
     let { petId } = useParams();
+    const [success_message, setSuccessMessage] = useState(null);
+    const [error_message, setErrorMessage] = useState(null);
 
     const [application_data, setApplicationData] = useState({
       content: '',
@@ -49,12 +51,15 @@ const PetAdoptionPage = ({userInfo}) => {
       try {
         const response_value = await response
         if (response_value.status === 201) {
-            navigate(`/pet-application/${petId}`)
+            setSuccessMessage("Application submitted successfully")
+        }
+        else {
+          setErrorMessage("Unauthorized")
         }
       } catch {
           console.log("register error occurred")
       }
-  }
+    }
 
     useEffect(() => {
         get_pet_info()
@@ -106,6 +111,8 @@ const PetAdoptionPage = ({userInfo}) => {
           <button type="submit" className="btn btn-primary d-flex" onClick={handleSubmit}>
             Apply
           </button>
+          {success_message && <div className="success-message">{success_message}</div>}
+          {error_message && <div className="error-message">{error_message}</div>}
         </form>
       </div>
       </div>
