@@ -8,6 +8,11 @@ import { getApplications } from '../../gateway/applications';
 import { ApplicationRow } from '../../Components/Applications/ApplicationRow';
 import { NotificationShort } from '../../Components/Notifications/NotificationShort';
 
+const getSearchUrl = (text) => {
+    if (text != '') return `/search?q=${encodeURIComponent(text)}`;
+    return '/search';
+}
+
 export const HomePage = ({userInfo}) => {
 
     const [notifications, setNotifications] = useState(new Loadable());
@@ -33,7 +38,7 @@ export const HomePage = ({userInfo}) => {
                         <div className="form-outline">
                             <input type="search" className="form-control" placeholder="Search For Listings" value={searchText} onChange={v => setSearchText(v.target.value)} />
                         </div>
-                        <Link type="button" className="btn btn-primary" to={`/search?q=${encodeURIComponent(searchText)}`}>
+                        <Link type="button" className="btn btn-primary" to={getSearchUrl(searchText)}>
                             <span className="material-symbols-outlined">search</span>
                         </Link>
                     </div>
