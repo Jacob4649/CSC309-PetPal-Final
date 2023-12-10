@@ -3,13 +3,26 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import "./update-shelter.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
+import { Alert, Box, Button, Modal, Typography } from "@mui/material";
 const UpdateShelterPage = ({ shelter_id }) => {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
     const [pfpUploaded, setPfpUploaded] = useState(false);
     const [imageHash, setImageHash] = useState(Date.now());
     const [error, setError] = useState(null);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: { xs: 330, sm: 540 },
+        bgcolor: 'black',
+        color: "white",
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 3,
+    };
     const pfp_element = useRef()
     const get_user_info = () => {
         fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
@@ -146,9 +159,39 @@ const UpdateShelterPage = ({ shelter_id }) => {
                     {
                         error ? <Alert severity="error">{error}</Alert> : <></>
                     }
-                    <button type="submit" className="btn btn-primary d-flex">
-                        Save Changes
-                    </button>
+                    <Box sx={{ display: { xs: "flex-column", sm: "flex" } }}>
+                        <Button sx={{ m: 2 }} variant="contained" type="submit" className="btn btn-primary d-flex">
+                            Save Changes
+                        </Button>
+                        <Button sx={{ m: 2 }} variant="contained" color="error" onClick={() => setDeleteModalOpen(true)}>Delete User</Button>
+                    </Box>
+                    <Modal
+                        open={deleteModalOpen}
+                        onClose={() => setDeleteModalOpen(false)}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2" mb={3}>
+                                Delete the current user and all their data?
+                            </Typography>
+                            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                                <Button variant="outlined" onClick={() => setDeleteModalOpen(false)} >Cancel</Button>
+                                <Button variant="outlined" onClick={() => {
+                                    fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}/`, {
+                                        method: "DELETE",
+                                        headers: generateHeaders()
+                                    }).then(async (res) => {
+                                        if (res.status >= 200 && res.status < 300) {
+                                            navigate("/")
+                                        } else {
+                                            setError("User deletion failed")
+                                        }
+                                    })
+                                }} color="error">Confirm</Button>
+                            </Box>
+                        </Box>
+                    </Modal>
                 </form>
             </div>
         </div>
