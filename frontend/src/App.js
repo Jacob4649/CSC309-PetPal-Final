@@ -95,7 +95,7 @@ function App() {
           } />
           <Route path='/my-applications' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-              <MyApplicationsPage />
+              <MyApplicationsPage userInfo={userInfo && userInfo} />
             </AuthGuard>
           } />
           <Route path='/a/:application_id' element={
