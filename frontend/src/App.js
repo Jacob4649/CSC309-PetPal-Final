@@ -4,7 +4,7 @@ import MyApplicationsPage from './Pages/MyApplicationsPage';
 import UpdateSeekerPage from './Pages/UpdateSeekerPage';
 import UpdateShelterPage from './Pages/UpdateShelterPage';
 import NotificationPage from './Pages/NotificationPage/index';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
@@ -26,6 +26,9 @@ import "./theme.css"
 import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import { NavBar } from './Components/NavFooterLayout/Navbar';
+import { Button } from '@mui/material';
+import { ArrowBack, Home } from '@mui/icons-material';
+import HomeButton from './Components/Buttons/HomeButton';
 
 
 function App() {
@@ -39,7 +42,7 @@ function App() {
       <Routes>
         <Route element={
           <>
-            <NavBar setUserInfo={setUserInfo} userInfo={userInfo}/>
+            <NavBar setUserInfo={setUserInfo} userInfo={userInfo} />
             <Outlet />
             <Footer />
           </>
@@ -121,6 +124,9 @@ function App() {
                 <CreateShelterBlogPage userInfo={userInfo} />
               </RouteGuard>
             </AuthGuard>
+          } />
+          <Route path='/404' element={
+            <GenericErrorPage header={"404 - Page Not Found"} content={<HomeButton />} />
           } />
           <Route path='*' element={
             <GenericErrorPage header={"404 - Page Not Found"} />
