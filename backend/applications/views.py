@@ -42,18 +42,26 @@ class ApplicationsViewSet(ModelViewSet):
         else:
             queryset = Application.objects.filter(user_id=user.id)
 
-        # Filtering by status
+        # Filtering by status   
         status = self.request.query_params.get("status", None)
         if status:
-            queryset = queryset.filter(status=status)
+            queryset = queryset.filter(application_status=status)
 
         # Filtering by creation time or last updated time
         sort_order = self.request.query_params.get("sort_order", None)
-
-        if sort_order == "last_updated_time":
-            queryset = queryset.order_by('-last_updated_time')
+        desc = self.request.query_params.get("desc", None)
+        print(desc)
+        if (desc == "true"):
+            prefix = ""
         else:
-            queryset = queryset.order_by('-created_time')
+            prefix = "-"
+
+        
+        if sort_order == "last_updated_time":
+            print(f'{prefix}last_updated_time')
+            queryset = queryset.order_by(f'{prefix}last_updated_time')
+        else:
+            queryset = queryset.order_by(f'{prefix}created_time')
 
 
         return queryset

@@ -1,14 +1,18 @@
 import { Typography, Box } from "@mui/material"
 
 const Message = ({ is_current_user, content, time }) => {
+    const formatDateTime = (date_string) => {
+        const date = new Date(date_string)
+        return date.toString()
+    }
     return (
         <Box
             sx={{ py: 3 }}>
             <Box
                 sx={{ px: 1 }}>
                 {
-                    is_current_user ? <Typography fontSize={14} align={"left"}>{time}</Typography> :
-                        <Typography fontSize={14} align={"right"}>{time}</Typography>
+                    is_current_user ? <Typography fontSize={14} align={"left"}>{formatDateTime(time)}</Typography> :
+                        <Typography fontSize={14} align={"right"}>{formatDateTime(time)}</Typography>
                 }
 
             </Box>

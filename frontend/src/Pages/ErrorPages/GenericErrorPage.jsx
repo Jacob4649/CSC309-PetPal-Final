@@ -2,7 +2,7 @@ import { PriorityHighOutlined } from "@mui/icons-material";
 import { Alert, Box, AlertTitle, Typography } from "@mui/material";
 
 
-const GenericErrorPage = ({ header, content }) => {
+const GenericErrorPage = ({ header, subheader, content }) => {
     return (<Box sx={{
         display: "flex",
         flexDirection: "column",
@@ -11,7 +11,10 @@ const GenericErrorPage = ({ header, content }) => {
     }}>
 
         <Typography variant="h1" sx={{ p: 5 }}>{header}</Typography>
-        <Typography variant="h2">{content}</Typography>
+        <Typography variant="h2">{subheader}</Typography>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {content}
+        </Box>
 
     </Box>)
 }

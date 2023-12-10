@@ -1,0 +1,114 @@
+.pet-detail #page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem;
+    padding-bottom: calc(50px + var(--footer-height));
+    padding-top: calc(50px + var(--footer-height));
+}
+.pet-detail .card {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.pet-detail .mb-3 {
+    padding: 1rem;
+}
+
+.pet-detail .info-container {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    container-type: inline-size;
+    width: 100%;
+}
+
+.pet-detail .material-symbols-outlined {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.pet-detail .pet-intro {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.pet-detail p {
+    font-weight: bold;
+}
+
+.pet-detail h2 {
+    text-align: center;
+    display: block;
+}
+
+.pet-detail .info-container {
+    margin-top: 1rem;
+}
+
+.pet-detail .info-container p {
+    display: inline-block;
+}
+
+.pet-detail .col-sm-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 40%;
+}
+
+.pet-detail .col-sm-9 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 60%;
+}
+
+.pet-detail #profile-pic {
+    display: block;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: solid;
+    border-width: 2px;
+    border-color: var(--secondary);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pet-detail #profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pet-detail .submit-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.pet-detail .text-input {
+    display: block;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.pet-detail .col-md-8 {
+    width: 85%;
+}
+
+

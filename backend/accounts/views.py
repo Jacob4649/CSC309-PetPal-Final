@@ -136,8 +136,6 @@ class ShelterViewSet(ModelViewSet):
         return super().update(request, *args, **kwargs)
 
     @optional_fields({
-        'email': email_type,
-        'name': str,
         'password': str,
         'address': str,
         'province': str,
@@ -150,6 +148,12 @@ class ShelterViewSet(ModelViewSet):
         shelter = self.get_object()
         if self.request.user != shelter:
             return JsonResponse(dict(message='You are not authorized to update this account.'), status=403)
+        if not self.request.data['name'] or self.request.data['name'] == "":
+            return JsonResponse(dict(message='Name cannot be blank'), status=400)
+        if not self.request.data['email'] or self.request.data['email'] == "":
+            return JsonResponse(dict(message='Email cannot be blank'), status=400)
+        if len(User.objects.filter(email=request.data['email'])) > 0 and shelter.email != request.data['email']:
+            return JsonResponse(dict(message='An account is already registered with this email'), status=400)
 
         return super().partial_update(request, *args, **kwargs)
 
@@ -217,8 +221,6 @@ class PetSeekerViewSet(ModelViewSet):
         return super().update(request, *args, **kwargs)
 
     @optional_fields({
-        'email': email_type,
-        'name': str,
         'password': str,
         'address': str,
         'province': str,
@@ -229,6 +231,12 @@ class PetSeekerViewSet(ModelViewSet):
         shelter = self.get_object()
         if self.request.user != shelter:
             return JsonResponse(dict(message='You are not authorized to update this account.'), status=403)
+        if not self.request.data['name'] or self.request.data['name'] == "":
+            return JsonResponse(dict(message='Name cannot be blank'), status=400)
+        if not self.request.data['email'] or self.request.data['email'] == "":
+            return JsonResponse(dict(message='Email cannot be blank'), status=400)
+        if len(User.objects.filter(email=request.data['email'])) > 0 and shelter.email != request.data['email']:
+            return JsonResponse(dict(message='An account is already registered with this email'), status=400)
 
         return super().partial_update(request, *args, **kwargs)
 

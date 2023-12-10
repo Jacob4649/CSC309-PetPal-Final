@@ -16,6 +16,8 @@ class ApplicationSerializer(ModelSerializer):
     last_updated_time = DateTimeField(read_only=True)
     seeker_id = IntegerField(read_only=True, source="user.pk")
     application_link = ReadOnlyField(source="get_application_url")
+    pet_name = ReadOnlyField(source="listing.name")
+    applicant_name = ReadOnlyField(source="user.name")
     # user = UserSerializer()
     # listing = ListingSerializer()
 
@@ -30,7 +32,7 @@ class ApplicationSerializer(ModelSerializer):
 
     class Meta:
         model = Application
-        fields = ['id', 'created_time', 'last_updated_time', 'application_status', 'content', 'listing', 'seeker_id', 'application_link']
+        fields = ['id', 'created_time', 'last_updated_time', 'application_status', 'content', 'listing', 'seeker_id', 'application_link', 'pet_name', 'applicant_name']
 
     # should somehow include needed data from user and listing accordingly or no ? 
     # ( sending everything, frontend pick and chooses)

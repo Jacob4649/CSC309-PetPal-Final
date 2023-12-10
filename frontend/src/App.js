@@ -4,7 +4,10 @@ import MyApplicationsPage from './Pages/MyApplicationsPage';
 import UpdateSeekerPage from './Pages/UpdateSeekerPage';
 import UpdateShelterPage from './Pages/UpdateShelterPage';
 import NotificationPage from './Pages/NotificationPage/index';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom"
+import PetDetailPage from './Pages/PetDetailPage/index';
+import PetAdoptionPage from './Pages/PetAdoptionPage/index';
+import PetApplicationPage from './Pages/PetApplicationPage';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
@@ -27,6 +30,9 @@ import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import { NavBar } from './Components/NavFooterLayout/Navbar';
 import { HomePage } from './Pages/HomePage/HomePage';
+import { Button } from '@mui/material';
+import { ArrowBack, Home } from '@mui/icons-material';
+import HomeButton from './Components/Buttons/HomeButton';
 
 
 function App() {
@@ -40,6 +46,7 @@ function App() {
       <Routes>
         <Route element={
           <>
+            <NavBar setUserInfo={setUserInfo} userInfo={userInfo} />
             <Outlet />
             <Footer />
           </>
@@ -97,7 +104,7 @@ function App() {
           } />
           <Route path='/my-applications' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-              <MyApplicationsPage />
+              <MyApplicationsPage userInfo={userInfo && userInfo} />
             </AuthGuard>
           } />
           <Route path='/a/:application_id' element={
@@ -108,6 +115,21 @@ function App() {
           <Route path='/shelter/:shelter_id' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <ShelterDetailPage userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/pet-detail/:petId' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <PetDetailPage userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/pet-adoption/:petId' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <PetAdoptionPage userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/pet-application/:applicationId' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <PetApplicationPage userInfo={userInfo} />
             </AuthGuard>
           } />
           <Route path='/shelter-blogs' element={
@@ -131,6 +153,9 @@ function App() {
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <HomePage userInfo={userInfo} />
             </AuthGuard>
+          }/>
+          <Route path='/404' element={
+            <GenericErrorPage header={"404 - Page Not Found"} content={<HomeButton />} />
           } />
           <Route path='*' element={
             <GenericErrorPage header={"404 - Page Not Found"} />

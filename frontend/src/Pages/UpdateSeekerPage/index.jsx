@@ -3,19 +3,38 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import "./update-seeker.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { useNavigate } from "react-router-dom";
+import { Alert, Box, Button, Modal, Typography } from "@mui/material";
 const UpdateSeekerPage = ({ user_id }) => {
     const [userInfo, setUserInfo] = useState({});
     const [pfpUploaded, setPfpUploaded] = useState(false);
     const [imageHash, setImageHash] = useState(Date.now());
+    const [error, setError] = useState(null);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
     const pfp_element = useRef()
     const navigate = useNavigate()
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: { xs: 330, sm: 540 },
+        bgcolor: 'black',
+        color: "white",
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 3,
+    };
     const get_user_info = () => {
         fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}`, {
             method: "get",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setUserInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                setError(data.message)
+            } else {
+                setUserInfo(data)
+            }
         })
     }
     const update_profile_image = (file) => {
@@ -36,6 +55,9 @@ const UpdateSeekerPage = ({ user_id }) => {
                         profile_pic_link: data.profile_pic_link
                     })
                     setImageHash(Date.now())
+                }).catch(async (res) => {
+                    const data = await res.json();
+                    setError(data.message)
                 })
             }
             reader.readAsArrayBuffer(file);
@@ -46,7 +68,15 @@ const UpdateSeekerPage = ({ user_id }) => {
             method: "PATCH",
             headers: generateHeaders(),
             body: JSON.stringify(clean_request_data({ ...userInfo, profile_pic_link: null }))
-        }).then(() => { navigate("/") })
+        }).then(async (res) => {
+            if (res.status >= 200 && res.status < 300) {
+                navigate("/")
+            } else {
+                const data = await res.json();
+                console.log(data)
+                setError(data.message)
+            }
+        })
     }
     useEffect(() => {
         get_user_info()
@@ -121,13 +151,45 @@ const UpdateSeekerPage = ({ user_id }) => {
                             </div>
                         </div>
                     </div>
-
-                    <button type="submit" className="btn btn-primary d-flex">
-                        Save Changes
-                    </button>
+                    {
+                        error ? <Alert severity="error">{error}</Alert> : <></>
+                    }
+                    <Box sx={{ display: { xs: "flex-column", sm: "flex" } }}>
+                        <Button sx={{ m: 2 }} variant="contained" type="submit" className="btn btn-primary d-flex">
+                            Save Changes
+                        </Button>
+                        <Button sx={{ m: 2 }} variant="contained" color="error" onClick={() => setDeleteModalOpen(true)}>Delete User</Button>
+                    </Box>
+                    <Modal
+                        open={deleteModalOpen}
+                        onClose={() => setDeleteModalOpen(false)}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2" mb={3}>
+                                Delete the current user and all their data?
+                            </Typography>
+                            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                                <Button variant="outlined" onClick={() => setDeleteModalOpen(false)} >Cancel</Button>
+                                <Button variant="outlined" onClick={() => {
+                                    fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}/`, {
+                                        method: "DELETE",
+                                        headers: generateHeaders()
+                                    }).then(async (res) => {
+                                        if (res.status >= 200 && res.status < 300) {
+                                            navigate("/")
+                                        } else {
+                                            setError("User deletion failed")
+                                        }
+                                    })
+                                }} color="error">Confirm</Button>
+                            </Box>
+                        </Box>
+                    </Modal>
                 </form>
             </div>
-        </div>
+        </div >
     )
 }
 export default UpdateSeekerPage;

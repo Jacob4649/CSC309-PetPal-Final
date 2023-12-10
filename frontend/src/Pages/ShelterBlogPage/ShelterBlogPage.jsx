@@ -28,11 +28,16 @@ const ShelterBlogPage = ({ userInfo }) => {
             {
                 method: "GET",
                 headers: generateHeaders()
-            }).then((res) => res.json()).then((data) => {
-                setBlogInfo(data)
-                setLikeCount(data.total_like_count)
-                setLiked(data.current_user_liked)
-                setLoading(false)
+            }).then(async (res) => {
+                const data = await res.json()
+                if (!(res.status >= 200 && res.status < 300)) {
+                    navigate("/404")
+                } else {
+                    setBlogInfo(data)
+                    setLikeCount(data.total_like_count)
+                    setLiked(data.current_user_liked)
+                    setLoading(false)
+                }
             })
     }
     useEffect(() => {

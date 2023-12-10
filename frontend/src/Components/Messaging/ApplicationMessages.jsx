@@ -11,11 +11,7 @@ const ApplicationMessages = ({ messageData, is_seeker, load_more, can_load_more,
         <Paper
             elevation={10}
             sx={{
-                width: {
-                    xs: 300,
-                    md: 500,
-                    lg: 1000
-                }
+                width: "80%"
             }}
         >
             <Box
@@ -44,7 +40,10 @@ const ApplicationMessages = ({ messageData, is_seeker, load_more, can_load_more,
             </Box>
             <Box>
                 <Chatbox
-                    onClick={(e) => send_message(chatValue)}
+                    onClick={(e) => {
+                        send_message(chatValue)
+                        setChatValue("")
+                    }}
                     value={chatValue}
                     onChange={(e) => setChatValue(e.target.value)}
                 />
