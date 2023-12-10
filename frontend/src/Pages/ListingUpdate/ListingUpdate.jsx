@@ -75,8 +75,8 @@ const ListingUpdate = () => {
                 break;
         }
         const new_height = listingData.height_feet * 12
-        const response = fetch("http://127.0.0.1:8000/listings/", {
-            method: 'POST',
+        const response = fetch(`http://127.0.0.1:8000/listings/${listing_id}/`, {
+            method: 'PATCH',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 name: listingData.name,
@@ -92,7 +92,7 @@ const ListingUpdate = () => {
         try {
             const response_value = await response
             if (response_value.status === 200) {
-                navigate('/login')
+                navigate(`/pet-detail/${listing_id}`)
             }
         } catch {
             console.log("register error occurred")
@@ -166,7 +166,7 @@ const ListingUpdate = () => {
                         <div className="input-group">
                             <span className="input-group-text material-symbols-outlined">calendar_month</span>
                             <input type="text"
-                                placeholder="Age (Years)"
+                                placeholder="Age (years)"
                                 id="years"
                                 min="0"
                                 max="99"
@@ -179,7 +179,7 @@ const ListingUpdate = () => {
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">event</span>
                             <input type="number"
-                                placeholder="Age (Months)"
+                                placeholder="Age (months)"
                                 id="months"
                                 min="0"
                                 max="11"

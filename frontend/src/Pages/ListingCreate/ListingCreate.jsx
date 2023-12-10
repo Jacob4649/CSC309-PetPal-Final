@@ -66,8 +66,10 @@ const ListingCreate = () => {
         })
         try {
             const response_value = await response
-            if (response_value.status === 200) {
-                navigate('/')
+            if (response_value.status === 201) {
+                const response_data = await response.json()
+                const listing_id = response_data.id
+                navigate(`/pet-detail/${listing_id}`)
             }
         } catch {
             console.log("register error occurred")
