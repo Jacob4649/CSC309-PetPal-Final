@@ -3,18 +3,25 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import "./update-shelter.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 const UpdateShelterPage = ({ shelter_id }) => {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
     const [pfpUploaded, setPfpUploaded] = useState(false);
     const [imageHash, setImageHash] = useState(Date.now());
+    const [error, setError] = useState(null);
     const pfp_element = useRef()
     const get_user_info = () => {
         fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
             method: "GET",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            setUserInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                setError(data.message)
+            } else {
+                setUserInfo(data)
+            }
         })
     }
     const update_profile_image = (file) => {
@@ -49,7 +56,15 @@ const UpdateShelterPage = ({ shelter_id }) => {
             method: "PATCH",
             headers: generateHeaders(),
             body: JSON.stringify(clean_request_data(body))
-        }).then(() => { navigate("/") })
+        }).then(async (res) => {
+            if (res.status >= 200 && res.status < 300) {
+                navigate("/")
+            } else {
+                const data = await res.json();
+                console.log(data)
+                setError(data.message)
+            }
+        })
     }
     useEffect(() => {
         get_user_info()
@@ -128,7 +143,9 @@ const UpdateShelterPage = ({ shelter_id }) => {
                             </div>
                         </div>
                     </div>
-
+                    {
+                        error ? <Alert severity="error">{error}</Alert> : <></>
+                    }
                     <button type="submit" className="btn btn-primary d-flex">
                         Save Changes
                     </button>

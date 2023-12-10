@@ -3,19 +3,25 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import "./update-seeker.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 const UpdateSeekerPage = ({ user_id }) => {
     const [userInfo, setUserInfo] = useState({});
     const [pfpUploaded, setPfpUploaded] = useState(false);
     const [imageHash, setImageHash] = useState(Date.now());
+    const [error, setError] = useState(null);
     const pfp_element = useRef()
     const navigate = useNavigate()
     const get_user_info = () => {
         fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}`, {
             method: "get",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setUserInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                setError(data.message)
+            } else {
+                setUserInfo(data)
+            }
         })
     }
     const update_profile_image = (file) => {
@@ -36,6 +42,9 @@ const UpdateSeekerPage = ({ user_id }) => {
                         profile_pic_link: data.profile_pic_link
                     })
                     setImageHash(Date.now())
+                }).catch(async (res) => {
+                    const data = await res.json();
+                    setError(data.message)
                 })
             }
             reader.readAsArrayBuffer(file);
@@ -46,7 +55,15 @@ const UpdateSeekerPage = ({ user_id }) => {
             method: "PATCH",
             headers: generateHeaders(),
             body: JSON.stringify(clean_request_data({ ...userInfo, profile_pic_link: null }))
-        }).then(() => { navigate("/") })
+        }).then(async (res) => {
+            if (res.status >= 200 && res.status < 300) {
+                navigate("/")
+            } else {
+                const data = await res.json();
+                console.log(data)
+                setError(data.message)
+            }
+        })
     }
     useEffect(() => {
         get_user_info()
@@ -121,7 +138,9 @@ const UpdateSeekerPage = ({ user_id }) => {
                             </div>
                         </div>
                     </div>
-
+                    {
+                        error ? <Alert severity="error">{error}</Alert> : <></>
+                    }
                     <button type="submit" className="btn btn-primary d-flex">
                         Save Changes
                     </button>
