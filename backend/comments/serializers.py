@@ -17,6 +17,7 @@ class ShelterCommentSerializer(ModelSerializer):
     # fields to be sent to the user
     profile_pic_link = SerializerMethodField()
     reply_link = SerializerMethodField()
+    is_shelter = SerializerMethodField()
     id = ReadOnlyField()
 
     def get_profile_pic_link(self, obj):
@@ -34,7 +35,8 @@ class ShelterCommentSerializer(ModelSerializer):
     replying_to_id = IntegerField(allow_null=True, required=False)
     username = ReadOnlyField(read_only=True, source="author.email")
     # Need to go over exactly how this would be implemented https://www.django-rest-framework.org/api-guide/fields/#source is what I'm referencing right now
-    is_shelter = BooleanField(read_only=True, source="author.is_shelter") #
+    def get_is_shelter(self, obj):
+        return obj.author.id == obj.shelter.id
     time_sent = DateTimeField(read_only=True)
     class Meta:
         model = ShelterComment
@@ -45,6 +47,7 @@ class ShelterBlogCommentSerializer(ModelSerializer):
     profile_pic_link = SerializerMethodField()
     reply_link = SerializerMethodField()
     id = ReadOnlyField()
+    is_shelter = SerializerMethodField()
 
     def get_profile_pic_link(self, obj):
         base_url = settings.BASE_URL
@@ -57,11 +60,13 @@ class ShelterBlogCommentSerializer(ModelSerializer):
             return base_url + "/shelter_blog_comments/" + str(obj.id) + "/replies"
         return None 
     
+    def get_is_shelter(self, obj):
+        return obj.author.id == obj.shelter_blog.shelter.id
+    
     shelter_blog_comment_id = IntegerField(read_only=True)
     replying_to_id = IntegerField(allow_null=True, required=False)
     username = ReadOnlyField(read_only=True, source="author.email")
     # Need to go over exactly how this would be implemented https://www.django-rest-framework.org/api-guide/fields/#source is what I'm referencing right now
-    is_shelter = BooleanField(read_only=True, source="author.is_shelter") #
     time_sent = DateTimeField(read_only=True)
     class Meta:
         model = ShelterBlogComment
