@@ -29,7 +29,7 @@ const LandingPage = () => {
     return (
         <div id="page-container">
             <div id="page-logo">
-                <img src="../../assets/logo-light.svg" alt="PetPal Logo" />
+                <img src="../../../public/assets/logo-light.svg" alt="PetPal Logo" />
                 <h1>PetPal</h1>
             </div>
             <span id="slogan">Smart pet adoption, at your fingertips</span>
@@ -40,19 +40,19 @@ const LandingPage = () => {
                 </h2>
                 <div className="aero-tile">
                     <div className="feature-image">
-                        <img src="../../img/search.png" alt="Search" />
+                        <img src="../../../public/img/search.png" alt="Search" />
                     </div>
                     Smart-filtering puts the right pets for you just a fingertip away.
                 </div>
                 <div className="aero-tile">
                     <div className="feature-image">
-                        <img src="../../img/shelter_client.png" alt="Shelter Client" />
+                        <img src="../../../public/img/shelter_client.png" alt="Shelter Client" />
                     </div>
                     Connect with shelters near you.
                 </div>
                 <div className="aero-tile">
                     <div className="feature-image">
-                        <img src="../../img/client_approved_application.png" alt="Approved Application" />
+                        <img src="../../../public/img/client_approved_application.png" alt="Approved Application" />
                     </div>
                     Easily make adoption requests.
                 </div>
@@ -61,19 +61,19 @@ const LandingPage = () => {
                 </h2>
                 <div className="aero-tile">
                     <div className="feature-image">
-                        <img src="../../img/applicant_chat.png" alt="Applicant Chat" />
+                        <img src="../../../public/img/applicant_chat.png" alt="Applicant Chat" />
                     </div>
                     Manage clients that come to you through our intuitive management and chatting platform.
                 </div>
                 <div className="aero-tile">
                     <div className="feature-image">
-                        <img src="../../img/shelter_management.png" alt="Shelter Management" />
+                        <img src="../../../public/img/shelter_management.png" alt="Shelter Management" />
                     </div>
                     Track and edit currently available pets.
                 </div>
                 <div className="aero-tile">
                     <div className="feature-image">
-                        <img src="../../img/pet_creation.png" alt="Pet Creation" />
+                        <img src="../../../public/img/pet_creation.png" alt="Pet Creation" />
                     </div>
                     Quickly create listings for pets.
                 </div>

@@ -81,7 +81,7 @@ const ListingCreate = () => {
 
                 // TODO: Fix pfp
                 <div className="profile-pic">
-                    <img src="../../img/default_dog_profile_pic.png" alt="Default Dog Profile" />
+                    <img src="../../../public/img/default_dog_profile_pic.png" alt="Default Dog Profile" />
                 </div>
 
                 <div className="input-group">

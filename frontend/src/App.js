@@ -7,7 +7,6 @@ import NotificationPage from './Pages/NotificationPage/index';
 import PetDetailPage from './Pages/PetDetailPage/index';
 import PetAdoptionPage from './Pages/PetAdoptionPage/index';
 import PetApplicationPage from './Pages/PetApplicationPage';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom"
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
@@ -30,6 +29,7 @@ import "./theme.css"
 import ShelterBlogPage from './Pages/ShelterBlogPage/ShelterBlogPage';
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import { NavBar } from './Components/NavFooterLayout/Navbar';
+import { HomePage } from './Pages/HomePage/HomePage';
 import { Button } from '@mui/material';
 import { ArrowBack, Home } from '@mui/icons-material';
 import HomeButton from './Components/Buttons/HomeButton';
@@ -52,7 +52,7 @@ function App() {
           </>
         }>
           {/* <Route element={<Navbar/>}> */}
-          <Route path='/home' element={
+          <Route path='/landing-page' element={
             <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
           <Route path='/login-seeker' element={
@@ -75,9 +75,14 @@ function App() {
               <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
             </AuthGuard>
           } />
-          <Route path="*" element={<Navigate to="/home" replace />} />
         </Route>
-        <Route element={<><Outlet /><Footer /></>}>
+        <Route element={
+          <>
+            <NavBar userInfo={userInfo} setUserInfo={setUserInfo}/>
+            <Outlet />
+            <Footer />
+          </>}>
+          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path='/update-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login-shelter"}>
@@ -99,7 +104,7 @@ function App() {
           } />
           <Route path='/my-applications' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
-              <MyApplicationsPage />
+              <MyApplicationsPage userInfo={userInfo && userInfo} />
             </AuthGuard>
           } />
           <Route path='/a/:application_id' element={
@@ -144,6 +149,11 @@ function App() {
               </RouteGuard>
             </AuthGuard>
           } />
+          <Route path='/home' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <HomePage userInfo={userInfo} />
+            </AuthGuard>
+          }/>
           <Route path='/404' element={
             <GenericErrorPage header={"404 - Page Not Found"} content={<HomeButton />} />
           } />

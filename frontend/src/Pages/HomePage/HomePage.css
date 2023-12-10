@@ -1,0 +1,203 @@
+.home-page-container {
+    min-height: calc(100vh - var(--footer-height) - var(--header-height));
+    padding-bottom: var(--footer-height);
+}
+
+.home-page-container .home-grid {
+    padding: 1rem;
+    width: 100%;
+    height: calc(100vh - var(--footer-height) - var(--header-height));
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+}
+
+.home-page-container .home-grid .search {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.home-page-container .home-grid .notifications {
+    grid-row: 1;
+    grid-column: 2;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 0.5rem 0.5rem 1rem 0;
+}
+
+.home-page-container .home-grid .notifications .notification:not(:nth-child(2)) {
+    margin-top: 1rem;
+}
+
+.home-page-container .home-grid .applications {
+    grid-row: 2;
+    grid-column: 2;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 0.5rem 0.5rem 1rem 0;
+}
+
+@media screen and (max-width: 480px) {
+    .home-page-container .home-grid {
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 2fr 2fr;
+    }
+
+    .home-page-container .home-grid .search {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .home-page-container .home-grid .notifications {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .home-page-container .home-grid .applications {
+        grid-column: 1;
+        grid-row: 3;
+    }
+}
+
+.home-page-container .page-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.home-page-container .page-logo img {
+    margin-right: 0.5rem;
+}
+
+.home-page-container .page-logo h1 {
+    color: var(--dark-text);
+    font-family: 'Advent Pro', sans-serif;
+    font-weight: 500;
+}
+
+.home-page-container .search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page-container .search-bar a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page-container .search-bar a span {
+    font-size: 19px;
+}
+
+.home-page-container h3 {
+    color: var(--dark-text) !important;
+    font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-page-container h3 span {
+    color: var(--dark-text) !important;
+}
+
+.home-page-container .notification {
+    width: calc(100% - 20px);
+    box-shadow: 0px 0px 5px 1px #cbccce;
+    border-radius: 7px;
+    margin: 0px 10px;
+}
+
+.home-page-container .notification a {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--dark-text);
+    display: block;
+}
+
+.home-page-container .notification-header {
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: #e8ebee;
+    color: #4a4b4b;
+    font-weight: 600;
+}
+
+.home-page-container .notification-close {
+    padding: 0 10px;
+}
+
+.home-page-container .notification-close:hover {
+    cursor: pointer;
+}
+
+.home-page-container .applications tr {
+    cursor: pointer;
+}
+
+.home-page-container .applications tr td, .applications tr th {
+    background-color: white;
+}
+
+.home-page-container .applications tr a {
+    text-decoration: none;
+    color: var(--dark-text);
+}
+
+.home-page-container .applications tr:hover td {
+    background-color: var(--secondary) !important;
+}
+
+.home-page-container .applications .sortable {
+    cursor: pointer;
+}
+
+.home-page-container .applications .sortable div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.home-page-container .applications .sortable:hover {
+    color: var(--dark-text-hover);
+}
+
+.home-page-container .applications .sortable span {
+    display: none;
+}
+
+.home-page-container .applications .sortable:hover span {
+    display: inline;
+}
+
+.home-page-container .applications .sorted span {
+    display: inline;
+}
+
+.home-page-container .search-bar a {
+    text-decoration: none;
+}
+
+.home-page-container .more-button {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+}
