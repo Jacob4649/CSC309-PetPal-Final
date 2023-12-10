@@ -34,6 +34,10 @@
     box-shadow: rgba(0, 0, 0, 0.15) 0.5rem 0.5rem 1rem 0;
 }
 
+.home-page-container .home-grid .notifications .notification:not(:nth-child(2)) {
+    margin-top: 1rem;
+}
+
 .home-page-container .home-grid .applications {
     grid-row: 2;
     grid-column: 2;
@@ -190,4 +194,10 @@
 
 .home-page-container .search-bar a {
     text-decoration: none;
+}
+
+.home-page-container .more-button {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
 }
