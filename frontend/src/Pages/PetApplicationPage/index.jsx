@@ -3,52 +3,71 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import "./pet-application.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { Routes, Route , useNavigate, useParams, Link } from "react-router-dom";
+import LoadingPage from "../../Pages/LoadingPage/LoadingPage"
 
 const PetApplicationPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
     const [application_info, setApplicationInfo] = useState({});
     const [seeker_info, setSeekerInfo] = useState({});
     const [status_info, setStatusInfo] = useState({});
+
+    // const [loading, setLoading] = useState(true);
+    // const [messageData, setMessageData] = useState([]);
     const application_status_string = {
         1: 'Approved',
         2: 'Pending',
         3: 'Declined',
         4 :'Withdrawn'
     };
-    let { petId } = useParams();
+    let { applicationId } = useParams();
+    let navigate = useNavigate();
+    // const [nextPage, setNextPage] = useState(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
 
-    const get_pet_info = () => {
-        fetch(`http://127.0.0.1:8000/listings/${petId}`, {
+    const get_application_info = () => {
+        // try {
+        //     const response = fetch(`http://127.0.0.1:8000/applications/${applicationId}`, {
+        //         method: "get",
+        //         headers: generateHeaders()
+        //     });
+    
+        //     if (response.status === 404) {
+        //         setApplicationInfo(null);
+        //     } else {
+        //         const data = response.json();
+        //         console.log(data);
+        //         setApplicationInfo(data);
+
+        //         get_pet_info(data.listing)
+        //         get_seeker_info(data.seeker_id)
+        //     }
+        // } catch (error) {
+        //     console.error("Error fetching application info:", error);
+        // }
+        //   -----
+        fetch(`http://127.0.0.1:8000/applications/${applicationId}`, {
+            method: "get",
+            headers: generateHeaders()
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            setApplicationInfo(data)
+
+            get_pet_info(data.listing)
+            get_seeker_info(data.seeker_id)
+        })
+        // -----  
+    }
+    
+    const get_pet_info = async (pet_id) => {
+        fetch(`http://127.0.0.1:8000/listings/${pet_id}`, {
             method: "get",
             headers: generateHeaders()
         }).then((res) => res.json()).then((data) => {
             console.log(data)
             setPetInfo(data)
-
-            get_application_info(Number(petId) + 1) // this is jank solution 
-            // get_seeker_info(data.shelter)
         })
     }
 
-    const get_application_info = async (application_id) => {
-        try {
-            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
-                method: "get",
-                headers: generateHeaders()
-            });
-    
-            if (response.status === 404) {
-                setApplicationInfo(null);
-            } else {
-                const data = await response.json();
-                console.log(data);
-                setApplicationInfo(data);
-                get_seeker_info(data.seeker_id)
-            }
-        } catch (error) {
-            console.error("Error fetching application info:", error);
-        }
-    }
+    const pet_name = pet_info.name;
 
     const get_seeker_info = async (seeker_id) => {
         fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${seeker_id}`, {
@@ -60,72 +79,111 @@ const PetApplicationPage = ({userInfo}) => {
         })
     }
 
-    // const handle_status_change_withdraw = async (application_id) => {
-    //     try {
-    //       const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
-    //         method: 'PUT',
-    //         headers: {'Content-Type': 'application/json',},
-    //         body: JSON.stringify({
-    //             application_status: 4 
-    //         }),
-    //       });
-    //       if (!response.ok) {
-    //         throw new Error('NOT OK');
-    //       }
-    //       const data = await response.json();
-    //       setStatusInfo(data);
-    //     } catch (error) {
-    //       console.error('Error making PUT request:', error);
-    //     }
-    //   };
+    // const reset_application_message_data = () => {
+    //     fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
+    //         method: "GET",
+    //         headers: generateHeaders()
+    //     }).then((res) => res.json()).then(
+    //         (data) => {
+    //             setNextPage(data.next)
+    //             setMessageData([...data.results])
+    //         }
+    //     )
+    // }
 
-      const handle_status_change_accept = async (app_id) => {
+    // const add_application_message = (message) => {
+    //     fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
+    //         method: "POST",
+    //         headers: generateHeaders(),
+    //         body: JSON.stringify({
+    //             content: message
+    //         })
+    //     }).then(
+    //         () => {
+    //             setMessageData([])
+    //             setNextPage(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
+    //         }
+    //     ).then(() => { reset_application_message_data() })
+    // }
+
+    const handle_status_change_withdraw = async (application_id) => {
         try {
-          const response = await fetch(`http://127.0.0.1:8000/applications/${app_id}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json',},
+            headers: generateHeaders(),
             body: JSON.stringify({
-                application_status: 1 
+                application_status: 4 
             }),
           });
           if (!response.ok) {
             throw new Error('NOT OK');
           }
-          const data = await response.json();
+          const data = response.json();
           setStatusInfo(data);
-        } catch (error) {
+
+        } 
+        catch (error) {
           console.error('Error making PUT request:', error);
         }
       };
+
+    const handle_status_change_accept = async (application_id) => {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
+        method: 'PUT',
+        headers: generateHeaders(),
+        body: JSON.stringify({
+            application_status: 1
+        }),
+        });
+        if (!response.ok) {
+        throw new Error('NOT OK');
+        }
+        const data = response.json();
+        setStatusInfo(data);
+
+    } 
+    catch (error) {
+        console.error('Error making PUT request:', error);
+    }
+    };
       
-    //   const handle_status_change_deny = async (application_id) => {
-    //     try {
-    //       const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
-    //         method: 'PUT',
-    //         headers: {'Content-Type': 'application/json',},
-    //         body: JSON.stringify({
-    //             application_status: 3 
-    //         }),
-    //       });
-    //       if (!response.ok) {
-    //         throw new Error('NOT OK');
-    //       }
-    //       const data = await response.json();
-    //       setStatusInfo(data);
-    //     } catch (error) {
-    //       console.error('Error making PUT request:', error);
-    //     }
-    //   };  
+    const handle_status_change_deny = async (application_id) => {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
+        method: 'PUT',
+        headers: generateHeaders(),
+        body: JSON.stringify({
+            application_status: 3 
+        }),
+        });
+        if (!response.ok) {
+        throw new Error('NOT OK');
+        }
+        const data = response.json();
+        setStatusInfo(data);
+
+    } 
+    catch (error) {
+        console.error('Error making PUT request:', error);
+    }
+    };  
+
+    const handle_go_back = () => {
+        navigate('/my-applications');
+    }
 
     useEffect(() => {
-        get_pet_info()
+        get_application_info()
     }, [])
+    // if (loading) return <LoadingPage />
+    if (applicationId) {
     return (
         // {application_info ? ( if application doesn't exist don't render or smth
         <div className="pet-application">
         <div id="page-container">
             <form>
-                <h1>Application - {pet_info.name} <span className="badge bg-secondary">{application_status_string[application_info?.application_status]}</span></h1>
+                <h1>Application - {pet_name} <span className="badge bg-secondary">{application_status_string[application_info?.application_status]}</span></h1>
 
                 {/* Needs Fixing */}
                 {/* <div id="profile-pic">
@@ -164,37 +222,37 @@ const PetApplicationPage = ({userInfo}) => {
                     <textarea placeholder="Message" 
                         readOnly className="form-control"
                         rows="4"
-                        value={application_info?.content}
+                        value={application_info?.application_status === 4 ? "Applicant has withdrawn application" : application_info?.content}
                     /> 
                 </div>
                 
                 {userInfo.is_shelter ? (
+                    application_info?.application_status !== 4 ? (
                     <div className="submit-button">
-                    <Link to={`/pet-application/${petId}`} className="btn-link" onClick={handle_status_change_accept(application_info?.id)}>
-                        <button type="submit" className="btn btn-green btn-primary d-flex">
+                        <button type="submit" className="btn btn-green btn-primary d-flex" onClick={() => handle_status_change_accept(application_info?.id)}>
                             Approve
                         </button>
-                    </Link>
-                    {/* <span className="button-space"></span>  */}
-                    <Link to={`/pet-application/${petId}`} className="btn-link">
-                        <button type="submit" className="btn btn-red btn-primary d-flex">
+    
+                        <button type="submit" className="btn btn-red btn-primary d-flex" onClick={() => handle_status_change_deny(application_info?.id)}>
                             Deny
-                        </button>
-                    </Link>
+                        </button>      
                     </div>
+                    ) : (
+                        <button type="submit" className="btn btn-red btn-primary d-flex" onClick={() => handle_go_back()}>
+                            Go back
+                        </button> 
+                    )
                 ) : (
                     <div className="submit-button">
-                    <Link to={`/pet-adoption/${petId}`}>
-                        <button type="submit" className="btn btn-primary d-flex">
+                        <button type="submit" className="btn btn-primary d-flex" onClick={() => handle_status_change_withdraw(application_info?.id)}>
                             Withdraw Application
                         </button>
-                    </Link>
                     </div>
                 )}
 
                 <hr />
 
-                <h1>Chat With Shelter</h1>
+                {/* <h1>Chat With Shelter</h1>
 
                 <div className="chat-box">
                     <div className="messages">
@@ -247,7 +305,7 @@ const PetApplicationPage = ({userInfo}) => {
                         </div>
                         <a type="submit" className="btn btn-primary">Send message</a>
                     </form>
-                </div>
+                </div> */}
             </form>
         </div>
         </div>
@@ -255,5 +313,6 @@ const PetApplicationPage = ({userInfo}) => {
         //     <p></p>
         // )}
     )
+    }
 }
 export default PetApplicationPage;
