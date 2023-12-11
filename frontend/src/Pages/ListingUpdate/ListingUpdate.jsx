@@ -78,7 +78,7 @@ const ListingUpdate = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const new_age = (listingData.age_years * 12) + listingData.age_months
+        const new_age = ((listingData.age_years * 12) + listingData.age_months) || 0
         let new_status = 0
         switch (listingData.listing_status) {
             case 'adopted':
@@ -91,7 +91,7 @@ const ListingUpdate = () => {
                 new_status = 3;
                 break;
         }
-        const new_height = listingData.height_feet * 12
+        const new_height = (listingData.height_feet * 12) || 0
         const response = fetch(`http://127.0.0.1:8000/listings/${listing_id}/`, {
             method: 'PATCH',
             headers: generateHeaders(),
