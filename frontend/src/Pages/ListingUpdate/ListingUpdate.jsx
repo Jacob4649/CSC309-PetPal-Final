@@ -21,13 +21,11 @@ const ListingUpdate = () => {
         fetch(`http://127.0.0.1:8000/listings/${listing_id}`, {
             method: "get",
             headers: generateHeaders()
-        }).then(r => {
-            if (r.status === 401 || r.status === 403) {
-                if (!(r.status >= 200 && r.status < 300)) {
-                    navigate("/404")
-                }
+        }).then(response => {
+            if (!(response.status >= 200 && response.status < 300)) {
+                navigate("/404")
             }
-            return r.json();
+            return response.json()
         }).then((res) => res.json()).then((data) => {
             const ageYears = Math.floor(data.age_months / 12);
             const ageMonths = data.age_months % 12;
@@ -80,7 +78,7 @@ const ListingUpdate = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const new_age = ((listingData.age_years * 12) + listingData.age_months) || 0
+        const new_age = (listingData.age_years * 12) + listingData.age_months
         let new_status = 0
         switch (listingData.listing_status) {
             case 'adopted':
@@ -93,7 +91,7 @@ const ListingUpdate = () => {
                 new_status = 3;
                 break;
         }
-        const new_height = (listingData.height_feet * 12) || 0
+        const new_height = listingData.height_feet * 12
         const response = fetch(`http://127.0.0.1:8000/listings/${listing_id}/`, {
             method: 'PATCH',
             headers: generateHeaders(),
