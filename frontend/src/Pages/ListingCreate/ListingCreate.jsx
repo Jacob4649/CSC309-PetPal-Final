@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./listing-create.css";
 import { useNavigate } from "react-router-dom";
+import generateHeaders from "../../utils/fetchTokenSet";
 
 const ListingCreate = () => {
     const [listingData, setListingData] = useState({
@@ -38,7 +39,7 @@ const ListingCreate = () => {
         const new_height = listingData.height_feet * 12
         const response = fetch("http://127.0.0.1:8000/listings/", {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: generateHeaders(),
             body: JSON.stringify({
                 name: listingData.name,
                 species: listingData.species,

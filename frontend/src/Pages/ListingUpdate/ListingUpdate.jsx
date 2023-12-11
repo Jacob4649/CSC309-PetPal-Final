@@ -77,7 +77,7 @@ const ListingUpdate = () => {
         const new_height = listingData.height_feet * 12
         const response = fetch(`http://127.0.0.1:8000/listings/${listing_id}/`, {
             method: 'PATCH',
-            headers: { "Content-Type": "application/json" },
+            headers: generateHeaders(),
             body: JSON.stringify({
                 name: listingData.name,
                 species: listingData.species,
