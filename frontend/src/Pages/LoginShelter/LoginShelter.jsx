@@ -25,30 +25,31 @@ const LoginShelter = ({ setUserInfo }) => {
         submitUser();
     }
 
-    const submitUser = () => {
-        fetch("http://127.0.0.1:8000/token/", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(
-                {
-                    "email": email,
-                    "password": password
-                }
-            )
-        }).then(res => {
-            if (res.status === 401) {
-                setErrorMessage("Invalid email or password")
-            }
-            return res.json()
-        }).then(data => {
-                localStorage.setItem("token", data.access)
-                fetch("http://127.0.0.1:8000/accounts/shelters/info/", { headers: generateHeaders() })
-                    .then((res) => res.json())
-                    .then((userInfo) => {
-                        setUserInfo(userInfo)
-                        navigate('/home')
-                    })
+    const submitUser = async () => {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/token/", {
+                method: "POST",
+                headers: generateHeaders(),
+                body: JSON.stringify({ "email": email, "password": password })
             })
+
+            if (response.status === 401) {
+                setErrorMessage("Invalid email or password")
+                return
+            }
+
+            const data = await response.json()
+            localStorage.setItem("token", data.access)
+
+            const res = await fetch("http://127.0.0.1:8000/accounts/pet_seekers/info/", { headers: generateHeaders() })
+            if (res.ok) {
+                const userInfo = await res.json()
+                setUserInfo(userInfo)
+                navigate('/home')
+            }
+        } catch (error) {
+            console.error('error:', error)
+        }
     }
 
     return (
