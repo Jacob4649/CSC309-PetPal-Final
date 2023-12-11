@@ -156,7 +156,7 @@ const ListingCreate = () => {
                         <span className="input-group-text material-symbols-outlined">scale</span>
                         <input type="number"
                                id="weight_lbs"
-                               placeholder="Weight (kg)"
+                               placeholder="Weight (pounds)"
                                className="form-control"
                                min="0"
                                max="300"

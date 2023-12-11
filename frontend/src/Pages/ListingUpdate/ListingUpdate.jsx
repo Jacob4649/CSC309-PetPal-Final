@@ -105,7 +105,7 @@ const ListingUpdate = () => {
     return (
         <div className="listing-create">
             <form onSubmit={handleSubmit}>
-                <h2>Create Pet Listing</h2>
+                <h2>Update Pet Listing</h2>
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pets</span>
@@ -210,7 +210,7 @@ const ListingUpdate = () => {
                         <span className="input-group-text material-symbols-outlined">scale</span>
                         <input type="number"
                                id="weight_lbs"
-                               placeholder="Weight (kg)"
+                               placeholder="Weight (pounds)"
                                className="form-control"
                                min="0"
                                max="300"
@@ -236,7 +236,7 @@ const ListingUpdate = () => {
                 <button type="submit"
                         className="btn btn-primary d-flex"
                         onClick={handleSubmit}>
-                    Create Listing
+                    Update Listing
                 </button>
             </form>
         </div>
