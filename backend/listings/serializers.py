@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.urls import reverse_lazy
 from rest_framework import serializers
 
 from listings.models import Listing
@@ -6,6 +8,11 @@ class ListingSerializer(serializers.ModelSerializer):
     """Serializer for listings"""
     id = serializers.ReadOnlyField()
     creation_time = serializers.DateTimeField(read_only=True)
+    profile_pic_link = serializers.SerializerMethodField()
+
+    def get_profile_pic_link(self, obj):
+        base_url = settings.BASE_URL
+        return base_url + reverse_lazy('listing_image', kwargs={'id': obj.id}) if obj.profile_pic.name != '' else None
 
     class Meta:
         model = Listing
