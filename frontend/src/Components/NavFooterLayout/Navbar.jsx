@@ -23,7 +23,7 @@ export const NavBar = ({userInfo, setUserInfo}) => {
 
     return <header className="nav-bar-div">
         <Link className="logo" to="/">
-            <img src="img/logo-light.svg"></img>
+            <img src="assets/logo-light.svg"></img>
             <span>PetPal</span>
         </Link>
         <div className="pages">

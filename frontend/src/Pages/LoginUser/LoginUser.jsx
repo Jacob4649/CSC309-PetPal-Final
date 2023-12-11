@@ -1,11 +1,13 @@
 import { useState } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./login-user.css";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const LoginUser = ({ setUserInfo }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate()
 
     const handleChange = (event) => {
         const { id, value } = event.target;
@@ -44,6 +46,7 @@ const LoginUser = ({ setUserInfo }) => {
                 .then((res) => res.json())
                 .then((userInfo) => {
                     setUserInfo(userInfo)
+                    navigate('/home')
                 })
             })
     }

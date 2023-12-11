@@ -7,11 +7,10 @@ const ListingCreate = () => {
         name: '',
         species: '',
         breed: '',
-        weight_lbs: 0.0,
-        height_feet: 0.0,
-        age_months: 0,
-        age_years: 0,
-        listing_status: 3,
+        height_feet: null,
+        age_months: null,
+        age_years: null,
+        listing_status: null,
         description: ''
     })
 
@@ -81,14 +80,11 @@ const ListingCreate = () => {
             <form onSubmit={handleSubmit}>
                 <h2>Create Pet Listing</h2>
 
-                // TODO: Fix pfp
-                <div className="profile-pic">
-                    <img src="../../../public/img/default_dog_profile_pic.png" alt="Default Dog Profile" />
-                </div>
-
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pets</span>
-                    <input type="text"
+                    <input
+                        type="text"
+                        id="name"
                         placeholder="Pet Name"
                         className="form-control"
                         onChange={handleChange}
@@ -98,7 +94,9 @@ const ListingCreate = () => {
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">sound_detection_dog_barking</span>
-                    <input type="text"
+                    <input
+                        type="text"
+                        id="species"
                         placeholder="Species"
                         className="form-control"
                         onChange={handleChange}
@@ -108,7 +106,9 @@ const ListingCreate = () => {
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pet_supplies</span>
-                    <input type="text"
+                    <input
+                        type="text"
+                        id="breed"
                         placeholder="Breed"
                         className="form-control"
                         onChange={handleChange}
@@ -118,7 +118,9 @@ const ListingCreate = () => {
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">check</span>
-                    <select className="form-control"
+                    <select
+                        className="form-control"
+                        id="listing_status"
                         onChange={handleChange}
                         value={listingData.listing_status} required>
                         <option disabled selected value="">Availability Status</option>
@@ -128,24 +130,14 @@ const ListingCreate = () => {
                     </select>
                 </div>
 
-                // TODO: Implement pfp upload
-                <div className="container-fluid d-flex flex-column p-0">
-                    <div className="input-group">
-                        <span className="input-group-text material-symbols-outlined d-none d-sm-inline">add_photo_alternate</span>
-                        <input type="file" className="form-control container-fluid m-0" />
-                    </div>
-                    <div className="d-flex justify-content-center pt-3">
-                        <button type="button" className="btn btn-outline-secondary content">Upload Pet Photo</button>
-                    </div>
-                </div>
-
                 <div className="container-fluid d-flex flex-column flex-lg-row p-0">
                     <div className="container-fluid d-flex flex-column p-0">
                         <div className="input-group">
                             <span className="input-group-text material-symbols-outlined">calendar_month</span>
-                            <input type="text"
-                                placeholder="Age (Years)"
-                                id="years"
+                            <input
+                                type="text"
+                                id="age_years"
+                                placeholder="Age (years)"
                                 min="0"
                                 max="99"
                                 className="form-control"
@@ -157,8 +149,8 @@ const ListingCreate = () => {
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">event</span>
                             <input type="number"
-                                placeholder="Age (Months)"
-                                id="months"
+                                placeholder="Age (months)"
+                                id="age_months"
                                 min="0"
                                 max="11"
                                 className="form-control"
@@ -173,7 +165,7 @@ const ListingCreate = () => {
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">height</span>
                             <input type="number"
-                                id="height"
+                                id="height_feet"
                                 placeholder="Height (inches)"
                                 className="form-control"
                                 min="0"
@@ -187,7 +179,9 @@ const ListingCreate = () => {
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">reorder</span>
-                    <textarea placeholder="Description (medical history, behavior, special needs, etc.)"
+                    <textarea
+                        placeholder="Description (medical history, behavior, special needs, etc.)"
+                        id="description"
                         className="form-control"
                         rows="4"
                         onChange={handleChange}
