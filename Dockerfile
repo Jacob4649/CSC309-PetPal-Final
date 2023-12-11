@@ -39,4 +39,4 @@ EXPOSE 8000
 EXPOSE 5432
 
 # start gunicorn 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers=3", "--threads=3", "petpal.wsgi"]
+CMD ["python", "manage.py", "makemigrations", "&&", "python", "manage.py", "migrate", "&&", "gunicorn", "--bind", "0.0.0.0:8000", "--workers=3", "--threads=3", "petpal.wsgi"]
