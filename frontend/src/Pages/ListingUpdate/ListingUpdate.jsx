@@ -27,7 +27,7 @@ const ListingUpdate = () => {
                     navigate("/404")
                 }
             }
-            return data.json();
+            return r.json();
         }).then((res) => res.json()).then((data) => {
             const ageYears = Math.floor(data.age_months / 12);
             const ageMonths = data.age_months % 12;
