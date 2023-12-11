@@ -3,6 +3,7 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import { Paper, Table, TableContainer, TableHead, TableRow, Typography, TableCell, TableBody, Avatar, Container, Link, Box, Pagination, IconButton, Button, Menu, MenuItem } from "@mui/material"
 import { ArrowDownward, ArrowOutward } from "@mui/icons-material";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const MyApplicationsPage = ({ userInfo }) => {
     const [applications, setApplications] = useState([]);
@@ -46,7 +47,7 @@ const MyApplicationsPage = ({ userInfo }) => {
 
     const navigate = useNavigate()
     const generate_search_url = () => {
-        const myUrlWithParams = new URL("http://127.0.0.1:8000/applications/");
+        const myUrlWithParams = new URL(`${BACKEND_ENDPOINT}/applications/`);
         if (statusSelected != "All") {
             myUrlWithParams.searchParams.append("status", string_to_status_int[statusSelected]);
         }

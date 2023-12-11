@@ -21,6 +21,7 @@ import { useEffect, useState } from "react"
 import generateHeaders from "../../utils/fetchTokenSet"
 import LoadingPage from "../LoadingPage/LoadingPage"
 import ShelterBlogSummary from "../../Components/ShelterBlogs/ShelterBlogSummary"
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const ShelterBlogsPage = ({ userInfo }) => {
     const [loading, setLoading] = useState(true)
@@ -34,7 +35,7 @@ const ShelterBlogsPage = ({ userInfo }) => {
         console.log(shelter_name)
         if (shelterName !== null && shelterName !== "") {
             fetch(
-                `http://127.0.0.1:8000/shelter-blogs/?shelter=${shelter_name}`,
+                `${BACKEND_ENDPOINT}/shelter-blogs/?shelter=${shelter_name}`,
                 {
                     method: "GET",
                     headers: generateHeaders()
@@ -47,7 +48,7 @@ const ShelterBlogsPage = ({ userInfo }) => {
             })
         } else {
             fetch(
-                `http://127.0.0.1:8000/shelter-blogs`,
+                `${BACKEND_ENDPOINT}/shelter-blogs`,
                 {
                     method: "GET",
                     headers: generateHeaders()

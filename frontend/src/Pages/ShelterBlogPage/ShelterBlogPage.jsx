@@ -5,6 +5,7 @@ import { Avatar, Box, IconButton, Paper, Typography } from "@mui/material"
 import { ThumbUp, ThumbUpAlt } from "@mui/icons-material"
 import LoadingPage from "../LoadingPage/LoadingPage"
 import ShelterBlogComments from "../../Components/Comments/ShelterBlogComments"
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const ShelterBlogPage = ({ userInfo }) => {
     const { shelter_blog_id } = useParams()
@@ -15,7 +16,7 @@ const ShelterBlogPage = ({ userInfo }) => {
     const navigate = useNavigate()
 
     const like_blog = () => {
-        fetch(`http://127.0.0.1:8000/shelter-blogs/${shelter_blog_id}/like/`,
+        fetch(`${BACKEND_ENDPOINT}/shelter-blogs/${shelter_blog_id}/like/`,
             {
                 method: "POST",
                 headers: generateHeaders()
@@ -24,7 +25,7 @@ const ShelterBlogPage = ({ userInfo }) => {
         setLiked(!liked)
     }
     const get_shelter_blog_data = () => {
-        fetch(`http://127.0.0.1:8000/shelter-blogs/${shelter_blog_id}/`,
+        fetch(`${BACKEND_ENDPOINT}/shelter-blogs/${shelter_blog_id}/`,
             {
                 method: "GET",
                 headers: generateHeaders()

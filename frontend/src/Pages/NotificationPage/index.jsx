@@ -5,6 +5,7 @@ import { BottomNavigation, BottomNavigationAction, Box, Pagination } from "@mui/
 import generateHeaders from "../../utils/fetchTokenSet"
 import LoadingPage from "../LoadingPage/LoadingPage"
 import { Beenhere, Delete, NewReleases } from "@mui/icons-material"
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 const NotificationPage = () => {
     const [notificationData, setNotificationData] = useState();
     const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const NotificationPage = () => {
         console.log("page")
         console.log(page)
         read = read ? "True" : "False"
-        fetch(`http://127.0.0.1:8000/notifications/?page=${page}&read=${read}`, {
+        fetch(`${BACKEND_ENDPOINT}/notifications/?page=${page}&read=${read}`, {
             method: "GET",
             headers: generateHeaders()
         }).then(res => res.json()).then((data) => {
@@ -32,7 +33,7 @@ const NotificationPage = () => {
     }, [readNotis])
     const read_notification = (id, setNotificationData) => {
         // setNotificationData((prevNotificationData) => prevNotificationData.filter((notification) => notification.id !== id))
-        fetch(`http://127.0.0.1:8000/notifications/${id}/`, {
+        fetch(`${BACKEND_ENDPOINT}/notifications/${id}/`, {
             method: "PATCH",
             headers: generateHeaders()
         }).then(() => {
@@ -45,7 +46,7 @@ const NotificationPage = () => {
         })
     }
     const delete_notification = (id) => {
-        fetch(`http://127.0.0.1:8000/notifications/${id}/`, {
+        fetch(`${BACKEND_ENDPOINT}/notifications/${id}/`, {
             method: "DELETE",
             headers: generateHeaders()
         }).then(() => {

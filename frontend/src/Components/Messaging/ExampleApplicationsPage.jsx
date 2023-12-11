@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom"
 import { Box } from "@mui/material"
 import generateHeaders from "../../utils/fetchTokenSet"
 import LoadingPage from "../../Pages/LoadingPage/LoadingPage"
+import { BACKEND_ENDPOINT } from "../../gateway/static"
 
 
 const ExampleApplicationsPage = ({ userInfo }) => {
     const [loading, setLoading] = useState(true)
     const [messageData, setMessageData] = useState(null)
     const { applicationId } = useParams()
-    const [nextPage, setNextPage] = useState(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
+    const [nextPage, setNextPage] = useState(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`)
 
     useEffect(() => {
         get_application_message_data()
@@ -32,7 +33,7 @@ const ExampleApplicationsPage = ({ userInfo }) => {
     }
 
     const reset_application_message_data = () => {
-        fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
+        fetch(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`, {
             method: "GET",
             headers: generateHeaders()
         }).then((res) => res.json()).then(
@@ -44,7 +45,7 @@ const ExampleApplicationsPage = ({ userInfo }) => {
     }
 
     const add_application_message = (message) => {
-        fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
+        fetch(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`, {
             method: "POST",
             headers: generateHeaders(),
             body: JSON.stringify({
@@ -53,7 +54,7 @@ const ExampleApplicationsPage = ({ userInfo }) => {
         }).then(
             () => {
                 setMessageData([])
-                setNextPage(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
+                setNextPage(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`)
             }
         ).then(() => { reset_application_message_data() })
 

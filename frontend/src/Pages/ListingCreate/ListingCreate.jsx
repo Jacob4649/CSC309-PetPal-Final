@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./listing-create.css";
 import { useNavigate } from "react-router-dom";
 import generateHeaders from "../../utils/fetchTokenSet";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const ListingCreate = () => {
     const [listingData, setListingData] = useState({
@@ -38,7 +39,7 @@ const ListingCreate = () => {
         const ageYears = parseInt(listingData.age_years, 10);
         const ageMonths = parseInt(listingData.age_months, 10);
         const new_age = (ageYears * 12) + ageMonths
-        const response = fetch("http://127.0.0.1:8000/listings/", {
+        const response = fetch(`${BACKEND_ENDPOINT}/listings/`, {
             method: 'POST',
             headers: generateHeaders(),
             body: JSON.stringify({

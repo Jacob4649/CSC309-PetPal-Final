@@ -1,7 +1,7 @@
 /**
  * Endpoint for the backend
  */
-export const BACKEND_ENDPOINT = 'http://127.0.0.1:8000';
+export const BACKEND_ENDPOINT = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000' : 'https://csc309-petpal-final-z6sgv3ckqa-pd.a.run.app';
 
 // -------------- ROUTES --------------
 

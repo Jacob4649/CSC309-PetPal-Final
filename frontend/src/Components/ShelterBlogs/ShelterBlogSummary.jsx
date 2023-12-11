@@ -12,6 +12,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import generateHeaders from "../../utils/fetchTokenSet"
 import { useState } from "react"
+import { BACKEND_ENDPOINT } from "../../gateway/static"
 
 const ShelterBlogSummary = ({ title, shelter_name, blog_id, curr_user_liked, avatar, like_count, set_shelter_blog_info }) => {
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ const ShelterBlogSummary = ({ title, shelter_name, blog_id, curr_user_liked, ava
         console.log(curr_user_liked === false ? like_count + 1 : like_count - 1)
         console.log(!curr_user_liked)
         set_shelter_blog_info(curr_user_liked === false ? like_count + 1 : like_count - 1, !curr_user_liked)
-        fetch(`http://127.0.0.1:8000/shelter-blogs/${blog_id}/like/`, {
+        fetch(`${BACKEND_ENDPOINT}/shelter-blogs/${blog_id}/like/`, {
             method: "POST",
             headers: generateHeaders()
         })

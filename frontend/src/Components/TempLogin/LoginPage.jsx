@@ -1,6 +1,7 @@
 import { TextField, Button, Paper } from "@mui/material"
 import { useState } from "react"
 import generateHeaders from "../../utils/fetchTokenSet"
+import { BACKEND_ENDPOINT } from "../../gateway/static"
 
 const LoginPage = ({ setUserInfo, userInfo }) => {
     const [seekerUsername, setSeekerUsername] = useState("p1@mail.com")
@@ -8,7 +9,7 @@ const LoginPage = ({ setUserInfo, userInfo }) => {
     const [shelterUsername, setShelterUsername] = useState("s1@mail.com")
     const [shelterPassword, setShelterPassword] = useState("12345678")
     const submitSeeker = () => {
-        fetch("http://127.0.0.1:8000/token/",
+        fetch(`${BACKEND_ENDPOINT}/token/`,
             {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -20,13 +21,13 @@ const LoginPage = ({ setUserInfo, userInfo }) => {
                 )
             }).then((res => res.json())).then(data => {
                 localStorage.setItem("token", data.access)
-                fetch("http://127.0.0.1:8000/accounts/pet_seekers/info/", { headers: generateHeaders() }).then((res) => res.json()).then((userInfo) => {
+                fetch(`${BACKEND_ENDPOINT}/accounts/pet_seekers/info/`, { headers: generateHeaders() }).then((res) => res.json()).then((userInfo) => {
                     setUserInfo(userInfo)
                 })
             })
     }
     const submitShelter = () => {
-        fetch("http://127.0.0.1:8000/token/",
+        fetch(`${BACKEND_ENDPOINT}/token/`,
             {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -38,7 +39,7 @@ const LoginPage = ({ setUserInfo, userInfo }) => {
                 )
             }).then((res => res.json())).then(data => {
                 localStorage.setItem("token", data.access)
-                fetch("http://127.0.0.1:8000/accounts/shelters/info/", { headers: generateHeaders() }).then((res) => res.json()).then((userInfo) => {
+                fetch(`${BACKEND_ENDPOINT}/accounts/shelters/info/`, { headers: generateHeaders() }).then((res) => res.json()).then((userInfo) => {
                     setUserInfo(userInfo)
                 })
             })

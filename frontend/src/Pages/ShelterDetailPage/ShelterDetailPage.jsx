@@ -4,6 +4,7 @@ import "./ShelterDetail.css"
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import ShelterComments from "../../Components/Comments/ShelterComments";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const ShelterDetailPage = ({ }) => {
     const { shelter_id } = useParams();
@@ -11,7 +12,7 @@ const ShelterDetailPage = ({ }) => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate()
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}/`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/shelters/${shelter_id}/`, {
             method: "GET",
             headers: generateHeaders()
         }).then(async (res) => {

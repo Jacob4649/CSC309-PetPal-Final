@@ -2,6 +2,7 @@ import { Paper, TextField, Typography, Alert, Box, Button } from "@mui/material"
 import { useState } from "react"
 import generateHeaders from "../../utils/fetchTokenSet"
 import { useNavigate } from "react-router-dom"
+import { BACKEND_ENDPOINT } from "../../gateway/static"
 
 const CreateShelterBlogPage = ({ userInfo }) => {
     const [title, setTitle] = useState("")
@@ -19,7 +20,7 @@ const CreateShelterBlogPage = ({ userInfo }) => {
 
     const create_shelter_blog = () => {
         if (!check_errors()) {
-            fetch("http://127.0.0.1:8000/shelter-blogs/", {
+            fetch(`${BACKEND_ENDPOINT}/shelter-blogs/`, {
                 method: "POST",
                 headers: generateHeaders(),
                 body: JSON.stringify({ title, content })

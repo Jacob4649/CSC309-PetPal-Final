@@ -4,6 +4,7 @@ import "./update-seeker.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { useNavigate } from "react-router-dom";
 import { Alert, Box, Button, Modal, Typography } from "@mui/material";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 const UpdateSeekerPage = ({ user_id }) => {
     const [userInfo, setUserInfo] = useState({});
     const [pfpUploaded, setPfpUploaded] = useState(false);
@@ -25,7 +26,7 @@ const UpdateSeekerPage = ({ user_id }) => {
         p: 3,
     };
     const get_user_info = () => {
-        fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/pet_seekers/${user_id}`, {
             method: "get",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -45,7 +46,7 @@ const UpdateSeekerPage = ({ user_id }) => {
             reader.onload = function (event) {
                 const binaryData = event.target.result;
 
-                fetch(`http://127.0.0.1:8000/accounts/${user_id}/profile_image`, {
+                fetch(`${BACKEND_ENDPOINT}/accounts/${user_id}/profile_image`, {
                     method: "PUT",
                     headers: generateHeaders("image/png"),
                     body: binaryData
@@ -64,7 +65,7 @@ const UpdateSeekerPage = ({ user_id }) => {
         }
     }
     const update_fields = () => {
-        fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}/`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/pet_seekers/${user_id}/`, {
             method: "PATCH",
             headers: generateHeaders(),
             body: JSON.stringify(clean_request_data({ ...userInfo, profile_pic_link: null }))
@@ -173,7 +174,7 @@ const UpdateSeekerPage = ({ user_id }) => {
                             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                                 <Button variant="outlined" onClick={() => setDeleteModalOpen(false)} >Cancel</Button>
                                 <Button variant="outlined" onClick={() => {
-                                    fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}/`, {
+                                    fetch(`${BACKEND_ENDPOINT}/accounts/pet_seekers/${user_id}/`, {
                                         method: "DELETE",
                                         headers: generateHeaders()
                                     }).then(async (res) => {
