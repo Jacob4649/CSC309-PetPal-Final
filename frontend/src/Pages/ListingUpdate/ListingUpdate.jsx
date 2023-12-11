@@ -25,8 +25,8 @@ const ListingUpdate = () => {
             if (!(response.status >= 200 && response.status < 300)) {
                 navigate("/404")
             }
-            return response.json()
-        }).then((res) => res.json()).then((data) => {
+            return response.json();
+        }).then((data) => {
             const ageYears = Math.floor(data.age_months / 12);
             const ageMonths = data.age_months % 12;
             const heightInches = data.height_feet * 12;
