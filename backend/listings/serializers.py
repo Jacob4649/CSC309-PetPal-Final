@@ -12,7 +12,7 @@ class ListingSerializer(serializers.ModelSerializer):
 
     def get_listing_image_link(self, obj):
         base_url = settings.BASE_URL
-        return base_url + reverse_lazy('listing_image', kwargs={'id': obj.id}) if obj.profile_pic.name != '' else None
+        return base_url + reverse_lazy('listing_image', kwargs={'id': obj.id}) if obj.listing_pic.name != '' else None
 
     class Meta:
         model = Listing

@@ -27,16 +27,16 @@ class ListingPicView(APIView):
         except Listing.DoesNotExist:
             return JsonResponse(dict(message='Listing not found'), status=404)
         
-        if listing.profile_pic.name == '':
+        if listing.listing_pic.name == '':
             return JsonResponse(dict(message='Listing has no profile pic'), status=404)
 
-        content_type = 'image/png' if listing.profile_pic.name.lower().endswith('png') else 'image/jpeg'
+        content_type = 'image/png' if listing.listing_pic.name.lower().endswith('png') else 'image/jpeg'
 
         # create response and set content type
-        response = HttpResponse(listing.profile_pic, content_type=content_type)
+        response = HttpResponse(listing.listing_pic, content_type=content_type)
         
         # set file as attachment and specify name
-        response['Content-Disposition'] = f'attachment; filename="{listing.profile_pic.name}"'
+        response['Content-Disposition'] = f'attachment; filename="{listing.listing_pic.name}"'
         
         return response
     
@@ -69,7 +69,7 @@ class ListingPicView(APIView):
         with NamedTemporaryFile("wb+") as f:
             f.write(bytes(request.body))
             f.seek(0)
-            listing.profile_pic = ImageField(f, f'{listing.id}.{extension}')
+            listing.listing_pic = ImageField(f, f'{listing.id}.{extension}')
             listing.save()
 
         return JsonResponse(ListingSerializer(listing).data, status=200)
