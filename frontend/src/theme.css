@@ -12,7 +12,7 @@
     --bs-body-bg: var(--body-light) !important;
 
     --header-height: 3rem;
-    --footer-height: 3rem;
+    --footer-height: 0rem;
 
     --bs-font-sans-serif: 'Kanit', sans-serif !important;
     --header-font: 'Josefin Sans', sans-serif;
