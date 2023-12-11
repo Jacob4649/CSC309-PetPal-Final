@@ -21,12 +21,18 @@ const PetDetailPage = ({ userInfo }) => {
         fetch(`http://127.0.0.1:8000/listings/${petId}`, {
             method: "get",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setPetInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                navigate("/404")
+            }
+            else {
+                console.log(data)
+                setPetInfo(data)
 
-            get_shelter_info(data.shelter)
-            get_application_info(petId)
+                get_shelter_info(data.shelter)
+                get_application_info(petId)
+            }
         })
     };
 
@@ -35,9 +41,15 @@ const PetDetailPage = ({ userInfo }) => {
         fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
             method: "get",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setShelterInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                navigate("/404")
+            }
+            else {
+                console.log(data)
+                setShelterInfo(data)
+            }
         })
     };
 

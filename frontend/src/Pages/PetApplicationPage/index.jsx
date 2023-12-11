@@ -22,26 +22,34 @@ const PetApplicationPage = ({ userInfo }) => {
         fetch(nextPage, {
             method: "GET",
             headers: generateHeaders()
-        }).then((res) => res.json()).then(
-            (data) => {
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                navigate("/404")
+            }
+            else {
                 setNextPage(data.next)
                 console.log(data)
                 setMessageData([...messageData, ...data.results])
                 setLoading(false)
             }
-        )
+        })
     }
 
     const reset_application_message_data = () => {
         fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
             method: "GET",
             headers: generateHeaders()
-        }).then((res) => res.json()).then(
-            (data) => {
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                navigate("/404")
+            }
+            else {
                 setNextPage(data.next)
                 setMessageData([...data.results])
             }
-        )
+        })
     }
 
     const add_application_message = (message) => {
@@ -91,27 +99,40 @@ const PetApplicationPage = ({ userInfo }) => {
         fetch(`http://127.0.0.1:8000/applications/${applicationId}`, {
             method: "get",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setApplicationInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                navigate("/404")
+            }
+            else {
+                console.log(data)
+                setApplicationInfo(data)
 
-            get_pet_info(data.listing)
-            get_seeker_info(data.seeker_id)
-        }) 
+                get_pet_info(data.listing)
+                get_seeker_info(data.seeker_id)
+            }
+        })
     }
 
     const get_pet_info = async (pet_id) => {
         fetch(`http://127.0.0.1:8000/listings/${pet_id}`, {
             method: "get",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setPetInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+                navigate("/404")
+            }
+            else {
+                console.log(data)
+                setPetInfo(data)
+            }
         })
     }
 
     const pet_name = pet_info.name;
 
+    // want to give forbidden if application is withdrawn
     const get_seeker_info = async (seeker_id) => {
         fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${seeker_id}`, {
             method: "get",
@@ -248,21 +269,21 @@ const PetApplicationPage = ({ userInfo }) => {
                                 <div className="submit-button">
                                     {application_info?.application_status !== 2 ? (
                                         <>
-                                        <button type="submit" className="btn btn-green btn-primary d-flex" onClick={() => handle_status_change_accept(application_info?.id)} disabled>
+                                        <button type="submit" className="btn btn-green btn-primary d-flex text-center" onClick={() => handle_status_change_accept(application_info?.id)} disabled>
                                             Approve
                                         </button>
 
-                                        <button type="submit" className="btn btn-red btn-primary d-flex" onClick={() => handle_status_change_deny(application_info?.id)} disabled>
+                                        <button type="submit" className="btn btn-red btn-primary d-flex text-center" onClick={() => handle_status_change_deny(application_info?.id)} disabled>
                                             Deny
                                         </button>
                                         </>
                                     ) : (
                                         <>
-                                        <button type="submit" className="btn btn-green btn-primary d-flex" onClick={() => handle_status_change_accept(application_info?.id)}>
+                                        <button type="submit" className="btn btn-green btn-primary d-flex text-center" onClick={() => handle_status_change_accept(application_info?.id)}>
                                             Approve
                                         </button>
 
-                                        <button type="submit" className="btn btn-red btn-primary d-flex" onClick={() => handle_status_change_deny(application_info?.id)}>
+                                        <button type="submit" className="btn btn-red btn-primary d-flex text-center" onClick={() => handle_status_change_deny(application_info?.id)}>
                                             Deny
                                         </button>
                                         </>
@@ -288,7 +309,11 @@ const PetApplicationPage = ({ userInfo }) => {
                         )}
                         <hr />
                     </form>
-                    <h1 className="chat_header">Chat With Shelter</h1>
+                    {userInfo?.is_shelter ? (
+                        <h1 className="chat_header">Chat With Seeker</h1>
+                    ) : (
+                        <h1 className="chat_header">Chat With Shelter</h1>
+                    )}
 
                     <Box mt={6} width={"100%"} display={"flex"} justifyContent={"center"}>
                         <ApplicationMessages messageData={messageData} is_seeker={!userInfo.is_shelter} load_more={() => get_application_message_data()} can_load_more={nextPage} send_message={(message) => add_application_message(message)} />

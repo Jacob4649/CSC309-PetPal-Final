@@ -79,16 +79,18 @@
     color: white;
     padding: 10px 20px;
     margin-bottom: 10px;
-    /* width: 110px;
-    text-align: center; */
+    width: 110px;
+    text-align: center;
+    justify-content: center;
   }
   
 .pet-application .btn-red {
     background-color: rosybrown;
     color: white;
     padding: 10px 20px;
-    /* width: 110px;
-    text-align: center; */
+    width: 110px;
+    text-align: center;
+    justify-content: center;
 }
 
 .pet-application .btn-link {
