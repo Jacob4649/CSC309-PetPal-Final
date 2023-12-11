@@ -11,6 +11,7 @@ COPY backend/comments ./
 COPY backend/listings ./
 COPY backend/notifications ./
 COPY backend/petpal ./
+COPY backend/ docker_entry.sh ./
 
 # DB connection stuff
 
@@ -38,9 +39,5 @@ EXPOSE 8000
 # db port
 EXPOSE 5432
 
-# migrations
-RUN python backend/manage.py makemigrations
-RUN python backend/manage.py migrate
-
 # start gunicorn 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers=3", "--threads=3", "petpal.wsgi"]
+CMD ["source", "docker_entry.sh"]
