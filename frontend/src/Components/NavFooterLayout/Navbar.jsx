@@ -35,6 +35,13 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                 userInfo?.is_shelter &&
                 <Link className="material-symbols-outlined" to="/manage-shelter" title="Shelter Management">list</Link>
             }
+            {
+                userInfo && (
+                    userInfo.is_shelter ? 
+                    <Link className="material-symbols-outlined" to="/seeker-detail" title="Profile">person</Link> :
+                    <Link className="material-symbols-outlined" to={`/shelter/${userInfo.id}`} title="Profile">person</Link>
+                )
+            }
         </div>
         <div className="navigation">
             {
