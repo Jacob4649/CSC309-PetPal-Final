@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getProfilePicURL } from "../../gateway/profilePic";
 
 export const NavBar = ({userInfo, setUserInfo}) => {
-    
     const location = useLocation();
     const split = location.pathname
         .split('/')
@@ -57,7 +56,7 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                 <div className="account-menu">
                     <div>
                         <div className="profile-pic">
-                            <img src={!!userInfo ? getProfilePicURL(userInfo.id) : ''}></img>
+                            <img src={!!userInfo ? getProfilePicURL(userInfo.id) : "https://pbs.twimg.com/media/FUrhqfUXoAIQS3Q.png"}></img>
                         </div>
                         {userInfo?.name ?? ''}
                     </div>
@@ -67,6 +66,21 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                         </span>
                         My Applications
                     </a>
+                    {userInfo?.is_shelter ? (
+                            <Link to={`/shelter/${userInfo.id}`} className="d-block remove-a-styling">
+                        <span className="material-symbols-outlined">
+                            account_circle
+                        </span>
+                                View Profile
+                            </Link>
+                        ) : (
+                        <Link to={"/seeker-detail"} className="d-block remove-a-styling">
+                        <span className="material-symbols-outlined">
+                            account_circle
+                        </span>
+                            View Profile
+                        </Link>
+                    )}
                     {userInfo?.is_shelter ? (
                         <a href="./update-shelter" className="text-decoration-none d-block remove-a-styling">
                         <span className="material-symbols-outlined">
