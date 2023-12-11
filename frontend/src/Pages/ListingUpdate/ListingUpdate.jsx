@@ -25,13 +25,25 @@ const ListingUpdate = () => {
             const ageYears = Math.floor(data.age_months / 12);
             const ageMonths = data.age_months % 12;
             const heightInches = data.height_feet * 12;
+            let new_status = ''
+            switch (data.listing_status) {
+                case 1:
+                    new_status = 'adopted';
+                    break;
+                case 2:
+                    new_status = 'canceled';
+                    break;
+                case 3:
+                    new_status = 'available';
+                    break;
+            }
 
             setListingData({
                 name: data.name,
                 species: data.species,
                 breed: data.breed,
                 weight_lbs: data.weight_lbs,
-                listing_status: data.listing_status,
+                listing_status: new_status,
                 description: data.description,
                 age_years: ageYears,
                 age_months: ageMonths,
