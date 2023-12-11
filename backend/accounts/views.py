@@ -93,6 +93,7 @@ class ProfilePicView(APIView):
 class ShelterViewSet(ModelViewSet):
     serializer_class = ShelterSerializer
     authentication_classes = (JWTAuthentication,)
+    queryset = User.objects.filter(is_shelter=True)
 
     def get_queryset(self):
         queryset = User.objects.filter(is_shelter=True)
