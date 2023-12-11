@@ -1,4 +1,6 @@
-from django.http import JsonResponse
+from tempfile import NamedTemporaryFile
+from django.forms import ImageField
+from django.http import HttpResponse, JsonResponse
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from .pagination import SmallNonCustomizablePaginationBatch
 from listings.serializers import ListingSerializer
@@ -26,7 +28,7 @@ class ProfilePicView(APIView):
         except Listing.DoesNotExist:
             return JsonResponse(dict(message='Listing not found'), status=404)
         
-        if user.profile_pic.name == '':
+        if listing.profile_pic.name == '':
             return JsonResponse(dict(message='Listing has no profile pic'), status=404)
 
         content_type = 'image/png' if listing.profile_pic.name.lower().endswith('png') else 'image/jpeg'
@@ -68,10 +70,10 @@ class ProfilePicView(APIView):
         with NamedTemporaryFile("wb+") as f:
             f.write(bytes(request.body))
             f.seek(0)
-            listing.profile_pic = ImageFile(f, f'{listing.id}.{extension}')
+            listing.profile_pic = ImageField(f, f'{listing.id}.{extension}')
             listing.save()
 
-        return JsonResponse(ListingSerializer(user).data, status=200)
+        return JsonResponse(ListingSerializer(listing).data, status=200)
 
 
 class ListingViewSet(ModelViewSet):
