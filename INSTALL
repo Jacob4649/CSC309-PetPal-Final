@@ -20,5 +20,7 @@ Run `npm run start`
 
 --- Deployment Instructions & Environment
 
+Deployment is semi-automated with Google-Cloud-Platform. A Github Actions CI/CD pipeline is used to build the frontend and deploy it to Firebase hosting on pushes to the main branch of the repo. The backend is hosted on an E2-medium compute instance on GCP. The instance runs Debian 11.
+
 ---Requirements
 All the requirements of our project can be found in the requirements.txt file in the /backend directory in the project folder.
