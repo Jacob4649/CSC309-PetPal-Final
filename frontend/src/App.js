@@ -43,15 +43,20 @@ function App() {
   const [userInfo, setUserInfo] = useState(null)
 
   const ConditionalNavbar = ({ userInfo }) => {
-    const signedOutPages = ['/landing-page', '/login-seeker', '/login-shelter', '/signup-seeker', '/signup-shelter']
+    const signedOutPages = ['', '/', '/landing-page', '/login-seeker', '/login-shelter', '/signup-seeker', '/signup-shelter']
 
-    const location = useLocation()
-    const currentPath = location.pathname
 
-    if (!userInfo && signedOutPages.includes(currentPath)) {
-      return <SignedOutNavbar />
-    } else {
-      return <NavBar userInfo={userInfo} />
+    try {
+      const location = useLocation()
+      const currentPath = location.pathname
+
+      if (!userInfo && signedOutPages.includes(currentPath)) {
+        return <SignedOutNavbar />
+      } else {
+        return <NavBar userInfo={userInfo} />
+      }
+    } catch {
+      return <SignedOutNavbar/>
     }
   }
 
@@ -89,7 +94,7 @@ function App() {
             {userInfo ? <NavBar setUserInfo={setUserInfo} userInfo={userInfo} /> : <SignedOutNavbar/>}
             <Outlet />
           </>}>
-          <Route path="/" element={<Navigate to={`/${!!userInfo ? 'home' : '/'}`} replace />} />
+          <Route path="/" element={<Navigate to={`/${!!userInfo ? 'home' : 'landing-page'}`}/>} />
           <Route path='/update-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login-shelter"}>
