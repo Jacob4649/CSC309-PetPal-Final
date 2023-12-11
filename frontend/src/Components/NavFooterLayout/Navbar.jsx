@@ -55,9 +55,6 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                 <summary className="user-icon material-symbols-outlined"></summary>
                 <div className="account-menu">
                     <div>
-                        <div className="profile-pic">
-                            <img src={!!userInfo ? getProfilePicURL(userInfo.id) : "https://pbs.twimg.com/media/FUrhqfUXoAIQS3Q.png"}></img>
-                        </div>
                         {userInfo?.name ?? ''}
                     </div>
                     <a href="./my-applications" className="d-block remove-a-styling">
