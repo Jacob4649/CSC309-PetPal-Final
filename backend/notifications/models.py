@@ -52,13 +52,13 @@ def _create_shelter_notification(user: User, notif_type: int, title: str, conten
     base_url = settings.BASE_FRONTEND_URL
     if notif_type == ShelterNotification.NotificationType.APPLICATION:
         # application url
-        url = base_url + reverse_lazy('applications-detail', kwargs={'pk': model_pk})
+        url = base_url + "/pet-application/" + str(model_pk)
     elif notif_type == ShelterNotification.NotificationType.COMMENT:
         # comment url
         url = base_url + "/shelter/" + str(model_pk)
     elif notif_type == ShelterNotification.NotificationType.MESSAGE:
         # message or application url
-        url = base_url + reverse_lazy('comments:application_messages', kwargs={'application_id': model_pk})
+        url = base_url + "/pet-application/" + str(model_pk)
     return ShelterNotification.objects.create(
         shelter=user,
         type=notif_type,
@@ -75,13 +75,13 @@ def _create_seeker_notification(user: User, notif_type: int, title: str, content
     base_url = settings.BASE_FRONTEND_URL
     if notif_type == PetSeekerNotification.NotificationType.MESSAGE:
         # message or application url
-        url = base_url + reverse_lazy('comments:application_messages', kwargs={'application_id': model_pk})
+        url = base_url + "/pet-application/" + str(model_pk)
     elif notif_type == PetSeekerNotification.NotificationType.NEW_LISTING:
         # listing url
-        url = base_url + reverse_lazy('listing-detail', kwargs={'pk': model_pk})
+        url = base_url + "/pet-detail/" + str(model_pk)
     elif notif_type == PetSeekerNotification.NotificationType.STATUS_UPDATE:
         # application url
-        url = base_url + reverse_lazy('applications-detail', kwargs={'pk': model_pk})
+        url = base_url + "/pet-application/" + str(model_pk)
     return PetSeekerNotification.objects.create(
         pet_seeker=user,
         type=notif_type,
