@@ -54,12 +54,21 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                         </span>
                         My Applications
                     </a>
-                    <a href="./account-update-page" className="text-decoration-none d-block remove-a-styling">
+                    {userInfo?.is_shelter ? (
+                        <a href="./update-seeker" className="text-decoration-none d-block remove-a-styling">
                         <span className="material-symbols-outlined">
                             face
                         </span>
-                        Update Profile
-                    </a>
+                            Update Profile
+                        </a>
+                    ) : (
+                        <a href="./update-shelter" className="text-decoration-none d-block remove-a-styling">
+                        <span className="material-symbols-outlined">
+                            face
+                        </span>
+                            Update Profile
+                        </a>
+                    )}
                     <a href="./landing-page" className="remove-a-styling d-block">
                         <span className="material-symbols-outlined">
                             lock_open
