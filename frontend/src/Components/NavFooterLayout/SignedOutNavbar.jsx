@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-export const NavBar = ({userInfo, setUserInfo}) => {
+export const SignedOutNavbar = ({userInfo, setUserInfo}) => {
 
     const location = useLocation();
     const split = location.pathname
@@ -22,7 +22,7 @@ export const NavBar = ({userInfo, setUserInfo}) => {
     }
 
     return <header className="nav-bar-div">
-        <Link className="logo" to="/">
+        <Link className="logo" to="/landing-page">
             <img src="/assets/logo-light.svg"></img>
             <span>PetPal</span>
         </Link>
