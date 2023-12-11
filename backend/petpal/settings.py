@@ -85,9 +85,13 @@ WSGI_APPLICATION = "petpal.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': '34.130.87.147',
+        'PORT': '5432'
     }
 }
 BASE_URL = "http://127.0.0.1:8000"

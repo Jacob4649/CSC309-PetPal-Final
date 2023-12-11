@@ -22,8 +22,8 @@ RUN apt-get install -y postgresql postgresql-contrib python3-setuptools libpq-de
 
 # Environment variables
 
-ENV DATABASE_HOSTNAME="209.91.163.74:8000"
-ENV DATABASE_USERNAME="petpal"
+ENV DATABASE_HOSTNAME="34.130.87.147:5432"
+ENV DATABASE_USERNAME="postgres"
 ENV DATABASE_PASSWORD="password"
 
 # End of environment variables
