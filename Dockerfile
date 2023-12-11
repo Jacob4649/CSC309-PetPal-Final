@@ -11,7 +11,6 @@ COPY backend/comments ./
 COPY backend/listings ./
 COPY backend/notifications ./
 COPY backend/petpal ./
-COPY backend/docker_entry.sh ./
 
 # DB connection stuff
 
@@ -22,8 +21,8 @@ RUN apt-get install -y postgresql postgresql-contrib python3-setuptools libpq-de
 
 # Environment variables
 
-ENV DATABASE_HOSTNAME="34.130.87.147:5432"
-ENV DATABASE_USERNAME="postgres"
+ENV DATABASE_HOSTNAME="209.91.163.74:8000"
+ENV DATABASE_USERNAME="petpal"
 ENV DATABASE_PASSWORD="password"
 
 # End of environment variables
@@ -40,4 +39,4 @@ EXPOSE 8000
 EXPOSE 5432
 
 # start gunicorn 
-CMD ["source", "docker_entry.sh"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers=3", "--threads=3", "petpal.wsgi"]
