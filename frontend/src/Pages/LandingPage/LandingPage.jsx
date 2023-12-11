@@ -135,9 +135,9 @@ const LandingPage = () => {
 
             <div id="login-buttons" className="aero-tile">
                 <Link to="/signup-shelter" className="btn btn-secondary">Sign Up Shelter</Link>
-                <Link to="/signup-user" className="btn btn-secondary">Sign Up User</Link>
+                <Link to="/signup-seeker" className="btn btn-secondary">Sign Up User</Link>
                 <Link to="/login-shelter" className="btn btn-primary">Shelter Login</Link>
-                <Link to="/login-user" className="btn btn-primary">User Login</Link>
+                <Link to="/login-seeker" className="btn btn-primary">User Login</Link>
             </div>
         </div>
     )
