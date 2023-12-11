@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./signup-shelter.css";
 import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import generateHeaders from "../../utils/fetchTokenSet";
 
 const SignupShelter = () => {
     const [userData, setUserData] = useState({
@@ -30,26 +31,30 @@ const SignupShelter = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        const response = fetch("http://127.0.0.1:8000/accounts/shelters/", {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: userData.name,
-                email: userData.email,
-                password1: userData.password1,
-                password2: userData.password2})
-        })
-
         try {
-            const response_value = await response
-            if (response_value.status === 200) {
-                navigate('/login-shelter')
-            }
-            const response_json = await response.json()
-            if (response_json.message === 'Passwords do not match.') {
-                setErrorMessage('The passwords do not match.')
-            } else if (response_json.message === 'Email is not unique') {
-                setErrorMessage('This email is taken.')
+            const response = await fetch("http://127.0.0.1:8000/accounts/shelters/", {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    name: userData.name,
+                    email: userData.email,
+                    password1: userData.password1,
+                    password2: userData.password2})
+            })
+
+            if (response.status !== 200) {
+                const response_json = await response.json()
+                console.log(response_json)
+                if (response_json.message === 'Passwords do not match.') {
+                    setErrorMessage("The passwords do not match.")
+                } else if (response_json.message === 'Email is not unique') {
+                    setErrorMessage('This email is taken.')
+                } else {
+                    setErrorMessage('Invalid field(s).')
+                }
+                return;
+            } else {
+                navigate('/login-seeker')
             }
         } catch {
             console.log("register error occurred")

@@ -56,24 +56,16 @@ function App() {
             <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
           <Route path='/login-seeker' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
           } />
           <Route path='/login-shelter' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginShelter setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
           } />
           <Route path='/signup-seeker' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
-              <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
+            <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
           <Route path='/signup-shelter' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
-              <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
+            <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
         </Route>
         <Route element={
