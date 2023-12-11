@@ -11,6 +11,7 @@ const ListingUpdate = () => {
         height_feet: null,
         age_months: null,
         age_years: null,
+        weight_lbs: null,
         listing_status: null,
         description: ''
     })
@@ -200,6 +201,23 @@ const ListingUpdate = () => {
                                    onChange={handleChange}
                                    value={listingData.height_feet} required />
                         </div>
+                    </div>
+                </div>
+
+
+                <div className="container-fluid d-flex flex-column p-0">
+                    <div className="input-group mt-3 mt-lg-0">
+                        <span className="input-group-text material-symbols-outlined">scale</span>
+                        <input type="number"
+                               id="weight_lbs"
+                               placeholder="Weight (kg)"
+                               className="form-control"
+                               min="0"
+                               max="300"
+                               step="0.1"
+                               onChange={handleChange}
+                               value={listingData.weight_lbs}
+                               required />
                     </div>
                 </div>
 
