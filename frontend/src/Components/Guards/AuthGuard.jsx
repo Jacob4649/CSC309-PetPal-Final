@@ -15,7 +15,7 @@ const AuthGuard = ({ children, is_logged_in, setUserInfo, navigate = true }) => 
     }
     if (token) {
         setLoading(true)
-        fetch("${BACKEND_ENDPOINT}/accounts/shelters/info/", { headers: generateHeaders() }).then((res) => res.json()).then((userInfo) => {
+        fetch(`${BACKEND_ENDPOINT}/accounts/shelters/info/`, { headers: generateHeaders() }).then((res) => res.json()).then((userInfo) => {
             setLoading(false)
             setUserInfo(userInfo)
         }).catch((e) => { setError(true) })
