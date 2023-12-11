@@ -41,3 +41,6 @@ class Listing(models.Model):
 
     description = models.TextField()
     """Description of the listing"""
+
+    profile_pic = models.ImageField(null=True, blank=True)
+    """Profile pic for the listing"""

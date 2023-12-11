@@ -6,6 +6,72 @@ from listings.models import Listing
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+
+class ProfilePicView(APIView):
+    
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        listing_id = kwargs.get('id', None)
+
+        if listing_id is None:
+            return HttpResponse(status=404)
+        
+        listing = None
+        try:
+            listing = Listing.objects.get(pk=listing_id)
+        except Listing.DoesNotExist:
+            return JsonResponse(dict(message='Listing not found'), status=404)
+        
+        if user.profile_pic.name == '':
+            return JsonResponse(dict(message='Listing has no profile pic'), status=404)
+
+        content_type = 'image/png' if listing.profile_pic.name.lower().endswith('png') else 'image/jpeg'
+
+        # create response and set content type
+        response = HttpResponse(listing.profile_pic, content_type=content_type)
+        
+        # set file as attachment and specify name
+        response['Content-Disposition'] = f'attachment; filename="{listing.profile_pic.name}"'
+        
+        return response
+    
+    def put(self, request, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return JsonResponse(dict(message="User is not authenticated"), status=401)
+
+        listing_id = kwargs.get('id', None)
+
+        if listing_id is None:
+            return JsonResponse(dict(message="Listing does not exist"), status=404)
+        
+        listing = None
+        try:
+            listing = Listing.objects.get(pk=listing_id)
+        except Listing.DoesNotExist:
+            return JsonResponse(dict(message='Listing not found'), status=404)
+        
+        if listing.shelter.id != request.user.id:
+            return JsonResponse(dict(message='Can only set own listing profile picture'), status=403)
+
+        content_type = request.content_type
+
+        if not content_type.endswith('png') and not content_type.endswith('jpeg'):
+            return JsonResponse(dict(message='Can only upload png or jpeg as profile pic'), status=400)
+        
+        extension = 'png' if content_type.endswith('png') else 'jpg'
+
+        with NamedTemporaryFile("wb+") as f:
+            f.write(bytes(request.body))
+            f.seek(0)
+            listing.profile_pic = ImageFile(f, f'{listing.id}.{extension}')
+            listing.save()
+
+        return JsonResponse(ListingSerializer(user).data, status=200)
+
+
 class ListingViewSet(ModelViewSet):
     """View set for listings"""
     authentication_classes = (JWTAuthentication,)
