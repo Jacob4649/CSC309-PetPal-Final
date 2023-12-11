@@ -95,3 +95,9 @@
     margin-bottom: 10px; 
     text-decoration: none; 
 }
+
+.pet-application .chat_header {
+    color: aliceblue;
+    margin-top: 10px;
+    margin-bottom: -50px;
+}
