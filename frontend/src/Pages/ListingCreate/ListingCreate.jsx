@@ -1,17 +1,17 @@
 import { useState } from "react";
 import "./listing-create.css";
 import { useNavigate } from "react-router-dom";
+import generateHeaders from "../../utils/fetchTokenSet";
 
 const ListingCreate = () => {
     const [listingData, setListingData] = useState({
         name: '',
         species: '',
         breed: '',
-        weight_lbs: 0.0,
-        height_feet: 0.0,
-        age_months: 0,
-        age_years: 0,
-        listing_status: 3,
+        height_feet: null,
+        age_months: null,
+        age_years: null,
+        weight_lbs: null,
         description: ''
     })
 
@@ -25,7 +25,6 @@ const ListingCreate = () => {
             height_feet: listingData.height_feet,
             age_months: listingData.age_months,
             age_years: listingData.age_years,
-            listing_status: listingData.listing_status,
             description: listingData.description
         }
         updatedListingData[id] = value
@@ -37,22 +36,10 @@ const ListingCreate = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         const new_age = (listingData.age_years * 12) + listingData.age_months
-        let new_status = 0
-        switch (listingData.listing_status) {
-            case 'adopted':
-                new_status = 1;
-                break;
-            case 'canceled':
-                new_status = 2;
-                break;
-            case 'available':
-                new_status = 3;
-                break;
-        }
         const new_height = listingData.height_feet * 12
         const response = fetch("http://127.0.0.1:8000/listings/", {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: generateHeaders(),
             body: JSON.stringify({
                 name: listingData.name,
                 species: listingData.species,
@@ -60,14 +47,16 @@ const ListingCreate = () => {
                 weight_lbs: listingData.weight_lbs,
                 height_feet: new_height,
                 age_months: new_age,
-                listing_status: new_status,
+                listing_status: 3,
                 description: listingData.description
             })
         })
         try {
             const response_value = await response
-            if (response_value.status === 200) {
-                navigate('/')
+            if (response_value.status === 201) {
+                const response_data = await response_value.json()
+                const listing_id = response_data.id
+                navigate(`/pet-detail/${listing_id}`)
             }
         } catch {
             console.log("register error occurred")
@@ -79,14 +68,11 @@ const ListingCreate = () => {
             <form onSubmit={handleSubmit}>
                 <h2>Create Pet Listing</h2>
 
-                // TODO: Fix pfp
-                <div className="profile-pic">
-                    <img src="../../../public/img/default_dog_profile_pic.png" alt="Default Dog Profile" />
-                </div>
-
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pets</span>
-                    <input type="text"
+                    <input
+                        type="text"
+                        id="name"
                         placeholder="Pet Name"
                         className="form-control"
                         onChange={handleChange}
@@ -96,7 +82,9 @@ const ListingCreate = () => {
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">sound_detection_dog_barking</span>
-                    <input type="text"
+                    <input
+                        type="text"
+                        id="species"
                         placeholder="Species"
                         className="form-control"
                         onChange={handleChange}
@@ -106,7 +94,9 @@ const ListingCreate = () => {
 
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">pet_supplies</span>
-                    <input type="text"
+                    <input
+                        type="text"
+                        id="breed"
                         placeholder="Breed"
                         className="form-control"
                         onChange={handleChange}
@@ -114,36 +104,14 @@ const ListingCreate = () => {
                         required />
                 </div>
 
-                <div className="input-group">
-                    <span className="input-group-text material-symbols-outlined">check</span>
-                    <select className="form-control"
-                        onChange={handleChange}
-                        value={listingData.listing_status} required>
-                        <option disabled selected value="">Availability Status</option>
-                        <option value="available">Available</option>
-                        <option value="adopted">Adopted</option>
-                        <option value="canceled">Canceled</option>
-                    </select>
-                </div>
-
-                // TODO: Implement pfp upload
-                <div className="container-fluid d-flex flex-column p-0">
-                    <div className="input-group">
-                        <span className="input-group-text material-symbols-outlined d-none d-sm-inline">add_photo_alternate</span>
-                        <input type="file" className="form-control container-fluid m-0" />
-                    </div>
-                    <div className="d-flex justify-content-center pt-3">
-                        <button type="button" className="btn btn-outline-secondary content">Upload Pet Photo</button>
-                    </div>
-                </div>
-
                 <div className="container-fluid d-flex flex-column flex-lg-row p-0">
                     <div className="container-fluid d-flex flex-column p-0">
                         <div className="input-group">
                             <span className="input-group-text material-symbols-outlined">calendar_month</span>
-                            <input type="text"
-                                placeholder="Age (Years)"
-                                id="years"
+                            <input
+                                type="text"
+                                id="age_years"
+                                placeholder="Age (years)"
                                 min="0"
                                 max="99"
                                 className="form-control"
@@ -155,8 +123,8 @@ const ListingCreate = () => {
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">event</span>
                             <input type="number"
-                                placeholder="Age (Months)"
-                                id="months"
+                                placeholder="Age (months)"
+                                id="age_months"
                                 min="0"
                                 max="11"
                                 className="form-control"
@@ -171,7 +139,7 @@ const ListingCreate = () => {
                         <div className="input-group mt-3 mt-lg-0">
                             <span className="input-group-text material-symbols-outlined">height</span>
                             <input type="number"
-                                id="height"
+                                id="height_feet"
                                 placeholder="Height (inches)"
                                 className="form-control"
                                 min="0"
@@ -183,9 +151,27 @@ const ListingCreate = () => {
                     </div>
                 </div>
 
+                <div className="container-fluid d-flex flex-column p-0">
+                    <div className="input-group mt-3 mt-lg-0">
+                        <span className="input-group-text material-symbols-outlined">scale</span>
+                        <input type="number"
+                               id="weight_lbs"
+                               placeholder="Weight (pounds)"
+                               className="form-control"
+                               min="0"
+                               max="300"
+                               step="0.1"
+                               onChange={handleChange}
+                               value={listingData.weight_lbs}
+                               required />
+                    </div>
+                </div>
+
                 <div className="input-group">
                     <span className="input-group-text material-symbols-outlined">reorder</span>
-                    <textarea placeholder="Description (medical history, behavior, special needs, etc.)"
+                    <textarea
+                        placeholder="Description (medical history, behavior, special needs, etc.)"
+                        id="description"
                         className="form-control"
                         rows="4"
                         onChange={handleChange}

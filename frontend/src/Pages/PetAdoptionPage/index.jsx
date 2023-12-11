@@ -16,12 +16,25 @@ const PetAdoptionPage = ({userInfo}) => {
     });
 
     const get_pet_info = () => {
+        // fetch(`http://127.0.0.1:8000/listings/${petId}/`, {
+        //     method: "get",
+        //     headers: generateHeaders()
+        // }).then(async (res) => res.json()).then((data) => {
+        //     console.log(data)
+        //     setPetInfo(data)
+        // })
         fetch(`http://127.0.0.1:8000/listings/${petId}/`, {
             method: "get",
             headers: generateHeaders()
-        }).then((res) => res.json()).then((data) => {
-            console.log(data)
-            setPetInfo(data)
+        }).then(async (res) => {
+            const data = await res.json()
+            if (!(res.status >= 200 && res.status < 300)) {
+              navigate("/404")
+            }
+            else {
+              console.log(data)
+              setPetInfo(data)
+            }
         })
     }
 

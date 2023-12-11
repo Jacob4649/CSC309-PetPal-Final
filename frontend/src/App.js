@@ -57,24 +57,16 @@ function App() {
             <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
           <Route path='/login-seeker' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginUser setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
           } />
           <Route path='/login-shelter' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
               <LoginShelter setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
           } />
           <Route path='/signup-seeker' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
-              <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
+            <SignupUser setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
           <Route path='/signup-shelter' element={
-            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo} navigate={false}>
-              <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
-            </AuthGuard>
+            <SignupShelter setUserInfo={setUserInfo} userInfo={userInfo} />
           } />
         </Route>
         <Route element={
@@ -116,6 +108,16 @@ function App() {
           <Route path='/shelter/:shelter_id' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <ShelterDetailPage userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/create-listing' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <ListingCreate userInfo={userInfo} />
+            </AuthGuard>
+          } />
+          <Route path='/update-listing/:listing_id' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <ListingUpdate userInfo={userInfo} />
             </AuthGuard>
           } />
           <Route path='/pet-detail/:petId' element={

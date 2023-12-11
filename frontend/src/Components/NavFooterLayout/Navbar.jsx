@@ -23,7 +23,7 @@ export const NavBar = ({userInfo, setUserInfo}) => {
 
     return <header className="nav-bar-div">
         <Link className="logo" to="/">
-            <img src="img/logo-light.svg"></img>
+            <img src="assets/logo-light.svg"></img>
             <span>PetPal</span>
         </Link>
         <div className="pages">
@@ -48,19 +48,28 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                         </div>
                         Pet-Denier-123
                     </div>
-                    <a href="./my-applications-client.html" className="d-block remove-a-styling">
+                    <a href="./my-applications" className="d-block remove-a-styling">
                         <span className="material-symbols-outlined">
                             edit
                         </span>
                         My Applications
                     </a>
-                    <a href="./account-update-page-client.html" className="text-decoration-none d-block remove-a-styling">
+                    {userInfo?.is_shelter ? (
+                        <a href="./update-seeker" className="text-decoration-none d-block remove-a-styling">
                         <span className="material-symbols-outlined">
                             face
                         </span>
-                        Update Profile
-                    </a>
-                    <a href="./landing-page.html" className="remove-a-styling d-block">
+                            Update Profile
+                        </a>
+                    ) : (
+                        <a href="./update-shelter" className="text-decoration-none d-block remove-a-styling">
+                        <span className="material-symbols-outlined">
+                            face
+                        </span>
+                            Update Profile
+                        </a>
+                    )}
+                    <a href="./landing-page" className="remove-a-styling d-block">
                         <span className="material-symbols-outlined">
                             lock_open
                         </span>

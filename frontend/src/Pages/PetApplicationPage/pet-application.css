@@ -79,19 +79,27 @@
     color: white;
     padding: 10px 20px;
     margin-bottom: 10px;
-    /* width: 110px;
-    text-align: center; */
+    width: 110px;
+    text-align: center;
+    justify-content: center;
   }
   
 .pet-application .btn-red {
     background-color: rosybrown;
     color: white;
     padding: 10px 20px;
-    /* width: 110px;
-    text-align: center; */
+    width: 110px;
+    text-align: center;
+    justify-content: center;
 }
 
 .pet-application .btn-link {
     margin-bottom: 10px; 
     text-decoration: none; 
+}
+
+.pet-application .chat_header {
+    color: aliceblue;
+    margin-top: 10px;
+    margin-bottom: -50px;
 }
