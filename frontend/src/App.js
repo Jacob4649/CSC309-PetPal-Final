@@ -7,7 +7,7 @@ import NotificationPage from './Pages/NotificationPage/index';
 import PetDetailPage from './Pages/PetDetailPage/index';
 import PetAdoptionPage from './Pages/PetAdoptionPage/index';
 import PetApplicationPage from './Pages/PetApplicationPage';
-import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from "react-router-dom"
+import {BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate, useLocation} from "react-router-dom"
 import AuthGuard from './Components/Guards/AuthGuard';
 import LoginPage from './Components/TempLogin/LoginPage';
 import RouteGuard from './Components/Guards/RouteGuard';
@@ -36,10 +36,24 @@ import HomeButton from './Components/Buttons/HomeButton';
 import { SearchPage } from './Pages/Search/SearchPage';
 import { ShelterManagement } from './Pages/ShelterManagement/ShelterManagement';
 import SeekerDetail from "./Pages/SeekerDetail/SeekerDetail";
+import { SignedOutNavbar } from  './Components/NavFooterLayout/SignedOutNavbar';
 
 
 function App() {
   const [userInfo, setUserInfo] = useState(null)
+
+  const ConditionalNavbar = ({ userInfo }) => {
+    const signedOutPages = ['/landing-page', '/login-seeker', '/login-shelter', '/signup-seeker', '/signup-shelter']
+
+    const location = useLocation()
+    const currentPath = location.pathname
+
+    if (!userInfo && signedOutPages.includes(currentPath)) {
+      return <SignedOutNavbar />
+    } else {
+      return <NavBar userInfo={userInfo} />
+    }
+  }
 
   useEffect(() => {
     console.log(userInfo)
@@ -49,7 +63,7 @@ function App() {
       <Routes>
         <Route element={
           <>
-            <NavBar setUserInfo={setUserInfo} userInfo={userInfo} />
+            <ConditionalNavbar setUserInfo={setUserInfo} userInfo={userInfo} />
             <Outlet />
           </>
         }>
@@ -72,7 +86,8 @@ function App() {
         </Route>
         <Route element={
           <>
-            <NavBar userInfo={userInfo} setUserInfo={setUserInfo}/>
+            {userInfo ? <NavBar setUserInfo={setUserInfo} userInfo={userInfo} /> : <SignedOutNavbar/>}
+            <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
             <Outlet />
           </>}>
           <Route path="/" element={<Navigate to={`/${!!userInfo ? 'home' : 'landing-page'}`} replace />} />
