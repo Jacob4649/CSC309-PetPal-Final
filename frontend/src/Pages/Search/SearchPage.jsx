@@ -192,11 +192,15 @@ export const SearchPage = ({ userInfo }) => {
             </div>
             <nav>
                 <ul className="pagination">
-                    <li className="page-item"><a className="page-link">&lt;</a></li>
-                    <li className="page-item"><a className="page-link">1</a></li>
-                    <li className="page-item"><a className="page-link">...</a></li>
-                    <li className="page-item"><a className="page-link">22</a></li>
-                    <li className="page-item"><a className="page-link">&gt;</a></li>
+                    {
+                        !!prevPage &&
+                        <li className="page-item"><a className="page-link" onClick={() => populateResults(pageNum - 1)}>&lt;</a></li>
+                    }
+                    <li className="page-item"><a className="page-link">{pageNum}</a></li>
+                    {
+                        !!nextPage &&
+                        <li className="page-item"><a className="page-link" onClick={() => populateResults(pageNum + 1)}>&gt;</a></li>
+                    }
                 </ul>
             </nav>
         </div>
