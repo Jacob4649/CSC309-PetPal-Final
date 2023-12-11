@@ -29,6 +29,7 @@ export const NavBar = ({userInfo, setUserInfo}) => {
         <div className="pages">
             <Link className="material-symbols-outlined" to="/home" title="Home">home</Link>
             <Link className="material-symbols-outlined" to="/search" title="Search">search</Link>
+            <Link className="material-symbols-outlined" to="/shelter-blogs" title="Shelter Blogs">description</Link>
         </div>
         <div className="navigation">
             {
