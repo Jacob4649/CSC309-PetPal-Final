@@ -2,12 +2,6 @@
 
 # RUN 'bash ./startup.sh' IN TERMINAL
 
-# install make
-sudo apt-get install make
-
-# run make
-make
-
 # install relevant python version
 sudo apt-get install python3.8
 
