@@ -35,6 +35,7 @@ import { ArrowBack, Home } from '@mui/icons-material';
 import HomeButton from './Components/Buttons/HomeButton';
 import { SearchPage } from './Pages/Search/SearchPage';
 import { ShelterManagement } from './Pages/ShelterManagement/ShelterManagement';
+import SeekerDetail from "./Pages/SeekerDetail/SeekerDetail";
 
 
 function App() {
@@ -95,6 +96,13 @@ function App() {
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <RouteGuard is_permitted={userInfo && !userInfo.is_shelter} redirect={"/login-seeker"}>
                 <UpdateSeekerPage user_id={userInfo && userInfo.id} />
+              </RouteGuard>
+            </AuthGuard>
+          } />
+          <Route path='/seeker-detail' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <RouteGuard is_permitted={userInfo && !userInfo.is_shelter} redirect={"/login-seeker"}>
+                <SeekerDetail user_id={userInfo && userInfo.id} />
               </RouteGuard>
             </AuthGuard>
           } />
