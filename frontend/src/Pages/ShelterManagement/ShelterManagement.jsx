@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { getAllListings } from "../../gateway/listings";
 import './shelter-management.css';
+import { Link } from "react-router-dom";
 
 const Pet = ({id, name, species, description}) => {
     return <div className="pet">
@@ -19,9 +20,9 @@ const Pet = ({id, name, species, description}) => {
         <div className="pet-description">
             {description}
             <div className="pet-controls">
-                <a className="material-symbols-outlined" title="Edit" href="./pet-update.html">
+                <Link className="material-symbols-outlined" title="Edit" to={`/update-listing/${id}/`}>
                     edit
-                </a>
+                </Link>
                 <a className="material-symbols-outlined" title="Delete">
                     delete
                 </a>
@@ -64,12 +65,12 @@ export const ShelterManagement = ({userInfo}) => {
             }
         </div>
         <div id="page-controls">
-            <a className="material-symbols-outlined" title="New Pet" href="pet-creation.html">
+            <Link className="material-symbols-outlined" title="New Pet" to="/create-listing/">
                 add
-            </a>
-            <a className="material-symbols-outlined" title="Done" href="shelter-detail-page-shelter.html">
+            </Link>
+            <Link className="material-symbols-outlined" title="Done" to={`/shelter/${userInfo.id}`}>
                 check
-            </a>
+            </Link>
         </div>
     </div>;
 }
