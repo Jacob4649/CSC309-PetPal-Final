@@ -1,0 +1,24 @@
+CSC309 Group 7147 PetPal Install Document
+
+Ryan Merheby
+Taha Saeed Piracha
+Jacob Klimczak
+Daniel Dervishi
+
+--- Preparation Section
+
+Below are the following steps to get the project running on your local machine.
+Note: you do not have to install anything manually, we have provided scripts that do all the necessary installs.
+
+Open the terminal
+cd into the /backend directory in the project folder
+Run: `bash startup.sh`
+Then run: `bash run.sh`
+Open a new terminal window
+cd into the /frontend directory in the project folder
+Run `npm run start`
+
+--- Deployment Instructions & Environment
+
+---Requirements
+All the requirements of our project can be found in the requirements.txt file in the /backend directory in the project folder.
