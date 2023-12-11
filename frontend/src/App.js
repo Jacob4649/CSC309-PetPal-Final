@@ -34,6 +34,7 @@ import { Button } from '@mui/material';
 import { ArrowBack, Home } from '@mui/icons-material';
 import HomeButton from './Components/Buttons/HomeButton';
 import { SearchPage } from './Pages/Search/SearchPage';
+import { ShelterManagement } from './Pages/ShelterManagement/ShelterManagement';
 
 
 function App() {
@@ -80,6 +81,13 @@ function App() {
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login-shelter"}>
                 <UpdateShelterPage shelter_id={userInfo && userInfo.id} />
+              </RouteGuard>
+            </AuthGuard>
+          } />
+          <Route path='/manage-shelter' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login-shelter"}>
+                <ShelterManagement userInfo={userInfo} />
               </RouteGuard>
             </AuthGuard>
           } />

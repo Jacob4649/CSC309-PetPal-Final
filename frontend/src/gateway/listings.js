@@ -44,3 +44,18 @@ export const getListings = async (status, species, age, order, desc, query, page
     });
     return await response.json();
 }
+
+/**
+ * Gets all listings
+ */
+export const getAllListings = async () => {
+    const output = [];
+    let response = null;
+    let page = 1;
+    do {
+        response = await getListings(3, undefined, undefined, 'name', false, undefined, page);
+        response.results.forEach(x => output.push(x));
+        page += 1;
+    } while (!!response.next);
+    return output;
+}
