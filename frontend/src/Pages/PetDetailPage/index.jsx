@@ -16,6 +16,8 @@ const PetDetailPage = ({ userInfo }) => {
         3: 'Open',
     };
     let { petId } = useParams();
+    let months = null
+    let years = null
 
     const get_pet_info = () => {
         fetch(`http://127.0.0.1:8000/listings/${petId}`, {
@@ -27,6 +29,8 @@ const PetDetailPage = ({ userInfo }) => {
                 navigate("/404")
             }
             else {
+                years = Math.floor(data.age_months / 12)
+                months = data.age_months % 12
                 console.log(data)
                 setPetInfo(data)
 
@@ -205,7 +209,7 @@ const PetDetailPage = ({ userInfo }) => {
                                         <p className="mb-0">Measurements</p>
                                     </div>
                                     <div className="col-sm-9 text-secondary">
-                                        Height: {pet_info.height_feet} feet, Weight {pet_info.weight_lbs} lbs
+                                        Height: {pet_info.height_feet} in, Weight {pet_info.weight_lbs} lbs
                                     </div>
                                 </div>
 
@@ -216,7 +220,7 @@ const PetDetailPage = ({ userInfo }) => {
                                         <p className="mb-0">Age</p>
                                     </div>
                                     <div className="col-sm-9 text-secondary">
-                                        {pet_info.age_months} months
+                                        {Math.floor(pet_info.age_months / 12)} years, {pet_info.age_months % 12} months
                                     </div>
                                 </div>
 

@@ -28,8 +28,7 @@ const ListingUpdate = () => {
             return response.json();
         }).then((data) => {
             const ageYears = Math.floor(data.age_months / 12) || 0
-            const ageMonths = (data.age_months % 12) || 0
-            const heightInches = (data.height_feet * 12) || 0
+            const ageMonths = data.age_months % 12 || 0
             let new_status = ''
             switch (data.listing_status) {
                 case 1:
@@ -52,7 +51,7 @@ const ListingUpdate = () => {
                 description: data.description,
                 age_years: ageYears,
                 age_months: ageMonths,
-                height_feet: heightInches
+                height_feet: data.height_feet
             });
         });
     }
@@ -78,7 +77,9 @@ const ListingUpdate = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const new_age = (listingData.age_years * 12) + listingData.age_months
+        const ageYears = parseInt(listingData.age_years, 10);
+        const ageMonths = parseInt(listingData.age_months, 10);
+        const new_age = ageYears * 12 + ageMonths
         let new_status = 0
         switch (listingData.listing_status) {
             case 'adopted':
@@ -91,7 +92,6 @@ const ListingUpdate = () => {
                 new_status = 3;
                 break;
         }
-        const new_height = listingData.height_feet * 12
         const response = fetch(`http://127.0.0.1:8000/listings/${listing_id}/`, {
             method: 'PATCH',
             headers: generateHeaders(),
@@ -100,7 +100,7 @@ const ListingUpdate = () => {
                 species: listingData.species,
                 breed: listingData.breed,
                 weight_lbs: listingData.weight_lbs,
-                height_feet: new_height,
+                height_feet: listingData.height_feet,
                 age_months: new_age,
                 listing_status: new_status,
                 description: listingData.description

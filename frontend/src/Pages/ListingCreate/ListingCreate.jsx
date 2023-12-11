@@ -35,8 +35,9 @@ const ListingCreate = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const new_age = (listingData.age_years * 12) + listingData.age_months
-        const new_height = listingData.height_feet * 12
+        const ageYears = parseInt(listingData.age_years, 10);
+        const ageMonths = parseInt(listingData.age_months, 10);
+        const new_age = (ageYears * 12) + ageMonths
         const response = fetch("http://127.0.0.1:8000/listings/", {
             method: 'POST',
             headers: generateHeaders(),
@@ -45,7 +46,7 @@ const ListingCreate = () => {
                 species: listingData.species,
                 breed: listingData.breed,
                 weight_lbs: listingData.weight_lbs,
-                height_feet: new_height,
+                height_feet: listingData.height_feet,
                 age_months: new_age,
                 listing_status: 3,
                 description: listingData.description
