@@ -65,7 +65,10 @@ const ListingCreate = () => {
         })
         try {
             const response_value = await response
-            if (response_value.status === 201) {
+            if (!(response_value.status >= 200 && response_value.status < 300)) {
+                navigate("/404")
+            }
+            else if (response_value.status === 201) {
                 const response_data = await response.json()
                 const listing_id = response_data.id
                 navigate(`/pet-detail/${listing_id}`)
