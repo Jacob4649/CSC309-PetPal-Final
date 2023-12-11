@@ -87,10 +87,9 @@ function App() {
         <Route element={
           <>
             {userInfo ? <NavBar setUserInfo={setUserInfo} userInfo={userInfo} /> : <SignedOutNavbar/>}
-            <LandingPage setUserInfo={setUserInfo} userInfo={userInfo} />
             <Outlet />
           </>}>
-          <Route path="/" element={<Navigate to={`/${!!userInfo ? 'home' : 'landing-page'}`} replace />} />
+          <Route path="/" element={<Navigate to={`/${!!userInfo ? 'home' : '/'}`} replace />} />
           <Route path='/update-shelter' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <RouteGuard is_permitted={userInfo && userInfo.is_shelter} redirect={"/login-shelter"}>
