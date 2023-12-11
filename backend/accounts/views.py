@@ -92,8 +92,14 @@ class ProfilePicView(APIView):
 
 class ShelterViewSet(ModelViewSet):
     serializer_class = ShelterSerializer
-    queryset = User.objects.filter(is_shelter=True)
     authentication_classes = (JWTAuthentication,)
+
+    def get_queryset(self):
+        queryset = User.objects.filter(is_shelter=True)
+        query = self.request.query_params.get('q', None)
+        if query is not None:
+            listings = listings.filter(name__contains=query)
+        return queryset
 
     def get_permissions(self):
         if self.action == 'create':
