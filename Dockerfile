@@ -11,7 +11,7 @@ COPY backend/comments ./
 COPY backend/listings ./
 COPY backend/notifications ./
 COPY backend/petpal ./
-COPY backend/ docker_entry.sh ./
+COPY backend/docker_entry.sh ./
 
 # DB connection stuff
 
