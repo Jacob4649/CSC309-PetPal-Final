@@ -3,6 +3,7 @@ import generateHeaders from "../../utils/fetchTokenSet";
 import "./pet-adoption.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { Routes, Route , useNavigate, useParams } from "react-router-dom";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const PetAdoptionPage = ({userInfo}) => {
     const [pet_info, setPetInfo] = useState({});
@@ -16,14 +17,14 @@ const PetAdoptionPage = ({userInfo}) => {
     });
 
     const get_pet_info = () => {
-        // fetch(`http://127.0.0.1:8000/listings/${petId}/`, {
+        // fetch(`${BACKEND_ENDPOINT}/listings/${petId}/`, {
         //     method: "get",
         //     headers: generateHeaders()
         // }).then(async (res) => res.json()).then((data) => {
         //     console.log(data)
         //     setPetInfo(data)
         // })
-        fetch(`http://127.0.0.1:8000/listings/${petId}/`, {
+        fetch(`${BACKEND_ENDPOINT}/listings/${petId}/`, {
             method: "get",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -53,7 +54,7 @@ const PetAdoptionPage = ({userInfo}) => {
       event.preventDefault()
 
       // maybe an auth issue needs fixing **
-      const response = await fetch(`http://127.0.0.1:8000/applications/`, {
+      const response = await fetch(`${BACKEND_ENDPOINT}/applications/`, {
           method: 'POST',
           headers: generateHeaders(),
           body: JSON.stringify({

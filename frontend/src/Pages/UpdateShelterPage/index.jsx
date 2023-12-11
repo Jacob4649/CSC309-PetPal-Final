@@ -4,6 +4,7 @@ import "./update-shelter.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { useNavigate } from "react-router-dom";
 import { Alert, Box, Button, Modal, Typography } from "@mui/material";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 const UpdateShelterPage = ({ shelter_id }) => {
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
@@ -25,7 +26,7 @@ const UpdateShelterPage = ({ shelter_id }) => {
     };
     const pfp_element = useRef()
     const get_user_info = () => {
-        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/shelters/${shelter_id}`, {
             method: "GET",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -45,7 +46,7 @@ const UpdateShelterPage = ({ shelter_id }) => {
             reader.onload = function (event) {
                 const binaryData = event.target.result;
 
-                fetch(`http://127.0.0.1:8000/accounts/${shelter_id}/profile_image`, {
+                fetch(`${BACKEND_ENDPOINT}/accounts/${shelter_id}/profile_image`, {
                     method: "PUT",
                     headers: generateHeaders("image/png"),
                     body: binaryData
@@ -65,7 +66,7 @@ const UpdateShelterPage = ({ shelter_id }) => {
     const update_fields = () => {
         const { profile_pic_link, ...body } = userInfo
         console.log(clean_request_data(body))
-        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}/`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/shelters/${shelter_id}/`, {
             method: "PATCH",
             headers: generateHeaders(),
             body: JSON.stringify(clean_request_data(body))
@@ -178,7 +179,7 @@ const UpdateShelterPage = ({ shelter_id }) => {
                             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                                 <Button variant="outlined" onClick={() => setDeleteModalOpen(false)} >Cancel</Button>
                                 <Button variant="outlined" onClick={() => {
-                                    fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}/`, {
+                                    fetch(`${BACKEND_ENDPOINT}/accounts/shelters/${shelter_id}/`, {
                                         method: "DELETE",
                                         headers: generateHeaders()
                                     }).then(async (res) => {

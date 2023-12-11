@@ -6,6 +6,7 @@ import { Routes, Route, useNavigate, useParams, Link } from "react-router-dom";
 import LoadingPage from "../../Pages/LoadingPage/LoadingPage"
 import ApplicationMessages from "../../Components/Messaging/ApplicationMessages";
 import { Box } from "@mui/material";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const PetApplicationPage = ({ userInfo }) => {
     let { applicationId } = useParams();
@@ -15,7 +16,7 @@ const PetApplicationPage = ({ userInfo }) => {
     const [status_info, setStatusInfo] = useState({});
     const [messageData, setMessageData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [nextPage, setNextPage] = useState(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
+    const [nextPage, setNextPage] = useState(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`)
 
     // gets application data on next page and updates messageData, nextPage accordingly
     const get_application_message_data = () => {
@@ -37,7 +38,7 @@ const PetApplicationPage = ({ userInfo }) => {
     }
 
     const reset_application_message_data = () => {
-        fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
+        fetch(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`, {
             method: "GET",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -53,7 +54,7 @@ const PetApplicationPage = ({ userInfo }) => {
     }
 
     const add_application_message = (message) => {
-        fetch(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`, {
+        fetch(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`, {
             method: "POST",
             headers: generateHeaders(),
             body: JSON.stringify({
@@ -62,7 +63,7 @@ const PetApplicationPage = ({ userInfo }) => {
         }).then(
             () => {
                 setMessageData([])
-                setNextPage(`http://127.0.0.1:8000/applications/${applicationId}/application_messages/`)
+                setNextPage(`${BACKEND_ENDPOINT}/applications/${applicationId}/application_messages/`)
             }
         ).then(() => { reset_application_message_data() })
 
@@ -77,7 +78,7 @@ const PetApplicationPage = ({ userInfo }) => {
 
     const get_application_info = () => {
         // try {
-        //     const response = fetch(`http://127.0.0.1:8000/applications/${applicationId}`, {
+        //     const response = fetch(`${BACKEND_ENDPOINT}/applications/${applicationId}`, {
         //         method: "get",
         //         headers: generateHeaders()
         //     });
@@ -96,7 +97,7 @@ const PetApplicationPage = ({ userInfo }) => {
         //     console.error("Error fetching application info:", error);
         // }
         //   -----
-        fetch(`http://127.0.0.1:8000/applications/${applicationId}`, {
+        fetch(`${BACKEND_ENDPOINT}/applications/${applicationId}`, {
             method: "get",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -115,7 +116,7 @@ const PetApplicationPage = ({ userInfo }) => {
     }
 
     const get_pet_info = async (pet_id) => {
-        fetch(`http://127.0.0.1:8000/listings/${pet_id}`, {
+        fetch(`${BACKEND_ENDPOINT}/listings/${pet_id}`, {
             method: "get",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -134,7 +135,7 @@ const PetApplicationPage = ({ userInfo }) => {
 
     // want to give forbidden if application is withdrawn
     const get_seeker_info = async (seeker_id) => {
-        fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${seeker_id}`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/pet_seekers/${seeker_id}`, {
             method: "get",
             headers: generateHeaders()
         }).then((res) => res.json()).then((data) => {
@@ -145,7 +146,7 @@ const PetApplicationPage = ({ userInfo }) => {
 
     const handle_status_change_withdraw = async (application_id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
+            const response = await fetch(`${BACKEND_ENDPOINT}/applications/${application_id}/`, {
                 method: 'PUT',
                 headers: generateHeaders(),
                 body: JSON.stringify({
@@ -166,7 +167,7 @@ const PetApplicationPage = ({ userInfo }) => {
 
     const handle_status_change_accept = async (application_id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
+            const response = await fetch(`${BACKEND_ENDPOINT}/applications/${application_id}/`, {
                 method: 'PUT',
                 headers: generateHeaders(),
                 body: JSON.stringify({
@@ -187,7 +188,7 @@ const PetApplicationPage = ({ userInfo }) => {
 
     const handle_status_change_deny = async (application_id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}/`, {
+            const response = await fetch(`${BACKEND_ENDPOINT}/applications/${application_id}/`, {
                 method: 'PUT',
                 headers: generateHeaders(),
                 body: JSON.stringify({

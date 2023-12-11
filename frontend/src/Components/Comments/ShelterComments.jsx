@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Link, Box } from "@mui/material";
 import ShelterCommentContainer from "./CommentContainer";
 import LoadingPage from "../../Pages/LoadingPage/LoadingPage";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const ShelterComments = ({ shelter_id }) => {
     const [shelterComments, setShelterComments] = useState(null);
@@ -16,7 +17,7 @@ const ShelterComments = ({ shelter_id }) => {
 
 
     const get_shelter_comments = () => {
-        fetch(`http://127.0.0.1:8000/shelter/${shelter_id}/shelter_comments/`, {
+        fetch(`${BACKEND_ENDPOINT}/shelter/${shelter_id}/shelter_comments/`, {
             method: "GET",
             headers: generateHeaders()
         }).then(res => res.json()).then((data) => {
@@ -69,7 +70,7 @@ const ShelterComments = ({ shelter_id }) => {
             const rootCommentIndex = shelterComments.results.findIndex((el) => el.id === replyId)
             let rootComment = shelterComments.results[rootCommentIndex]
 
-            fetch(`http://127.0.0.1:8000/shelter/${shelter_id}/shelter_comments/`, {
+            fetch(`${BACKEND_ENDPOINT}/shelter/${shelter_id}/shelter_comments/`, {
                 method: "POST",
                 headers: generateHeaders(),
                 body: JSON.stringify({ message, replying_to_id: replyId })
@@ -86,7 +87,7 @@ const ShelterComments = ({ shelter_id }) => {
                 setShelterComments(newShelterComments)
             })
         } else {
-            fetch(`http://127.0.0.1:8000/shelter/${shelter_id}/shelter_comments/`, {
+            fetch(`${BACKEND_ENDPOINT}/shelter/${shelter_id}/shelter_comments/`, {
                 method: "POST",
                 headers: generateHeaders(),
                 body: JSON.stringify({ message })

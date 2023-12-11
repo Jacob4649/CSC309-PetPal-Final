@@ -4,6 +4,7 @@ import "./pet-detail.css"
 import clean_request_data from "../../utils/clearRequestData";
 import { Routes, Route, useNavigate, useParams, Link } from "react-router-dom";
 // import 'bootstrap/dist/css/bootstrap.min.css';
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 
 const PetDetailPage = ({ userInfo }) => {
@@ -20,7 +21,7 @@ const PetDetailPage = ({ userInfo }) => {
     let years = null
 
     const get_pet_info = () => {
-        fetch(`http://127.0.0.1:8000/listings/${petId}`, {
+        fetch(`${BACKEND_ENDPOINT}/listings/${petId}`, {
             method: "get",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -42,7 +43,7 @@ const PetDetailPage = ({ userInfo }) => {
 
     // Disappears for some reason maybe fixed now
     const get_shelter_info = (shelter_id) => {
-        fetch(`http://127.0.0.1:8000/accounts/shelters/${shelter_id}`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/shelters/${shelter_id}`, {
             method: "get",
             headers: generateHeaders()
         }).then(async (res) => {
@@ -59,7 +60,7 @@ const PetDetailPage = ({ userInfo }) => {
 
     // const get_application_info = async (application_id) => {
     //     try {
-    //         const response = await fetch(`http://127.0.0.1:8000/applications/${application_id}`, {
+    //         const response = await fetch(`${BACKEND_ENDPOINT}/applications/${application_id}`, {
     //             method: "get",
     //             headers: generateHeaders()
     //         });
@@ -79,7 +80,7 @@ const PetDetailPage = ({ userInfo }) => {
     const get_application_info = async (petId) => {
         try {
             // Get the list of all applications
-            const all_applications = await fetch(`http://127.0.0.1:8000/applications`, {
+            const all_applications = await fetch(`${BACKEND_ENDPOINT}/applications`, {
                 method: "get",
                 headers: generateHeaders()
             });

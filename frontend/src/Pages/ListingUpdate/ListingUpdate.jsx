@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./listing-update.css";
 import {useNavigate, useParams} from "react-router-dom";
 import generateHeaders from "../../utils/fetchTokenSet";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const ListingUpdate = () => {
     const [listingData, setListingData] = useState({
@@ -18,7 +19,7 @@ const ListingUpdate = () => {
     let { listing_id } = useParams();
 
     const getListingInfo = () => {
-        fetch(`http://127.0.0.1:8000/listings/${listing_id}`, {
+        fetch(`${BACKEND_ENDPOINT}/listings/${listing_id}`, {
             method: "get",
             headers: generateHeaders()
         }).then(response => {
@@ -92,7 +93,7 @@ const ListingUpdate = () => {
                 new_status = 3;
                 break;
         }
-        const response = fetch(`http://127.0.0.1:8000/listings/${listing_id}/`, {
+        const response = fetch(`${BACKEND_ENDPOINT}/listings/${listing_id}/`, {
             method: 'PATCH',
             headers: generateHeaders(),
             body: JSON.stringify({

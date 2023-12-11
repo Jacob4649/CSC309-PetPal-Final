@@ -4,6 +4,7 @@ import "./seeker-detail.css"
 import clean_request_data from "../../utils/clearRequestData";
 import {useNavigate, useParams} from "react-router-dom";
 import { Alert, Box, Button, Modal, Typography } from "@mui/material";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 const UpdateSeekerPage = ({ user_id }) => {
     const [userInfo, setUserInfo] = useState({});
     const [pfpUploaded, setPfpUploaded] = useState(false);
@@ -25,7 +26,7 @@ const UpdateSeekerPage = ({ user_id }) => {
         p: 3,
     };
     const get_user_info = () => {
-        fetch(`http://127.0.0.1:8000/accounts/pet_seekers/${user_id}`, {
+        fetch(`${BACKEND_ENDPOINT}/accounts/pet_seekers/${user_id}`, {
             method: "get",
             headers: generateHeaders()
         }).then(async (res) => {

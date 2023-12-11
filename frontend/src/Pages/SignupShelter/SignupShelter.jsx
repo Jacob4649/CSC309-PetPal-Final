@@ -3,6 +3,7 @@ import "./signup-shelter.css";
 import { Link } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import generateHeaders from "../../utils/fetchTokenSet";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const SignupShelter = () => {
     const [userData, setUserData] = useState({
@@ -32,7 +33,7 @@ const SignupShelter = () => {
         event.preventDefault()
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/accounts/shelters/", {
+            const response = await fetch(`${BACKEND_ENDPOINT}/accounts/shelters/`, {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({

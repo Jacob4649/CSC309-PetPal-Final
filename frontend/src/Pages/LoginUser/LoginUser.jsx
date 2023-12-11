@@ -2,6 +2,7 @@ import { useState } from "react";
 import generateHeaders from "../../utils/fetchTokenSet";
 import "./login-user.css";
 import {Link, useNavigate} from "react-router-dom";
+import { BACKEND_ENDPOINT } from "../../gateway/static";
 
 const LoginUser = ({ setUserInfo }) => {
     const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ const LoginUser = ({ setUserInfo }) => {
 
     const submitUser = async () => {
         try {
-            const response = await fetch("http://127.0.0.1:8000/token/", {
+            const response = await fetch(`${BACKEND_ENDPOINT}/token/`, {
                 method: "POST",
                 headers: generateHeaders(),
                 body: JSON.stringify({ "email": email, "password": password })
@@ -41,7 +42,7 @@ const LoginUser = ({ setUserInfo }) => {
             const data = await response.json()
             localStorage.setItem("token", data.access)
 
-            const res = await fetch("http://127.0.0.1:8000/accounts/pet_seekers/info/", { headers: generateHeaders() })
+            const res = await fetch(`${BACKEND_ENDPOINT}/accounts/pet_seekers/info/`, { headers: generateHeaders() })
             if (res.ok) {
                 const userInfo = await res.json()
                 setUserInfo(userInfo)
