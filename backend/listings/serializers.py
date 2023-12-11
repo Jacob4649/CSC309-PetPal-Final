@@ -8,9 +8,9 @@ class ListingSerializer(serializers.ModelSerializer):
     """Serializer for listings"""
     id = serializers.ReadOnlyField()
     creation_time = serializers.DateTimeField(read_only=True)
-    profile_pic_link = serializers.SerializerMethodField()
+    listing_image_link = serializers.SerializerMethodField()
 
-    def get_profile_pic_link(self, obj):
+    def get_listing_image_link(self, obj):
         base_url = settings.BASE_URL
         return base_url + reverse_lazy('listing_image', kwargs={'id': obj.id}) if obj.profile_pic.name != '' else None
 
@@ -26,4 +26,5 @@ class ListingSerializer(serializers.ModelSerializer):
                   'age_months',
                   'listing_status',
                   'description',
-                  'creation_time']
+                  'creation_time',
+                  'listing_image_link']
