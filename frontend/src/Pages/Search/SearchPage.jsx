@@ -12,7 +12,7 @@ const SearchResult = ({ title, bottomLeft, bottomRight, bottomRightSrc, src, to 
             <h2>{title}</h2>
             <div className="separator"></div>
             <div className="pet-image">
-                <img src={src}></img>
+                <img src="/img/default_dog_profile_pic.png"></img>
             </div>
             <div className="result-info">
                 <div>
