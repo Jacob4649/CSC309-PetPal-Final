@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getProfilePicURL } from "../../gateway/profilePic";
 
 export const NavBar = ({userInfo, setUserInfo}) => {
     
@@ -30,6 +31,10 @@ export const NavBar = ({userInfo, setUserInfo}) => {
             <Link className="material-symbols-outlined" to="/home" title="Home">home</Link>
             <Link className="material-symbols-outlined" to="/search" title="Search">search</Link>
             <Link className="material-symbols-outlined" to="/shelter-blogs" title="Shelter Blogs">description</Link>
+            {
+                userInfo?.is_shelter &&
+                <Link className="material-symbols-outlined" to="/manage-shelter" title="Shelter Management">list</Link>
+            }
         </div>
         <div className="navigation">
             {
@@ -45,9 +50,9 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                 <div className="account-menu">
                     <div>
                         <div className="profile-pic">
-                            <img src="./img/pet_denier_pfp.png"></img>
+                            <img src={!!userInfo ? getProfilePicURL(userInfo.id) : ''}></img>
                         </div>
-                        Pet-Denier-123
+                        {userInfo?.name ?? ''}
                     </div>
                     <a href="./my-applications" className="d-block remove-a-styling">
                         <span className="material-symbols-outlined">
@@ -56,21 +61,23 @@ export const NavBar = ({userInfo, setUserInfo}) => {
                         My Applications
                     </a>
                     {userInfo?.is_shelter ? (
-                        <a href="./update-seeker" className="text-decoration-none d-block remove-a-styling">
-                        <span className="material-symbols-outlined">
-                            face
-                        </span>
-                            Update Profile
-                        </a>
-                    ) : (
                         <a href="./update-shelter" className="text-decoration-none d-block remove-a-styling">
                         <span className="material-symbols-outlined">
                             face
                         </span>
                             Update Profile
                         </a>
+                    ) : (
+                        <a href="./update-seeker" className="text-decoration-none d-block remove-a-styling">
+                        <span className="material-symbols-outlined">
+                            face
+                        </span>
+                            Update Profile
+                        </a>
                     )}
-                    <a href="./landing-page" className="remove-a-styling d-block">
+                    <a href="./landing-page" className="remove-a-styling d-block" onClick={() => {
+                        setUserInfo(null);
+                    }}>
                         <span className="material-symbols-outlined">
                             lock_open
                         </span>
