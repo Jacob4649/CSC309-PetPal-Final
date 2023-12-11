@@ -10,7 +10,6 @@ const ListingCreate = () => {
         height_feet: null,
         age_months: null,
         age_years: null,
-        listing_status: null,
         description: ''
     })
 
@@ -24,7 +23,6 @@ const ListingCreate = () => {
             height_feet: listingData.height_feet,
             age_months: listingData.age_months,
             age_years: listingData.age_years,
-            listing_status: listingData.listing_status,
             description: listingData.description
         }
         updatedListingData[id] = value
@@ -36,18 +34,6 @@ const ListingCreate = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         const new_age = (listingData.age_years * 12) + listingData.age_months
-        let new_status = 0
-        switch (listingData.listing_status) {
-            case 'adopted':
-                new_status = 1;
-                break;
-            case 'canceled':
-                new_status = 2;
-                break;
-            case 'available':
-                new_status = 3;
-                break;
-        }
         const new_height = listingData.height_feet * 12
         const response = fetch("http://127.0.0.1:8000/listings/", {
             method: 'POST',
@@ -59,7 +45,6 @@ const ListingCreate = () => {
                 weight_lbs: listingData.weight_lbs,
                 height_feet: new_height,
                 age_months: new_age,
-                listing_status: new_status,
                 description: listingData.description
             })
         })
@@ -117,20 +102,6 @@ const ListingCreate = () => {
                         onChange={handleChange}
                         value={listingData.breed}
                         required />
-                </div>
-
-                <div className="input-group">
-                    <span className="input-group-text material-symbols-outlined">check</span>
-                    <select
-                        className="form-control"
-                        id="listing_status"
-                        onChange={handleChange}
-                        value={listingData.listing_status} required>
-                        <option disabled selected value="">Availability Status</option>
-                        <option value="available">Available</option>
-                        <option value="adopted">Adopted</option>
-                        <option value="canceled">Canceled</option>
-                    </select>
                 </div>
 
                 <div className="container-fluid d-flex flex-column flex-lg-row p-0">
