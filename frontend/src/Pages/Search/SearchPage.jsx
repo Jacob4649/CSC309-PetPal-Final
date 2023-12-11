@@ -3,6 +3,8 @@ import './search.css';
 import { AGE, ALL, CATS, DEFAULT_PARAMS, DOGS, HEIGHT, NAME, WEIGHT } from './static';
 import { Link } from 'react-router-dom';
 import { getListings } from '../../gateway/listings';
+import { getShelters } from '../../gateway/shelters';
+import { getProfilePicURL } from '../../gateway/profilePic';
 
 const SearchResult = ({ title, bottomLeft, bottomRight, bottomRightSrc, src, to }) => {
     return <Link to={to} className="search-link">
@@ -20,9 +22,12 @@ const SearchResult = ({ title, bottomLeft, bottomRight, bottomRightSrc, src, to 
                 <span>
                     {bottomRight}
                 </span>
+                {
+                    !!bottomRightSrc &&
                     <div className="logo">
                         <img src={bottomRightSrc}></img>
                     </div>
+                }
                 </div>
             </div>
         </div>
@@ -38,7 +43,14 @@ export const SearchPage = ({ userInfo }) => {
     const [pageNum, setPageNum] = useState(undefined);
 
     const populateShelters = (page) => {
-        setResults([]);
+        getShelters(params.text !== '' ? params.text : undefined, page).then(x => {
+            setPrevPage(undefined);
+            setNextPage(undefined);
+            setResults(x.map((result, i) => <SearchResult key={i} bottomRight={result.id} title={result.name} to={`/shelter/${result.id}`}
+                src={getProfilePicURL(result.id)}>
+
+            </SearchResult>))
+        });
     };
 
     const populatePets = (page) => {
@@ -48,7 +60,7 @@ export const SearchPage = ({ userInfo }) => {
             setResults(
                 x.results.map((result, i) =>
                     <SearchResult key={i} bottomRightSrc="./assets/logo-dark.svg" title={result.name} bottomLeft={`${result.age_months} Months`}
-                        bottomRight={result.species} src="./assets/logo-dark.svg">
+                        bottomRight={result.species} src="./assets/logo-dark.svg" to={`/pet-detail/${result.id}`}>
 
                     </SearchResult>)
             );

@@ -14,6 +14,20 @@ export const getShelter = async (id) => {
     return await response.json();
 }
 
-export const getShelters = async () => {
-
+/**
+ * Gets relevant shelters
+ * @param query shelter query 
+ * @param page page to retrieve 
+ * @returns the relevant shelters
+ */
+export const getShelters = async (query, page) => {
+    let fullEndpoint = `${BACKEND_ENDPOINT}/${SHELTERS_URL}?page=${page}`;
+    if (query !== undefined) {
+        fullEndpoint += `&q=${query}`;
+    }
+    const response = await fetch(fullEndpoint, {
+        method: "GET",
+        headers: generateHeaders()
+    });
+    return await response.json();
 }

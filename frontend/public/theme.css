@@ -2,18 +2,18 @@
     --accent: #0d6efd;
     --primary: #212529;
     --secondary: #d9d9d9;
-
+  
     --light-text: #EEE;
     --light-text-hover: #AAA;
     --dark-text: #333;
     --dark-text-hover: #666;
-
+  
     --body-light: #EEE;
     --bs-body-bg: var(--body-light) !important;
-
+  
     --header-height: 3rem;
     --footer-height: 3rem;
-
+  
     --bs-font-sans-serif: 'Kanit', sans-serif !important;
     --header-font: 'Josefin Sans', sans-serif;
 }
