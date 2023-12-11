@@ -90,9 +90,7 @@ const ListingUpdate = () => {
         })
         try {
             const response_value = await response
-            if (!(response_value.status >= 200 && response_value.status < 300)) {
-                navigate("/404")
-            } else if (response_value.status === 200) {
+            if (response_value.status === 200) {
                 navigate(`/pet-detail/${listing_id}`)
             }
         } catch {
