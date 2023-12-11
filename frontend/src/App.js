@@ -33,6 +33,7 @@ import { HomePage } from './Pages/HomePage/HomePage';
 import { Button } from '@mui/material';
 import { ArrowBack, Home } from '@mui/icons-material';
 import HomeButton from './Components/Buttons/HomeButton';
+import { SearchPage } from './Pages/Search/SearchPage';
 
 
 function App() {
@@ -152,6 +153,11 @@ function App() {
           <Route path='/home' element={
             <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
               <HomePage userInfo={userInfo} />
+            </AuthGuard>
+          }/>
+          <Route path='/search' element={
+            <AuthGuard is_logged_in={userInfo !== null} setUserInfo={setUserInfo}>
+              <SearchPage userInfo={userInfo} />
             </AuthGuard>
           }/>
           <Route path='/404' element={

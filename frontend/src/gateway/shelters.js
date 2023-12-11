@@ -13,3 +13,7 @@ export const getShelter = async (id) => {
     });
     return await response.json();
 }
+
+export const getShelters = async () => {
+
+}

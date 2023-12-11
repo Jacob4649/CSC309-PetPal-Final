@@ -32,9 +32,17 @@ class ListingViewSet(ModelViewSet):
         if breed is not None:
             listings = listings.filter(breed=breed)
 
+        species = self.request.query_params.get("species", None)
+        if species is not None:
+            listings = listings.filter(species=species)
+
         age_months = self.request.query_params.get("age_months", None)
         if age_months is not None:
             listings = listings.filter(age_months=age_months)
+
+        q = self.request.query_params.get("q", None)
+        if q is not None:
+            listings = listings.filter(name__contains=q)
 
         #ordering
         sort_order = self.request.query_params.get("sort_order", None)
