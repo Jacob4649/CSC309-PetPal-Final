@@ -11,6 +11,7 @@ COPY backend/comments ./
 COPY backend/listings ./
 COPY backend/notifications ./
 COPY backend/petpal ./
+COPY backend/db.sqlite3 ./
 
 # DB connection stuff
 
