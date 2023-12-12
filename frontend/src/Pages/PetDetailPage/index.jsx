@@ -158,7 +158,7 @@ const PetDetailPage = ({ userInfo }) => {
                         </div> */}
 
                             <div className="card-body">
-                                <h2>{pet_info.name}</h2>
+                                <h1>{pet_info.name}</h1>
                                 <hr />
                                 <div className="row">
                                     <div className="col-sm-3">
