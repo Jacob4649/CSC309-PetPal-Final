@@ -184,7 +184,7 @@ const UpdateShelterPage = ({ shelter_id }) => {
                                         headers: generateHeaders()
                                     }).then(async (res) => {
                                         if (res.status >= 200 && res.status < 300) {
-                                            navigate("/")
+                                            navigate("/landing-page")
                                         } else {
                                             setError("User deletion failed")
                                         }
